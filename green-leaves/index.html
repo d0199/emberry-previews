@@ -95,6 +95,9 @@ body{
   color:var(--tenant-primary);font-weight:700;
 }
 .cap .name{font-size:15px;font-weight:600;margin:3px 0 4px;color:var(--brand-plum);}
+.cap .opt{display:inline-block;margin:0 0 5px;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:600;color:var(--warn);background:color-mix(in srgb,var(--warn) 13%,transparent);
+  border-radius:999px;padding:3px 9px;}
 .cap .desc{font-size:12.5px;line-height:1.5;color:var(--brand-muted);}
 .cap .path{
   display:inline-block;margin-top:8px;font-family:var(--font-mono);font-size:9.5px;
@@ -307,37 +310,170 @@ body{
 
 .footnote{font-size:11px;color:var(--brand-muted);margin-top:22px;}
 .footnote a{color:var(--brand-muted);}
+
+/* ---- admin section (real screenshots) ------------------------------ */
+.admin{max-width:1180px;margin:14px auto 0;padding:46px 24px 30px;border-top:1px solid var(--line);}
+.admin-head{max-width:780px;margin:0 auto 34px;}
+.admin-gallery{display:grid;grid-template-columns:1fr;gap:40px;align-items:start;justify-items:center;}
+@media(min-width:980px){.admin-gallery{grid-template-columns:1fr 1fr;}}
+.shot{width:100%;max-width:560px;}
+.shot.hero{grid-column:1/-1;max-width:920px;}
+.shot.phone{max-width:328px;}
+figure{margin:0;}
+figcaption{margin-top:16px;text-align:center;}
+figcaption .t{font-weight:600;font-size:15px;color:var(--brand-plum);}
+figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-top:4px;max-width:420px;margin-inline:auto;}
+.browser{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 22px 48px -22px rgba(45,31,54,.45);}
+.browser-bar{height:40px;display:flex;align-items:center;gap:9px;padding:0 14px;background:#ECEAF0;border-bottom:1px solid var(--line);}
+.dots{display:flex;gap:6px;}
+.dots i{width:11px;height:11px;border-radius:50%;display:block;}
+.url{margin-left:6px;flex:1;background:#fff;border-radius:8px;height:24px;display:flex;align-items:center;padding:0 12px;font-family:var(--font-mono);font-size:11px;color:var(--brand-muted);white-space:nowrap;overflow:hidden;}
+.browser-view{height:470px;overflow-y:auto;background:#fff;}
+.shot.hero .browser-view{height:620px;}
+.browser-view::-webkit-scrollbar{width:8px;}
+.browser-view::-webkit-scrollbar-thumb{background:rgba(45,31,54,.18);border-radius:8px;}
+.browser-view img{width:100%;display:block;}
+.shot.phone .iphone{margin:0 auto;}
+.shot.phone .iphone-screen{display:block;}
+.phone-view{position:absolute;inset:0;overflow-y:auto;border-radius:46px;}
+.phone-view::-webkit-scrollbar{width:0;}
+.phone-view img{width:100%;display:block;}
+.admin-foot{max-width:780px;margin:38px auto 0;text-align:center;font-size:12.5px;color:var(--brand-muted);line-height:1.6;}
+
+/* ---- kiosk section (iPad, survey on a loop) ------------------------ */
+.kiosk{max-width:1180px;margin:14px auto 0;padding:46px 24px 30px;border-top:1px solid var(--line);}
+.kiosk-head{max-width:780px;margin:0 auto 32px;}
+.ipad-wrap{display:flex;flex-direction:column;align-items:center;gap:18px;}
+.ipad{position:relative;width:440px;max-width:88vw;aspect-ratio:3/4;border-radius:32px;
+  background:linear-gradient(150deg,#3a3a40,#1d1d20 45%,#2b2b30 80%,#161618);padding:15px;
+  box-shadow:0 0 0 2px rgba(255,255,255,.06) inset,0 1px 1px rgba(255,255,255,.15) inset,
+    0 34px 64px -22px rgba(45,31,54,.55),0 10px 26px -12px rgba(45,31,54,.4);}
+.ipad-cam{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#26323a,#05080a 70%);z-index:5;}
+.ipad-screen{position:relative;width:100%;height:100%;border-radius:18px;overflow:hidden;background:var(--brand-cream);}
+.kbar{position:absolute;top:0;left:0;right:0;height:44px;z-index:6;display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);}
+.kbar .b{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--brand-plum);}
+.kbar .b .m{width:24px;height:24px;}
+.kbar .tag{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--brand-muted);border:1px solid var(--line-2);border-radius:999px;padding:3px 8px;}
+.kscene{position:absolute;inset:44px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:30px 34px;opacity:0;animation:kfade 12s infinite both;}
+.kscene:nth-of-type(1){animation-delay:0s;}
+.kscene:nth-of-type(2){animation-delay:-4s;}
+.kscene:nth-of-type(3){animation-delay:-8s;}
+@keyframes kfade{0%{opacity:0}2%{opacity:1}30%{opacity:1}34%{opacity:0}100%{opacity:0}}
+.kscene .klogo{width:60px;height:60px;border-radius:16px;background:#fff;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.kscene .klogo svg{width:40px;height:40px;}
+.kscene .keyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brand-muted);margin:0 0 12px;}
+.kscene h2{font-family:var(--font-display);font-style:italic;font-weight:500;letter-spacing:-.02em;line-height:1.12;
+  font-size:32px;color:var(--brand-plum);margin:0 0 14px;}
+.kscene p{font-size:14.5px;line-height:1.6;color:var(--brand-muted);margin:0;max-width:300px;}
+.kbtn{margin-top:26px;display:inline-flex;align-items:center;gap:10px;background:var(--tenant-primary);
+  color:var(--brand-cream);font-size:16px;font-weight:600;padding:15px 34px;border-radius:999px;}
+.kstars{display:flex;gap:12px;margin:22px 0 4px;}
+.kstars svg{width:46px;height:46px;}
+.ktick{width:74px;height:74px;border-radius:50%;background:color-mix(in srgb,var(--ok) 18%,transparent);
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.kreset{margin-top:26px;width:160px;height:5px;border-radius:999px;background:color-mix(in srgb,var(--tenant-primary) 14%,transparent);overflow:hidden;}
+.kreset > i{display:block;height:100%;background:var(--tenant-primary);border-radius:999px;width:0;animation:kbar 12s linear infinite;}
+@keyframes kbar{0%{width:0}66%{width:0}99%{width:100%}100%{width:100%}}
+.kdots{display:flex;gap:7px;}
+.kdots i{width:7px;height:7px;border-radius:50%;background:var(--line-2);animation:kdot 12s infinite;}
+.kdots i:nth-child(1){animation-delay:0s}.kdots i:nth-child(2){animation-delay:-4s}.kdots i:nth-child(3){animation-delay:-8s}
+@keyframes kdot{0%,34%{background:var(--line-2)}2%,30%{background:var(--tenant-primary)}}
+
+/* ---- digital channels (QR poster, email, SMS, NFC) ----------------- */
+.channels{max-width:1180px;margin:14px auto 0;padding:46px 24px 30px;border-top:1px solid var(--line);}
+.channels-head{max-width:800px;margin:0 auto 36px;text-align:center;}
+.ch-grid{display:grid;grid-template-columns:1fr;gap:30px;max-width:300px;margin:0 auto;justify-content:center;align-items:start;}
+@media(min-width:680px){.ch-grid{grid-template-columns:1fr 1fr;max-width:520px;}}
+@media(min-width:1040px){.ch-grid{grid-template-columns:repeat(5,1fr);max-width:none;gap:22px;}}
+.ch{width:100%;display:flex;flex-direction:column;}
+.ch figcaption{margin-top:15px;text-align:center;}
+.ch figcaption .t{font-weight:600;font-size:14.5px;color:var(--brand-plum);}
+.ch figcaption .d{font-size:12px;line-height:1.5;color:var(--brand-muted);margin-top:4px;}
+.ch-frame{flex:1;}
+/* QR poster */
+.poster{border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden;
+  box-shadow:0 22px 46px -24px rgba(45,31,54,.5);display:flex;flex-direction:column;}
+.poster .pband{height:9px;background:var(--tenant-primary);}
+.poster .pinner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 20px;}
+.poster .plogo{width:50px;height:50px;border-radius:13px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:13px;}
+.poster .plogo svg{width:34px;height:34px;}
+.poster h3{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:25px;color:var(--brand-plum);margin:0 0 5px;letter-spacing:-.02em;}
+.poster .psub{font-size:12px;color:var(--brand-muted);margin:0 0 16px;line-height:1.4;}
+.poster .qr{width:152px;height:152px;padding:11px;background:#fff;border:1px solid var(--line);border-radius:13px;}
+.poster .qr svg{width:100%;height:100%;display:block;}
+.poster .pfoot{margin-top:16px;font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-muted);}
+/* email signature */
+.email{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);overflow:hidden;height:100%;}
+.email .ehdr{padding:12px 16px;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--brand-muted);line-height:1.5;}
+.email .ehdr b{color:var(--brand-plum);}
+.email .ebody{padding:16px;font-size:12.5px;color:var(--brand-plum);line-height:1.55;}
+.email .sig{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;gap:11px;align-items:center;}
+.email .sig .m{width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none;}
+.email .sig .m svg{width:28px;height:28px;}
+.email .sig .who .n{font-weight:700;font-size:12.5px;}
+.email .sig .who .r{font-size:11px;color:var(--brand-muted);}
+.email .ebtn{margin-top:14px;display:inline-flex;align-items:center;gap:7px;background:var(--tenant-primary);color:var(--brand-cream);font-size:12px;font-weight:600;padding:9px 15px;border-radius:999px;}
+/* SMS */
+.sms{border-radius:22px;background:#EAE9EE;border:1px solid var(--line);padding:18px 14px;height:100%;min-height:240px;display:flex;flex-direction:column;gap:9px;box-shadow:0 22px 46px -24px rgba(45,31,54,.5);}
+.sms .from{text-align:center;font-size:10.5px;color:var(--brand-muted);margin-bottom:2px;}
+.sms .bub{max-width:88%;background:#fff;border-radius:16px 16px 16px 5px;padding:10px 13px;font-size:12.5px;line-height:1.5;color:var(--brand-plum);box-shadow:0 1px 2px rgba(45,31,54,.08);}
+.sms .bub a{color:var(--tenant-primary);font-weight:600;word-break:break-all;}
+.sms .bub.me{align-self:flex-end;background:var(--tenant-primary);color:#fff;border-radius:16px 16px 5px 16px;}
+/* NFC */
+.nfc{border-radius:14px;background:linear-gradient(150deg,#fff,#F4F1F5);border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);display:flex;align-items:center;justify-content:center;padding:18px;}
+.nfc img{width:100%;max-width:200px;aspect-ratio:1;height:auto;object-fit:cover;border-radius:50%;display:block;}
+/* newsletter */
+.news{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);overflow:hidden;height:100%;}
+.news .nhead{background:var(--tenant-primary);color:var(--brand-cream);padding:13px 16px;}
+.news .nhead .k{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+.news .nhead .t{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:17px;letter-spacing:-.01em;margin-top:2px;}
+.news .nbody{padding:16px;}
+.news .line{height:7px;border-radius:4px;background:var(--brand-soft);margin-bottom:8px;}
+.news .line.s{width:62%;}
+.news .cta-box{margin-top:15px;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;background:color-mix(in srgb,var(--tenant-accent) 12%,#fff);}
+.news .cta-box .q{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:15px;color:var(--brand-plum);margin-bottom:10px;}
+.nfc .tag{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center;padding:22px;}
+.nfc .disc{width:90px;height:90px;border-radius:50%;background:var(--tenant-primary);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px -8px color-mix(in srgb,var(--tenant-primary) 60%,transparent);}
+.nfc .disc svg{width:42px;height:42px;}
+.nfc .tag .l{font-weight:700;font-size:13.5px;color:var(--brand-plum);}
+.nfc .tag .s{font-size:11.5px;color:var(--brand-muted);}
+
 </style>
 </head>
 <body>
 
 <header class="page-head">
-  <p class="page-eyebrow">emberry · respondent flow · mobile</p>
-  <h1 class="page-title">Mobile views for the <b>Green Leaves&nbsp;Clarkson</b> feedback survey.</h1>
+  <p class="page-eyebrow">A preview for Green Leaves</p>
+  <h1 class="page-title">A feedback experience, built for <b>Green Leaves</b>.</h1>
   <p class="page-sub">
-    iPhone-framed mockups of the live respondent journey, rebuilt from the app's own components,
-    brand tokens, and verbatim copy. Source link: <code>staging.emberry.com.au/f/clarkson/welcome-d74dbc</code>.
+    This is exactly what your families see when they share feedback, and what your team
+    gets back, all in your own colours and logo. Take a scroll: the survey on a phone, a kiosk for
+    the front desk, the easy ways to share it, and the dashboard behind it all.
   </p>
-  <div class="note">
-    <span>★</span>
-    <span><b>Official Green Leaves brand applied:</b> primary <code style="font-size:11px">#7eb847</code>,
-    accent <code style="font-size:11px">#79cfcc</code>, with the leaf mark recreated as SVG. One thing to
-    flag: the survey buttons are <b>cream text on the light-green primary</b> (the app's real behaviour),
-    which is low-contrast (~2.2:1, under WCAG AA). Worth darkening the button fill or the text on this
-    tenant — happy to show a fix.</span>
-  </div>
 </header>
+
+<div class="channels-head" style="margin:34px auto 20px">
+  <p class="page-eyebrow">On their phone</p>
+  <h2 class="page-title">The whole journey, in under a minute.</h2>
+</div>
 
 <nav class="legend">
   <span class="chip"><span class="n">1</span>Welcome</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">2</span>Identify</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">3</span>Verify code</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">4</span>Choose mode</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">5</span>Rate an area</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">6</span>Recommend (NPS)</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">7</span>Comments</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">8</span>Anon confirm</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">9</span>Thanks</span>
+  <span class="chip"><span class="n">2</span>Add your name</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">3</span>Quick code</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">4</span>Choose how</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">5</span>Rate it</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">6</span>Recommend us</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">7</span>Add a comment</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">8</span>Stay private</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">9</span>Thank you</span>
 </nav>
 
 <main class="gallery">
@@ -400,9 +536,9 @@ body{
   </div>
   <div class="cap">
     <div class="step">Screen 1</div>
-    <div class="name">Welcome / choose how to share</div>
-    <div class="desc">The link's entry point. Identical privacy promise + two channels, exactly as the live page.</div>
-    <span class="cap path both">both paths</span>
+    <div class="name">Welcome</div>
+    <div class="desc">Your families tap the link and choose how to share: with their name, or completely anonymous. No app, no password.</div>
+    <span class="cap path both">Every path</span>
   </div>
 </div>
 
@@ -455,9 +591,9 @@ body{
   </div>
   <div class="cap">
     <div class="step">Screen 2</div>
-    <div class="name">Identify yourself</div>
-    <div class="desc">Name + email. Copy adapts to the tenant's verification mode (email code, SMS code, or no code).</div>
-    <span class="cap path named">named path</span>
+    <div class="name">Add your name</div>
+    <div class="desc">If they'd like a reply, they add a name and a way to reach them. That's the whole form.</div>
+    <span class="cap path named">With a name</span>
   </div>
 </div>
 
@@ -493,7 +629,7 @@ body{
             <span class="navlink"><span aria-hidden>←</span> Back</span>
             <span class="pill soft" style="margin-top:0">Verify <span aria-hidden>→</span></span>
           </div>
-          <p class="footnote center" style="text-align:center"><a class="underline" href="#">Use a different email</a> · Resend code</p>
+          <p class="footnote center" style="text-align:center"><a class="underline" href="#">Use a different email</a></p>
         </div>
         <div class="app-footer">
           <span class="powered">Powered by
@@ -505,9 +641,10 @@ body{
   </div>
   <div class="cap">
     <div class="step">Screen 3</div>
-    <div class="name">Verify with a code</div>
-    <div class="desc">6-digit one-time code (email or SMS). iOS code-autofill is wired to the request host.</div>
-    <span class="cap path named">named path</span>
+    <div class="name">A quick code</div>
+    <div class="opt">Optional · can turn off</div>
+    <div class="desc">A one-time code keeps feedback genuine and blocks spam. Or switch it off for one-tap, no-code feedback.</div>
+    <span class="cap path named">With a name</span>
   </div>
 </div>
 
@@ -559,9 +696,10 @@ body{
   </div>
   <div class="cap">
     <div class="step">Screen 4</div>
-    <div class="name">Quick check-in or pick topics</div>
-    <div class="desc">Only shown when the link offers both the standard survey and self-chosen topics.</div>
-    <span class="cap path both">both paths</span>
+    <div class="name">Quick check-in, or their topics</div>
+    <div class="opt">Optional · can turn off</div>
+    <div class="desc">A fast check-in across everything, or they pick just the topics they care about.</div>
+    <span class="cap path both">Every path</span>
   </div>
 </div>
 
@@ -586,7 +724,7 @@ body{
         <div class="app-body">
           <div class="progress"><i style="width:20%"></i></div>
           <div class="meta"><span>Step 1 of 5</span><span>≈ 2 min left</span></div>
-          <p class="area">Educators &amp; Care</p>
+          <p class="area">Educators & Care</p>
           <h2 class="disp h2">How well do our educators know and care for your child?</h2>
           <p class="lead">Tap a star. One tap to choose.</p>
           <p class="sending">Sending as <b>Sarah</b> · only <b>the Green Leaves Clarkson team</b> will see this.</p>
@@ -615,9 +753,9 @@ body{
   </div>
   <div class="cap">
     <div class="step">Screen 5</div>
-    <div class="name">Rate an area</div>
-    <div class="desc">One question per surface area, paginated. Star widget shown (faces, slider, mood &amp; 10 more are configurable).</div>
-    <span class="cap path both">both paths</span>
+    <div class="name">Rate each area</div>
+    <div class="desc">A tap to rate each part of their experience. Quick, friendly, and in your colours.</div>
+    <span class="cap path both">Every path</span>
   </div>
 </div>
 
@@ -680,9 +818,9 @@ body{
   </div>
   <div class="cap">
     <div class="step">Screen 6</div>
-    <div class="name">Recommend (NPS) + follow-up</div>
-    <div class="desc">Semantic red→amber→green scale. A low score opens the contextual probe shown below.</div>
-    <span class="cap path both">both paths</span>
+    <div class="name">Would they recommend you?</div>
+    <div class="desc">The simple 0 to 10 score. If it's low, a gentle follow-up asks what would make it better.</div>
+    <span class="cap path both">Every path</span>
   </div>
 </div>
 
@@ -711,7 +849,7 @@ body{
           <h2 class="disp h2">Anything else you'd like to share?</h2>
           <p class="lead">Anything you'd like the team to know.</p>
 
-          <div class="textarea" style="min-height:140px;margin-top:18px">Tell the team about your child's week, a moment that stood out, or something you'd like to see…</div>
+          <div class="textarea" style="min-height:140px;margin-top:18px">Anything you'd like the team to know.</div>
 
           <div class="foot-nav">
             <span class="navlink"><span aria-hidden>←</span> Back</span>
@@ -729,9 +867,10 @@ body{
   </div>
   <div class="cap">
     <div class="step">Screen 7</div>
-    <div class="name">Open comments</div>
-    <div class="desc">The optional final step. Identified submits here; anonymous continues to the confirm step.</div>
-    <span class="cap path both">both paths</span>
+    <div class="name">Anything else?</div>
+    <div class="opt">Optional · can turn off</div>
+    <div class="desc">Room to add a comment in their own words. Always optional for the respondent, and you can drop the step entirely.</div>
+    <span class="cap path both">Every path</span>
   </div>
 </div>
 
@@ -783,9 +922,9 @@ body{
   </div>
   <div class="cap">
     <div class="step">Screen 8</div>
-    <div class="name">Confirm anonymous send</div>
-    <div class="desc">Anonymous-only. Irreversibility callout + Cloudflare bot check gate the final submit.</div>
-    <span class="cap path anon">anon path</span>
+    <div class="name">Stay private</div>
+    <div class="desc">Prefer to stay anonymous? One clear, private send, with no name attached.</div>
+    <span class="cap path anon">Anonymous</span>
   </div>
 </div>
 
@@ -809,9 +948,8 @@ body{
         </div>
         <div class="app-body center">
           <div class="tick"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="#4F9D7C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h1 class="disp h1">Thank you, Sarah.</h1>
+          <h1 class="disp h1">Thank you.</h1>
           <p class="lead" style="margin-left:auto;margin-right:auto;max-width:240px">We'll read every word, and if anything needs a reply, someone will be in touch shortly.</p>
-          <p class="tiny" style="margin-top:16px">You can edit or withdraw your feedback for the next 30 days using the link sent to your email.</p>
 
           <div class="booster">
             <p class="eyebrow" style="margin-bottom:6px">Optional</p>
@@ -835,12 +973,184 @@ body{
   </div>
   <div class="cap">
     <div class="step">Screen 9</div>
-    <div class="name">Thank you</div>
-    <div class="desc">Confirmation + optional Google-review booster (only if the site enabled it). Anonymous sees a final-and-private variant.</div>
-    <span class="cap path both">both paths</span>
+    <div class="name">A warm thank you</div>
+    <div class="desc">A friendly thank you, plus an optional nudge to leave a public Google review.</div>
+    <span class="cap path both">Every path</span>
   </div>
 </div>
 
 </main>
+
+<section class="kiosk">
+  <div class="kiosk-head">
+    <p class="page-eyebrow">On-site · kiosk mode</p>
+    <h2 class="page-title">An <b>iPad at the door</b>, on a loop.</h2>
+    <p class="page-sub">The same survey, set to kiosk mode for an unattended tablet at reception or pickup.
+      It stays anonymous, takes seconds, and resets itself after every response, ready for the next person.</p>
+  </div>
+  <div class="ipad-wrap">
+    <div class="ipad">
+      <div class="ipad-cam"></div>
+      <div class="ipad-screen">
+        <div class="kbar">
+          <span class="b"><span class="m"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span>Green Leaves</span>
+          <span class="tag">Kiosk · Clarkson</span>
+        </div>
+
+        <!-- Scene 1 · welcome -->
+        <div class="kscene">
+          <span class="klogo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span>
+          <p class="keyebrow">Green Leaves Clarkson</p>
+          <h2>How are we doing?</h2>
+          <p>Tap to share quick, private feedback with the Green Leaves Clarkson team. Takes less than a minute.</p>
+          <span class="kbtn">Start <span aria-hidden>→</span></span>
+        </div>
+
+        <!-- Scene 2 · a quick rating -->
+        <div class="kscene">
+          <p class="keyebrow">Educators & Care</p>
+          <h2>How was everything today?</h2>
+          <div class="kstars">
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="none" stroke="#9B92A0" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <p>Tap a star. No name needed.</p>
+        </div>
+
+        <!-- Scene 3 · thanks + auto-reset -->
+        <div class="kscene">
+          <span class="ktick"><svg width="38" height="38" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="var(--ok)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h2>Thank you!</h2>
+          <p>Your feedback goes straight to the Green Leaves Clarkson team.</p>
+          <div class="kreset"><i></i></div>
+          <p style="margin-top:10px;font-size:12px">Starting over…</p>
+        </div>
+      </div>
+    </div>
+    <div class="kdots"><i></i><i></i><i></i></div>
+    <p class="admin-foot" style="margin-top:8px">Hands-free: welcome → rate → thank you → reset, looping for the next person.</p>
+  </div>
+</section>
+
+<section class="channels">
+  <div class="channels-head">
+    <p class="page-eyebrow">More ways to ask</p>
+    <h2 class="page-title">One survey, everywhere your families are.</h2>
+    <p class="page-sub">It's the same link behind everything below. Print it, tap it, email it, or text it,
+      whatever fits the moment. Every response lands in the one dashboard.</p>
+  </div>
+  <div class="ch-grid">
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="poster">
+        <div class="pband"></div>
+        <div class="pinner">
+          <div class="plogo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></div>
+          <h3>How did we do?</h3>
+          <p class="psub">Scan to share quick,<br>private feedback.</p>
+          <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h33v33H0z"/><path stroke="#2D1F36" d="M0 0.5h7m2 0h2m2 0h2m1 0h1m2 0h2m2 0h1m2 0h7M0 1.5h1m5 0h1m4 0h6m4 0h2m3 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h4m2 0h1m1 0h3m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h1m3 0h1m2 0h1m2 0h2m3 0h1m2 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h3m3 0h5m1 0h1m1 0h1m3 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h5m1 0h2m2 0h4M0 8.5h1m1 0h5m3 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h5M1 9.5h2m4 0h1m2 0h2m4 0h1m2 0h3m1 0h1m2 0h2m1 0h2m1 0h1M1 10.5h2m2 0h2m1 0h1m1 0h2m3 0h1m4 0h1m7 0h1m1 0h2M0 11.5h5m2 0h1m1 0h1m4 0h1m1 0h1m1 0h1m1 0h4m1 0h2m1 0h5M0 12.5h1m1 0h1m3 0h1m1 0h3m1 0h1m4 0h1m2 0h1m1 0h1m1 0h2m2 0h2m1 0h2M0 13.5h2m2 0h1m2 0h1m1 0h1m2 0h8m1 0h1m1 0h1m2 0h1m3 0h3M1 14.5h3m1 0h2m2 0h1m1 0h1m2 0h1m3 0h1m3 0h1m2 0h2m1 0h2m1 0h1M5 15.5h1m6 0h1m3 0h1m3 0h4m1 0h6M0 16.5h1m2 0h2m1 0h1m3 0h2m2 0h1m2 0h2m5 0h2m1 0h2m3 0h1M2 17.5h2m1 0h1m1 0h1m2 0h1m1 0h3m3 0h3m2 0h1m1 0h3m1 0h2m1 0h1M0 18.5h2m2 0h1m1 0h3m1 0h1m3 0h5m3 0h1m2 0h4m1 0h1M0 19.5h4m1 0h1m1 0h1m1 0h2m2 0h1m1 0h2m1 0h2m1 0h2m1 0h7m1 0h1M1 20.5h4m1 0h1m1 0h2m1 0h4m1 0h2m4 0h1m2 0h1m1 0h3m1 0h1M0 21.5h3m1 0h1m3 0h1m1 0h3m2 0h1m1 0h4m2 0h1m2 0h1m2 0h1m2 0h1M0 22.5h1m1 0h1m1 0h4m1 0h1m1 0h1m1 0h1m1 0h3m2 0h1m1 0h1m4 0h2m1 0h2M0 23.5h1m1 0h2m1 0h1m1 0h1m4 0h1m2 0h1m2 0h1m1 0h2m1 0h1m1 0h3m1 0h2M0 24.5h1m2 0h2m1 0h2m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1m2 0h7m3 0h1M8 25.5h1m1 0h3m3 0h1m1 0h3m3 0h1m3 0h1m1 0h1m1 0h1M0 26.5h7m5 0h1m2 0h4m1 0h5m1 0h1m1 0h1m1 0h2M0 27.5h1m5 0h1m1 0h4m2 0h1m1 0h1m3 0h5m3 0h5M0 28.5h1m1 0h3m1 0h1m1 0h1m2 0h1m6 0h2m2 0h1m1 0h6m1 0h2M0 29.5h1m1 0h3m1 0h1m1 0h2m1 0h3m1 0h2m1 0h2m1 0h1m2 0h2m2 0h1m1 0h3M0 30.5h1m1 0h3m1 0h1m1 0h2m1 0h4m2 0h2m1 0h8m1 0h2M0 31.5h1m5 0h1m2 0h2m1 0h3m1 0h1m3 0h3m2 0h2m1 0h3M0 32.5h7m1 0h1m8 0h1m4 0h1m1 0h1m1 0h2m1 0h1m1 0h1"/></svg>
+</div>
+          <div class="pfoot">Green Leaves Clarkson</div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Poster &amp; QR code</div><div class="d">Print it for the door or the counter. This QR really works, point your camera at it.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="email">
+        <div class="ehdr">From <b>Green Leaves</b><br>To: families</div>
+        <div class="ebody">
+          …thanks again for being part of Green Leaves Clarkson. We'd love to know how we're doing.
+          <div class="sig">
+            <span class="m"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span>
+            <span class="who"><div class="n">Green Leaves</div><div class="r">Clarkson team</div></span>
+          </div>
+          <a class="ebtn" href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">Share your feedback <span aria-hidden>→</span></a>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Email signature</div><div class="d">A friendly button on every email your team already sends.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="news">
+        <div class="nhead"><div class="k">Newsletter</div><div class="t">This month at Clarkson</div></div>
+        <div class="nbody">
+          <div class="line"></div><div class="line"></div><div class="line s"></div>
+          <div class="cta-box">
+            <div class="q">How are we doing?</div>
+            <a class="ebtn" href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">Share your feedback <span aria-hidden>→</span></a>
+          </div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Newsletter</div><div class="d">Pop the feedback button into the email newsletter you already send.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="sms">
+        <div class="from">Green Leaves</div>
+        <div class="bub">Hi! Thanks for visiting Green Leaves Clarkson today. We'd love your quick feedback (takes a minute): <a href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">https://staging.emberry.com.au/f/clarkson/welcome-d74dbc</a></div>
+        <div class="bub me">Done, thanks! ⭐️⭐️⭐️⭐️⭐️</div>
+      </div></div>
+      <figcaption><div class="t">Text message</div><div class="d">Send the link by SMS, the surest way to get a reply.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="nfc"><img src="nfc.png" alt="Green Leaves feedback tag"></div></div>
+      <figcaption><div class="t">NFC tags</div><div class="d">Stick a tap-to-open tag around your Clarkson. A phone tap opens the survey, no scanning needed.</div></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<section class="admin">
+    <div class="admin-head">
+      <p class="page-eyebrow">Behind the scenes</p>
+      <h2 class="page-title">What your team sees.</h2>
+      <p class="page-sub">Every piece of feedback, gathered and sorted for you. Scores, trends, and the
+        themes that matter, all in one simple dashboard.</p>
+    </div>
+    <div class="admin-gallery">
+      <figure class="shot hero">
+        <div class="browser">
+          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview/regulator</span></div>
+          <div class="browser-view"><img src="admin/regulator.png" alt="Your results, against the standard" loading="lazy"></div>
+        </div>
+        <figcaption><div class="t">Your results, against the standard</div><div class="d">Every response adds up to one clear score against the National Quality Standard, then breaks down by area so you can see exactly where you shine and where to focus.</div></figcaption>
+      </figure>
+      <figure class="shot ">
+        <div class="browser">
+          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview</span></div>
+          <div class="browser-view"><img src="admin/overview.png" alt="The big picture" loading="lazy"></div>
+        </div>
+        <figcaption><div class="t">The big picture</div><div class="d">Your headline score, how many families replied, and how each centre is going, all at a glance.</div></figcaption>
+      </figure>
+      <figure class="shot ">
+        <div class="browser">
+          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview/insights</span></div>
+          <div class="browser-view"><img src="admin/regulator-insights.png" alt="Plain-English insights" loading="lazy"></div>
+        </div>
+        <figcaption><div class="t">Plain-English insights</div><div class="d">It reads the comments for you and tells you the themes and what to do about them, in everyday words.</div></figcaption>
+      </figure>
+      <figure class="shot ">
+        <div class="browser">
+          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview/trends</span></div>
+          <div class="browser-view"><img src="admin/regulator-trends.png" alt="How you're tracking" loading="lazy"></div>
+        </div>
+        <figcaption><div class="t">How you're tracking</div><div class="d">Watch each area move week to week, so a dip gets noticed early instead of at the next review.</div></figcaption>
+      </figure>
+      <figure class="shot ">
+        <div class="browser">
+          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/feedback</span></div>
+          <div class="browser-view"><img src="admin/feedback.png" alt="Every comment in one place" loading="lazy"></div>
+        </div>
+        <figcaption><div class="t">Every comment in one place</div><div class="d">The full stream of feedback, easy to search and filter by centre or topic.</div></figcaption>
+      </figure>
+    </div>
+    <div class="admin-foot">It all updates the moment someone hits send. Shown here with sample data.</div>
+  </section>
+
 </body>
 </html>
