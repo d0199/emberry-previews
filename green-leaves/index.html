@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>emberry · mobile survey flow — Green Leaves Clarkson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500;0,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Poiret+One&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   emberry — mobile respondent flow, iPhone-framed mockup.
+   Brand + tenant tokens lifted from app/src/app/globals.css and
+   PublicShell. Tenant = "Green Leaves · Clarkson" (childcare).
+   Tenant colours are token-driven below — swap the two --tenant-*
+   values to match Green Leaves' real branding when known.
+   ===================================================================== */
+:root{
+  /* platform brand (emberry) */
+  --brand-plum:#2D1F36; --brand-cream:#FAF6F0; --brand-muted:#6E5E72;
+  --brand-soft:#F0E5DD; --brand-blush:#FFD4D1; --brand-lavender:#C8C2EE;
+  --line:rgba(45,31,54,.10); --line-2:rgba(45,31,54,.18);
+  --ok:#4F9D7C; --warn:#D9893E; --danger:#B84A4A; --info:#6B7AB8;
+  --ember:#F2542D; --rasp:#C42348; --rasp-light:#E14A6E; --rasp-dark:#A81C3C;
+
+  /* tenant white-label — Green Leaves Early Learning (official brand) */
+  --tenant-primary:#7eb847;
+  --tenant-accent:#79cfcc;
+  --tenant-on:#FAF6F0;
+  --survey-text-accent:var(--tenant-primary);
+  --survey-widget-active:var(--tenant-primary);
+  --survey-widget-idle:var(--tenant-primary);
+
+  --font-display:"Lora",Georgia,serif;
+  --font-body:"Plus Jakarta Sans",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:var(--font-body);
+  color:var(--brand-plum);
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #F3EEF4 0%, transparent 60%),
+    linear-gradient(160deg,#E7E4EC 0%,#EFEAEF 50%,#E9E6EE 100%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+
+/* ---- page chrome ---------------------------------------------------- */
+.page-head{max-width:1100px;margin:0 auto;padding:56px 28px 8px;}
+.page-eyebrow{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--brand-muted);margin:0 0 14px;
+}
+.page-title{
+  font-family:var(--font-display);font-style:italic;font-weight:500;
+  letter-spacing:-.02em;line-height:1.08;font-size:clamp(30px,4.4vw,46px);
+  margin:0 0 14px;color:var(--brand-plum);
+}
+.page-title b{color:var(--tenant-primary);font-weight:500;}
+.page-sub{max-width:680px;font-size:15px;line-height:1.6;color:var(--brand-muted);margin:0 0 6px;}
+.page-sub code{
+  font-family:var(--font-mono);font-size:12.5px;background:rgba(45,31,54,.06);
+  padding:2px 7px;border-radius:6px;color:var(--brand-plum);
+}
+.note{
+  display:inline-flex;gap:8px;align-items:flex-start;max-width:680px;margin-top:18px;
+  font-size:12.5px;line-height:1.55;color:var(--brand-muted);
+  background:rgba(255,255,255,.55);border:1px solid var(--line);
+  border-radius:12px;padding:11px 14px;
+}
+.note b{color:var(--brand-plum);font-weight:600;}
+
+/* flow legend */
+.legend{max-width:1100px;margin:26px auto 0;padding:0 28px;display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;}
+.chip{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:999px;
+  padding:6px 11px;color:var(--brand-plum);white-space:nowrap;
+}
+.chip .n{color:var(--tenant-primary);font-weight:700;margin-right:6px;}
+.arrow{color:var(--brand-muted);opacity:.6;font-size:13px;}
+
+/* ---- gallery -------------------------------------------------------- */
+.gallery{
+  max-width:1280px;margin:0 auto;padding:40px 24px 90px;
+  display:flex;flex-wrap:wrap;gap:54px 40px;justify-content:center;align-items:flex-start;
+}
+.frame{display:flex;flex-direction:column;align-items:center;width:328px;}
+.cap{margin-top:20px;text-align:center;max-width:300px;}
+.cap .step{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--tenant-primary);font-weight:700;
+}
+.cap .name{font-size:15px;font-weight:600;margin:3px 0 4px;color:var(--brand-plum);}
+.cap .desc{font-size:12.5px;line-height:1.5;color:var(--brand-muted);}
+.cap .path{
+  display:inline-block;margin-top:8px;font-family:var(--font-mono);font-size:9.5px;
+  letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;
+}
+.path.named{background:color-mix(in srgb,var(--info) 14%,transparent);color:var(--info);}
+.path.anon{background:rgba(45,31,54,.07);color:var(--brand-muted);}
+.path.both{background:color-mix(in srgb,var(--tenant-primary) 13%,transparent);color:var(--tenant-primary);}
+
+/* ===== iPhone frame ================================================== */
+.iphone{
+  position:relative;width:328px;height:706px;border-radius:58px;
+  background:linear-gradient(150deg,#3a3a40,#1d1d20 38%,#2b2b30 75%,#161618);
+  padding:13px;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.06) inset,
+    0 1px 1px rgba(255,255,255,.18) inset,
+    0 26px 50px -18px rgba(45,31,54,.5),
+    0 8px 22px -10px rgba(45,31,54,.35);
+}
+/* side buttons */
+.iphone::before{ /* power */
+  content:"";position:absolute;right:-3px;top:182px;width:3px;height:78px;
+  border-radius:0 3px 3px 0;background:linear-gradient(#3a3a40,#222);
+}
+.btnstack{position:absolute;left:-3px;top:150px;}
+.btnstack i{
+  display:block;width:3px;border-radius:3px 0 0 3px;background:linear-gradient(#3a3a40,#222);
+  margin-bottom:18px;
+}
+.btnstack i.act{height:30px}
+.btnstack i.vol{height:54px}
+.iphone-screen{
+  position:relative;width:100%;height:100%;border-radius:46px;overflow:hidden;
+  background:var(--brand-cream);display:flex;flex-direction:column;
+}
+/* dynamic island */
+.island{
+  position:absolute;top:11px;left:50%;transform:translateX(-50%);
+  width:92px;height:27px;background:#000;border-radius:16px;z-index:40;
+}
+.island::after{ /* camera */
+  content:"";position:absolute;right:11px;top:50%;transform:translateY(-50%);
+  width:7px;height:7px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#26323a,#05080a 70%);
+  box-shadow:0 0 0 1px rgba(255,255,255,.05);
+}
+
+/* status bar */
+.statusbar{
+  height:46px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 26px 5px;font-size:13px;font-weight:600;color:var(--brand-plum);z-index:30;
+}
+.statusbar .ico{display:flex;align-items:center;gap:6px}
+.statusbar svg{display:block}
+
+/* ---- in-app shell (mirrors PublicShell) ---------------------------- */
+.app{display:flex;flex-direction:column;flex:1;min-height:0;}
+.app-header{
+  flex:none;border-bottom:1px solid var(--line);background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.brand{display:flex;align-items:center;gap:9px;min-width:0;}
+.mark{
+  width:30px;height:30px;border-radius:8px;background:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;border:1px solid var(--line);
+}
+.legal{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.site-label{font-size:11px;color:var(--brand-muted);text-align:right;flex:none;max-width:45%;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.app-body{flex:1;min-height:0;overflow-y:auto;padding:22px 20px 18px;}
+.app-body::-webkit-scrollbar{width:0;height:0}
+.app-body{scrollbar-width:none}
+.app-footer{
+  flex:none;border-top:1px solid var(--line);padding:9px 18px;
+  display:flex;align-items:center;justify-content:center;
+}
+.powered{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--brand-muted);}
+.wordmark{
+  font-family:"Poiret One",var(--font-display);font-size:16px;letter-spacing:.01em;
+  color:var(--brand-plum);text-transform:lowercase;line-height:1;
+}
+.wordmark .e{color:var(--ember);}
+
+/* ---- survey content primitives ------------------------------------- */
+.eyebrow{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brand-muted);font-weight:500;margin:0 0 11px;
+}
+.disp{
+  font-family:var(--font-display);font-style:italic;font-weight:500;
+  letter-spacing:-.02em;line-height:1.12;color:var(--brand-plum);margin:0;
+}
+.h1{font-size:30px;}
+.h2{font-size:26px;}
+.h3{font-size:21px;}
+.disp b{color:var(--survey-text-accent);font-weight:500;}
+.lead{font-size:13.5px;line-height:1.6;color:var(--brand-muted);margin:14px 0 0;}
+.lead.plum{color:color-mix(in srgb,var(--brand-plum) 85%,transparent);}
+.tiny{font-size:11px;color:var(--brand-muted);line-height:1.5;}
+.label-strong{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:600;color:var(--brand-muted);margin:22px 0 12px;
+}
+
+.card{border:1px solid var(--line);background:#fff;border-radius:20px;padding:18px;
+  display:flex;flex-direction:column;gap:11px;}
+.card+.card{margin-top:14px;}
+.card.hl{border-color:color-mix(in srgb,var(--tenant-accent) 60%,var(--line));}
+.tag{
+  align-self:flex-start;font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+  font-weight:600;padding:4px 9px;border-radius:7px;
+}
+.tag-info{background:color-mix(in srgb,var(--info) 15%,transparent);color:var(--info);}
+.tag-muted{background:color-mix(in srgb,var(--brand-plum) 8%,transparent);color:var(--brand-muted);}
+.card .body{font-size:13px;line-height:1.55;color:var(--brand-muted);margin:0;}
+.card .heading{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:19px;
+  letter-spacing:-.015em;color:var(--brand-plum);margin:0;}
+
+.pill{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:8px;
+  background:var(--tenant-primary);color:var(--brand-cream);
+  font-size:13px;font-weight:600;padding:10px 18px;border-radius:999px;border:none;margin-top:4px;
+}
+.pill.full{width:100%;justify-content:center;align-self:stretch;padding:13px 18px;}
+.pill.soft{background:var(--brand-soft);color:var(--brand-muted);}
+.linkcta{font-size:13px;font-weight:600;color:var(--brand-plum);display:inline-flex;gap:7px;align-items:center;margin-top:auto;padding-top:6px;}
+.underline{text-decoration:underline;text-underline-offset:2px;}
+
+/* form fields */
+.field{display:flex;flex-direction:column;gap:6px;margin-top:16px;}
+.field .flabel{font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--brand-muted);}
+.input{
+  border:1px solid var(--line-2);background:#fff;border-radius:10px;padding:11px 13px;
+  font-family:var(--font-body);font-size:15px;color:var(--brand-plum);
+}
+.input.ph{color:#a99fae;}
+.fhelp{font-size:11px;color:var(--brand-muted);}
+
+/* footer nav (survey runner) */
+.foot-nav{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.navlink{font-size:13px;color:var(--brand-muted);display:inline-flex;align-items:center;gap:5px;background:none;border:none;}
+.skip{font-size:11.5px;color:var(--brand-muted);text-decoration:underline;text-underline-offset:3px;background:none;border:none;}
+
+/* progress + meta */
+.progress{height:4px;border-radius:999px;background:color-mix(in srgb,var(--tenant-primary) 12%,transparent);overflow:hidden;}
+.progress > i{display:block;height:100%;background:var(--tenant-primary);border-radius:999px;}
+.meta{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--brand-muted);margin:12px 0 18px;}
+.area{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:600;color:var(--survey-text-accent);margin:0 0 10px;}
+.sending{font-size:11px;color:var(--brand-muted);margin:12px 0 0;}
+.sending b{color:var(--brand-plum);font-weight:600;}
+
+/* stars */
+.stars{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:18px 0 6px;}
+.stars svg{width:100%;height:auto;display:block}
+
+/* nps */
+.nps{padding:14px 0 0;}
+.nps-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
+.pip{
+  border:1px solid var(--line-2);background:#fff;border-radius:8px;
+  min-height:40px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:500;color:var(--survey-widget-idle);
+}
+.pip.on{color:#fff;transform:scale(1.06);font-weight:600;}
+.nps-cap{text-align:center;font-size:11.5px;color:var(--brand-muted);margin-top:12px;}
+
+/* follow-up probe */
+.probe{margin-top:18px;border:1px solid var(--line);background:color-mix(in srgb,var(--brand-soft) 40%,#fff);
+  border-radius:16px;padding:15px;}
+.probe .q{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:17px;color:var(--brand-plum);margin:0 0 11px;}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;}
+.fchip{font-size:11.5px;padding:6px 11px;border-radius:999px;border:1px solid var(--line-2);
+  background:#fff;color:var(--brand-plum);}
+.fchip.on{background:var(--tenant-primary);border-color:var(--tenant-primary);color:#fff;}
+.textarea{border:1px solid var(--line-2);background:#fff;border-radius:10px;padding:11px 12px;
+  font-family:var(--font-body);font-size:13px;color:#a99fae;line-height:1.5;min-height:64px;}
+
+/* OTP boxes */
+.otp{display:flex;gap:8px;margin-top:20px;}
+.otp .box{flex:1;aspect-ratio:1/1.15;border:1px solid var(--line-2);border-radius:11px;background:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;color:var(--brand-plum);}
+.otp .box.cur{border-color:var(--tenant-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--tenant-primary) 16%,transparent);}
+.otp .box.empty{color:#cfc6d2;}
+
+/* danger callout */
+.callout{border:1px solid color-mix(in srgb,var(--danger) 25%,transparent);
+  background:color-mix(in srgb,var(--danger) 5%,#fff);border-radius:18px;padding:15px;margin-top:18px;}
+.callout .t{font-size:13px;font-weight:700;color:var(--danger);margin:0 0 5px;}
+.callout .b{font-size:13px;line-height:1.55;color:color-mix(in srgb,var(--brand-plum) 80%,transparent);margin:0;}
+
+/* turnstile */
+.turnstile{display:flex;align-items:center;gap:10px;border:1px solid var(--line-2);background:#fff;
+  border-radius:12px;padding:11px 13px;margin-top:18px;}
+.ts-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--ok);flex:none;
+  display:flex;align-items:center;justify-content:center;}
+.ts-txt{font-size:12.5px;color:var(--brand-plum);}
+.ts-brand{margin-left:auto;font-size:9px;color:var(--brand-muted);text-align:right;line-height:1.2;}
+
+/* thanks */
+.center{text-align:center;}
+.tick{width:54px;height:54px;border-radius:50%;background:color-mix(in srgb,var(--ok) 18%,transparent);
+  display:flex;align-items:center;justify-content:center;margin:6px auto 16px;}
+.booster{border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px;text-align:left;margin-top:26px;}
+.sendmore{font-size:13px;color:var(--brand-muted);text-decoration:underline;text-underline-offset:2px;display:inline-block;margin-top:24px;}
+
+.footnote{font-size:11px;color:var(--brand-muted);margin-top:22px;}
+.footnote a{color:var(--brand-muted);}
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <p class="page-eyebrow">emberry · respondent flow · mobile</p>
+  <h1 class="page-title">Mobile views for the <b>Green Leaves&nbsp;Clarkson</b> feedback survey.</h1>
+  <p class="page-sub">
+    iPhone-framed mockups of the live respondent journey, rebuilt from the app's own components,
+    brand tokens, and verbatim copy. Source link: <code>staging.emberry.com.au/f/clarkson/welcome-d74dbc</code>.
+  </p>
+  <div class="note">
+    <span>★</span>
+    <span><b>Official Green Leaves brand applied:</b> primary <code style="font-size:11px">#7eb847</code>,
+    accent <code style="font-size:11px">#79cfcc</code>, with the leaf mark recreated as SVG. One thing to
+    flag: the survey buttons are <b>cream text on the light-green primary</b> (the app's real behaviour),
+    which is low-contrast (~2.2:1, under WCAG AA). Worth darkening the button fill or the text on this
+    tenant — happy to show a fix.</span>
+  </div>
+</header>
+
+<nav class="legend">
+  <span class="chip"><span class="n">1</span>Welcome</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">2</span>Identify</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">3</span>Verify code</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">4</span>Choose mode</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">5</span>Rate an area</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">6</span>Recommend (NPS)</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">7</span>Comments</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">8</span>Anon confirm</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">9</span>Thanks</span>
+</nav>
+
+<main class="gallery">
+
+<!-- ============================================================== 1 · WELCOME -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar">
+        <span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand">
+            <span class="mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg>
+            </span>
+            <span class="legal">Green Leaves</span>
+          </div>
+          <span class="site-label">Clarkson · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">You were invited by Green Leaves · Clarkson</p>
+          <h1 class="disp h1">Your feedback for <b>Green Leaves Clarkson</b>.</h1>
+          <p class="lead">Your feedback stays private to the Green Leaves Clarkson team. It never appears on Green Leaves' public profile, or anywhere online. Contact information, if provided, is used for follow-up only, never for marketing.</p>
+          <p class="label-strong">How would you like to share?</p>
+
+          <div class="card">
+            <span class="tag tag-info">Share my name</span>
+            <p class="body">So the Green Leaves Clarkson team can recognise you, reply, and follow up.</p>
+            <span class="pill">Continue with your name <span aria-hidden>→</span></span>
+          </div>
+          <div class="card">
+            <span class="tag tag-muted">Stay anonymous</span>
+            <p class="body">Only your words and ratings. Final once sent.</p>
+            <span class="pill">Continue anonymously <span aria-hidden>→</span></span>
+          </div>
+
+          <p class="footnote">By continuing you agree to our <a class="underline" href="#">Privacy</a> &amp; <a class="underline" href="#">Terms</a>.</p>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px">
+              <svg width="15" height="15" viewBox="0 -4.07 120 120"><g>
+                <circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/>
+              </g></svg>
+              <span class="wordmark"><span class="e">e</span>mberry</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 1</div>
+    <div class="name">Welcome / choose how to share</div>
+    <div class="desc">The link's entry point. Identical privacy promise + two channels, exactly as the live page.</div>
+    <span class="cap path both">both paths</span>
+  </div>
+</div>
+
+<!-- ============================================================== 2 · IDENTIFY -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <span class="site-label">Clarkson · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">Share my name</p>
+          <h1 class="disp h1">How should the Green Leaves Clarkson team reach you?</h1>
+          <p class="lead">We'll send a one-time code to confirm your email.</p>
+
+          <div class="field">
+            <span class="flabel">Your name</span>
+            <div class="input ph">e.g. Sarah Maguire</div>
+          </div>
+          <div class="field">
+            <span class="flabel">Email</span>
+            <div class="input ph">you@example.com</div>
+            <span class="fhelp">Used once to send your code. Never shared, never for marketing.</span>
+          </div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="pill" style="margin-top:0">Continue <span aria-hidden>→</span></span>
+          </div>
+          <p class="footnote center" style="text-align:center">Prefer not to share your name? <a class="underline" href="#">Continue anonymously</a>.</p>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 2</div>
+    <div class="name">Identify yourself</div>
+    <div class="desc">Name + email. Copy adapts to the tenant's verification mode (email code, SMS code, or no code).</div>
+    <span class="cap path named">named path</span>
+  </div>
+</div>
+
+<!-- ============================================================== 3 · OTP -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <span class="site-label">Clarkson · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">One-time code</p>
+          <h1 class="disp h1">Enter your code.</h1>
+          <p class="lead">Enter the 6-digit code we sent to s•••••@gmail.com. It expires in 10 minutes.</p>
+
+          <div class="otp">
+            <div class="box">4</div><div class="box">1</div><div class="box">9</div>
+            <div class="box cur">2</div><div class="box empty">•</div><div class="box empty">•</div>
+          </div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="pill soft" style="margin-top:0">Verify <span aria-hidden>→</span></span>
+          </div>
+          <p class="footnote center" style="text-align:center"><a class="underline" href="#">Use a different email</a> · Resend code</p>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 3</div>
+    <div class="name">Verify with a code</div>
+    <div class="desc">6-digit one-time code (email or SMS). iOS code-autofill is wired to the request host.</div>
+    <span class="cap path named">named path</span>
+  </div>
+</div>
+
+<!-- ============================================================== 4 · MODE -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <span class="site-label">Clarkson · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">How would you like to share?</p>
+          <h1 class="disp h1">A <b>quick check-in</b>, or <b>your own topics</b>?</h1>
+          <p class="lead">Either takes a few minutes. <b style="color:var(--brand-plum);font-style:normal">The Green Leaves Clarkson team</b> sees the same care either way.</p>
+
+          <div class="card" style="margin-top:18px">
+            <span class="tag tag-muted">Quick check-in</span>
+            <p class="heading">Standard survey.</p>
+            <p class="body">One question across each area <b style="color:var(--brand-plum)">Green Leaves</b> cares about. About five minutes.</p>
+            <span class="linkcta">Start a quick check-in <span aria-hidden>→</span></span>
+          </div>
+          <div class="card">
+            <span class="tag tag-muted">Pick my topics</span>
+            <p class="heading">Pick the areas that matter to you.</p>
+            <p class="body">Only what you choose. About three minutes.</p>
+            <span class="linkcta">Choose topics <span aria-hidden>→</span></span>
+          </div>
+
+          <div class="foot-nav"><span class="navlink"><span aria-hidden>←</span> Back</span><span></span></div>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 4</div>
+    <div class="name">Quick check-in or pick topics</div>
+    <div class="desc">Only shown when the link offers both the standard survey and self-chosen topics.</div>
+    <span class="cap path both">both paths</span>
+  </div>
+</div>
+
+<!-- ============================================================== 5 · STAR QUESTION -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <span class="site-label">Clarkson · Feedback</span>
+        </div>
+        <div class="app-body">
+          <div class="progress"><i style="width:20%"></i></div>
+          <div class="meta"><span>Step 1 of 5</span><span>≈ 2 min left</span></div>
+          <p class="area">Educators &amp; Care</p>
+          <h2 class="disp h2">How well do our educators know and care for your child?</h2>
+          <p class="lead">Tap a star. One tap to choose.</p>
+          <p class="sending">Sending as <b>Sarah</b> · only <b>the Green Leaves Clarkson team</b> will see this.</p>
+
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="none" stroke="#9B92A0" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="skip">Skip this one</span>
+            <span class="pill" style="margin-top:0">Continue <span aria-hidden>→</span></span>
+          </div>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 5</div>
+    <div class="name">Rate an area</div>
+    <div class="desc">One question per surface area, paginated. Star widget shown (faces, slider, mood &amp; 10 more are configurable).</div>
+    <span class="cap path both">both paths</span>
+  </div>
+</div>
+
+<!-- ============================================================== 6 · NPS + PROBE -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <span class="site-label">Clarkson · Feedback</span>
+        </div>
+        <div class="app-body">
+          <div class="progress"><i style="width:80%"></i></div>
+          <div class="meta"><span>Step 4 of 5</span><span>≈ 1 min left</span></div>
+          <h2 class="disp h2">How likely are you to recommend us?</h2>
+          <p class="lead">To a friend or family member.</p>
+
+          <div class="nps">
+            <div class="nps-grid">
+              <div class="pip">0</div><div class="pip">1</div><div class="pip">2</div><div class="pip">3</div><div class="pip">4</div><div class="pip">5</div>
+              <div class="pip on" style="background:#B84A4A;border-color:#B84A4A">6</div><div class="pip">7</div><div class="pip">8</div><div class="pip">9</div><div class="pip">10</div>
+            </div>
+            <div class="nps-cap">0 = Not at all · 10 = Very likely</div>
+          </div>
+
+          <div class="probe">
+            <p class="q">What would make it better?</p>
+            <div class="chips">
+              <span class="fchip on">Communication</span>
+              <span class="fchip">Staff consistency</span>
+              <span class="fchip">Settling in</span>
+              <span class="fchip">Daily updates</span>
+            </div>
+            <div class="textarea">Add any detail. Names, times, exact spots. The team will see this with your rating.</div>
+          </div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="skip">Skip this one</span>
+            <span class="pill" style="margin-top:0">Continue <span aria-hidden>→</span></span>
+          </div>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 6</div>
+    <div class="name">Recommend (NPS) + follow-up</div>
+    <div class="desc">Semantic red→amber→green scale. A low score opens the contextual probe shown below.</div>
+    <span class="cap path both">both paths</span>
+  </div>
+</div>
+
+<!-- ============================================================== 7 · COMMENTS -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <span class="site-label">Clarkson · Feedback</span>
+        </div>
+        <div class="app-body">
+          <div class="progress"><i style="width:100%"></i></div>
+          <div class="meta"><span>Step 5 of 5</span><span>≈ 1 min left</span></div>
+          <p class="area" style="color:var(--brand-muted)">Optional</p>
+          <h2 class="disp h2">Anything else you'd like to share?</h2>
+          <p class="lead">Anything you'd like the team to know.</p>
+
+          <div class="textarea" style="min-height:140px;margin-top:18px">Tell the team about your child's week, a moment that stood out, or something you'd like to see…</div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="skip">Skip this one</span>
+            <span class="pill" style="margin-top:0">Submit <span aria-hidden>→</span></span>
+          </div>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 7</div>
+    <div class="name">Open comments</div>
+    <div class="desc">The optional final step. Identified submits here; anonymous continues to the confirm step.</div>
+    <span class="cap path both">both paths</span>
+  </div>
+</div>
+
+<!-- ============================================================== 8 · ANON CONFIRM -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <span class="site-label">Clarkson · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">One last step</p>
+          <h1 class="disp h1">Confirm and send anonymously.</h1>
+          <p class="lead">Your answers are ready to send to <b style="color:var(--brand-plum)">the Green Leaves Clarkson team</b>. No name, email, or contact details will be attached.</p>
+
+          <div class="callout">
+            <p class="t">Anonymity is final and irreversible.</p>
+            <p class="b">Once you submit, no one (including you) can identify, edit, or withdraw this feedback. The team cannot reply.</p>
+          </div>
+
+          <div class="turnstile">
+            <span class="ts-check"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" stroke="#4F9D7C" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="ts-txt">Success!</span>
+            <span class="ts-brand">Cloudflare<br>Privacy · Terms</span>
+          </div>
+
+          <span class="pill full" style="margin-top:18px">Submit anonymously <span aria-hidden>→</span></span>
+
+          <p class="footnote center" style="text-align:center">Changed your mind?<br><a class="underline" href="#">Share your name (keep my answers)</a></p>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 8</div>
+    <div class="name">Confirm anonymous send</div>
+    <div class="desc">Anonymous-only. Irreversibility callout + Cloudflare bot check gate the final submit.</div>
+    <span class="cap path anon">anon path</span>
+  </div>
+</div>
+
+<!-- ============================================================== 9 · THANKS -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <span class="site-label">Clarkson · Feedback</span>
+        </div>
+        <div class="app-body center">
+          <div class="tick"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="#4F9D7C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h1 class="disp h1">Thank you, Sarah.</h1>
+          <p class="lead" style="margin-left:auto;margin-right:auto;max-width:240px">We'll read every word, and if anything needs a reply, someone will be in touch shortly.</p>
+          <p class="tiny" style="margin-top:16px">You can edit or withdraw your feedback for the next 30 days using the link sent to your email.</p>
+
+          <div class="booster">
+            <p class="eyebrow" style="margin-bottom:6px">Optional</p>
+            <h3 class="disp h3" style="margin-bottom:6px">Help others find <b>Green Leaves</b>?</h3>
+            <p class="body" style="color:var(--brand-muted);font-size:13px;line-height:1.55;margin:0 0 14px">If you'd like to also share a public review, it really helps other families. This is separate from your private feedback above.</p>
+            <span class="pill" style="margin-top:0">
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#fff" d="M21.35 11.1h-9.17v2.92h5.27c-.23 1.4-1.6 4.1-5.27 4.1-3.17 0-5.76-2.62-5.76-5.85s2.59-5.85 5.76-5.85c1.8 0 3.01.77 3.7 1.43l2.52-2.43C16.9 5.5 14.76 4.6 12.18 4.6 7.5 4.6 3.7 8.4 3.7 13.1s3.8 8.5 8.48 8.5c4.9 0 8.14-3.44 8.14-8.29 0-.56-.06-.98-.97-2.21z"/></svg>
+              Leave a Google review <span aria-hidden>→</span>
+            </span>
+          </div>
+
+          <a class="sendmore" href="#">Send more feedback</a>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 9</div>
+    <div class="name">Thank you</div>
+    <div class="desc">Confirmation + optional Google-review booster (only if the site enabled it). Anonymous sees a final-and-private variant.</div>
+    <span class="cap path both">both paths</span>
+  </div>
+</div>
+
+</main>
+</body>
+</html>
