@@ -391,7 +391,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 .channels-head{max-width:800px;margin:0 auto 36px;text-align:center;}
 .ch-grid{display:grid;grid-template-columns:1fr;gap:30px;max-width:300px;margin:0 auto;justify-content:center;align-items:start;}
 @media(min-width:680px){.ch-grid{grid-template-columns:1fr 1fr;max-width:520px;}}
-@media(min-width:1040px){.ch-grid{grid-template-columns:repeat(5,1fr);max-width:none;gap:22px;}}
+@media(min-width:1040px){.ch-grid{grid-template-columns:repeat(4,1fr);max-width:none;gap:26px 24px;}}
 .ch{width:100%;display:flex;flex-direction:column;}
 .ch figcaption{margin-top:15px;text-align:center;}
 .ch figcaption .t{font-weight:600;font-size:14.5px;color:var(--brand-plum);}
@@ -439,6 +439,40 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 .news .line.s{width:62%;}
 .news .cta-box{margin-top:15px;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;background:color-mix(in srgb,var(--tenant-accent) 12%,#fff);}
 .news .cta-box .q{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:15px;color:var(--brand-plum);margin-bottom:10px;}
+/* website embed */
+.embed{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);overflow:hidden;height:100%;}
+.embed .ebar{height:32px;display:flex;align-items:center;gap:6px;padding:0 11px;background:#ECEAF0;border-bottom:1px solid var(--line);}
+.embed .ebar .d{width:8px;height:8px;border-radius:50%;display:block;}
+.embed .ebar .u{margin-left:5px;flex:1;background:#fff;border-radius:6px;height:18px;font-family:var(--font-mono);font-size:9px;color:var(--brand-muted);display:flex;align-items:center;padding:0 9px;white-space:nowrap;overflow:hidden;}
+.embed .eview{position:relative;height:178px;background:linear-gradient(160deg,#fff,#F6F2F4);padding:14px;overflow:hidden;}
+.embed .eline{height:8px;border-radius:4px;background:var(--brand-soft);margin-bottom:9px;}
+.embed .eline.s{width:58%;}
+.embed .widget{position:absolute;right:12px;bottom:12px;display:flex;align-items:center;gap:7px;background:var(--tenant-primary);color:var(--brand-cream);border-radius:12px;padding:9px 13px;font-size:11.5px;font-weight:600;box-shadow:0 10px 20px -7px color-mix(in srgb,var(--tenant-primary) 60%,transparent);}
+.embed .widget svg{width:15px;height:15px;}
+/* automated follow-ups */
+.auto{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);height:100%;padding:16px;}
+.auto .abadge{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--tenant-primary);background:color-mix(in srgb,var(--tenant-primary) 12%,transparent);border-radius:999px;padding:4px 10px;margin-bottom:14px;}
+.auto .abadge svg{width:11px;height:11px;}
+.auto .row{display:flex;gap:10px;align-items:flex-start;}
+.auto .rail{display:flex;flex-direction:column;align-items:center;flex:none;padding-top:3px;}
+.auto .rail .dot{width:10px;height:10px;border-radius:50%;background:var(--tenant-accent);}
+.auto .rail .ln{width:2px;flex:1;min-height:26px;background:var(--line-2);}
+.auto .tx{font-size:11.5px;color:var(--brand-plum);line-height:1.4;padding-bottom:12px;}
+.auto .tx b{font-weight:700;}
+.auto .msg{margin-top:6px;background:var(--brand-soft);border-radius:10px;padding:9px 11px;font-size:11px;color:var(--brand-plum);line-height:1.45;}
+.auto .msg a{color:var(--tenant-primary);font-weight:600;}
+/* social bio link */
+.social{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);overflow:hidden;height:100%;}
+.social .stop{padding:15px 16px;display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--line);}
+.social .av{width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none;}
+.social .av svg{width:30px;height:30px;}
+.social .h .at{font-weight:700;font-size:13px;}
+.social .h .meta{font-size:10.5px;color:var(--brand-muted);margin-top:1px;}
+.social .sbody{padding:14px 16px;}
+.social .bio{font-size:11.5px;color:var(--brand-plum);line-height:1.5;margin-bottom:11px;}
+.social .link{display:flex;align-items:center;gap:8px;border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;font-size:12px;font-weight:600;color:var(--tenant-primary);}
+.social .link svg{width:14px;height:14px;}
+.social .link .ar{margin-left:auto;}
 .nfc .tag{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center;padding:22px;}
 .nfc .disc{width:90px;height:90px;border-radius:50%;background:var(--tenant-primary);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px -8px color-mix(in srgb,var(--tenant-primary) 60%,transparent);}
 .nfc .disc svg{width:42px;height:42px;}
@@ -1091,7 +1125,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
     <figure class="ch">
       <div class="ch-frame"><div class="sms">
         <div class="from">Green Leaves</div>
-        <div class="bub">Hi! Thanks for visiting Green Leaves Clarkson today. We'd love your quick feedback (takes a minute): <a href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">https://staging.emberry.com.au/f/clarkson/welcome-d74dbc</a></div>
+        <div class="bub">Hi! Thanks for visiting Green Leaves Clarkson today. We'd love your quick feedback (takes a minute): <a href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">emberry.au/clarkson</a></div>
         <div class="bub me">Done, thanks! ⭐️⭐️⭐️⭐️⭐️</div>
       </div></div>
       <figcaption><div class="t">Text message</div><div class="d">Send the link by SMS, the surest way to get a reply.</div></figcaption>
@@ -1100,6 +1134,45 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
     <figure class="ch">
       <div class="ch-frame"><div class="nfc"><img src="nfc.png" alt="Green Leaves feedback tag"></div></div>
       <figcaption><div class="t">NFC tags</div><div class="d">Stick a tap-to-open tag around your Clarkson. A phone tap opens the survey, no scanning needed.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="embed">
+        <div class="ebar"><span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span><span class="u">green-leaves.com.au</span></div>
+        <div class="eview">
+          <div class="eline"></div><div class="eline"></div><div class="eline s"></div>
+          <div class="widget"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20l1.3-3.1A8.4 8.4 0 1 1 21 11.5z"/></svg> How are we doing?</div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">On your website</div><div class="d">A "How are we doing?" tab sits on your site, open for feedback any time.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="auto">
+        <span class="abadge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> Automatic</span>
+        <div class="row">
+          <div class="rail"><span class="dot"></span><span class="ln"></span></div>
+          <div class="tx"><b>A tour or visit wraps up</b></div>
+        </div>
+        <div class="row">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="tx"><b>A day later</b>, an email and text send themselves
+            <div class="msg">How was your visit to Green Leaves Clarkson? <a href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">Share feedback →</a></div>
+          </div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Booking &amp; follow-ups</div><div class="d">Auto-send the link after a tour, enrolment, or the end of term.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="social">
+        <div class="stop"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><div class="h"><div class="at">Green Leaves</div><div class="meta">@greenleaves</div></div></div>
+        <div class="sbody">
+          <div class="bio">Link in bio 👇 we'd love your feedback.</div>
+          <div class="link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20l1.3-3.1A8.4 8.4 0 1 1 21 11.5z"/></svg> Share your feedback <span class="ar" aria-hidden>→</span></div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Social bio link</div><div class="d">Pop the link in your Instagram or Facebook bio.</div></figcaption>
     </figure>
 
   </div>
