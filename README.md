@@ -27,6 +27,12 @@ https://<user>.github.io/emberry-previews/<prospect-slug>/
    - **Copy** — the survey wording (headings, area names, intro) to fit their vertical.
 3. Commit and push. Pages redeploys automatically.
 
+> **Don't substitute the location/prospect name into generic microcopy.** Some
+> lines are deliberately generic and must stay that way — e.g. the **NFC tags**
+> caption reads "…around your **facility**.", not "…around your *Hamersley*."
+> Replace branding (name, logo, colours) and vertical-specific survey wording
+> only; leave generic nouns like "facility" alone.
+
 ## Notes
 
 - This repo is intentionally separate from the product codebase.
