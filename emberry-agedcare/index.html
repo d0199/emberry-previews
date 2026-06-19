@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>emberry · mobile survey flow — Aged Care</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500;0,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Poiret+One&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   emberry — mobile respondent flow, iPhone-framed mockup.
+   Brand + tenant tokens lifted from app/src/app/globals.css and
+   PublicShell. Tenant = "emberry" (aged care vertical preview).
+   Tenant colours are token-driven below — swap the two --tenant-*
+   values to match emberry's brand tokens.
+   ===================================================================== */
+:root{
+  /* platform brand (emberry) */
+  --brand-plum:#2D1F36; --brand-cream:#FAF6F0; --brand-muted:#6E5E72;
+  --brand-soft:#F0E5DD; --brand-blush:#FFD4D1; --brand-lavender:#C8C2EE;
+  --line:rgba(45,31,54,.10); --line-2:rgba(45,31,54,.18);
+  --ok:#4F9D7C; --warn:#D9893E; --danger:#B84A4A; --info:#6B7AB8;
+  --ember:#F2542D; --rasp:#C42348; --rasp-light:#E14A6E; --rasp-dark:#A81C3C;
+
+  /* tenant white-label — emberry (official brand) */
+  --tenant-primary:#F2542D;
+  --tenant-accent:#C42348;
+  --tenant-on:#FAF6F0;
+  --survey-text-accent:var(--tenant-primary);
+  --survey-widget-active:var(--tenant-primary);
+  --survey-widget-idle:var(--tenant-primary);
+
+  --font-display:"Lora",Georgia,serif;
+  --font-body:"Plus Jakarta Sans",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:var(--font-body);
+  color:var(--brand-plum);
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #F3EEF4 0%, transparent 60%),
+    linear-gradient(160deg,#E7E4EC 0%,#EFEAEF 50%,#E9E6EE 100%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+
+/* ---- page chrome ---------------------------------------------------- */
+.page-head{max-width:1100px;margin:0 auto;padding:56px 28px 8px;}
+.page-eyebrow{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--brand-muted);margin:0 0 14px;
+}
+.page-title{
+  font-family:var(--font-display);font-style:italic;font-weight:500;
+  letter-spacing:-.02em;line-height:1.08;font-size:clamp(30px,4.4vw,46px);
+  margin:0 0 14px;color:var(--brand-plum);
+}
+.page-title b{color:var(--tenant-primary);font-weight:500;}
+.page-sub{max-width:680px;font-size:15px;line-height:1.6;color:var(--brand-muted);margin:0 0 6px;}
+.page-sub code{
+  font-family:var(--font-mono);font-size:12.5px;background:rgba(45,31,54,.06);
+  padding:2px 7px;border-radius:6px;color:var(--brand-plum);
+}
+.note{
+  display:inline-flex;gap:8px;align-items:flex-start;max-width:680px;margin-top:18px;
+  font-size:12.5px;line-height:1.55;color:var(--brand-muted);
+  background:rgba(255,255,255,.55);border:1px solid var(--line);
+  border-radius:12px;padding:11px 14px;
+}
+.note b{color:var(--brand-plum);font-weight:600;}
+
+/* flow legend */
+.legend{max-width:1100px;margin:26px auto 0;padding:0 28px;display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;}
+.chip{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:999px;
+  padding:6px 11px;color:var(--brand-plum);white-space:nowrap;
+}
+.chip .n{color:var(--tenant-primary);font-weight:700;margin-right:6px;}
+.arrow{color:var(--brand-muted);opacity:.6;font-size:13px;}
+
+/* ---- gallery -------------------------------------------------------- */
+.gallery{
+  max-width:1280px;margin:0 auto;padding:40px 24px 90px;
+  display:flex;flex-wrap:wrap;gap:54px 40px;justify-content:center;align-items:flex-start;
+}
+.frame{display:flex;flex-direction:column;align-items:center;width:328px;}
+.cap{margin-top:20px;text-align:center;max-width:300px;}
+.cap .step{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--tenant-primary);font-weight:700;
+}
+.cap .name{font-size:15px;font-weight:600;margin:3px 0 4px;color:var(--brand-plum);}
+.cap .opt{display:inline-block;margin:0 0 5px;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:600;color:var(--warn);background:color-mix(in srgb,var(--warn) 13%,transparent);
+  border-radius:999px;padding:3px 9px;}
+.cap .desc{font-size:12.5px;line-height:1.5;color:var(--brand-muted);}
+.cap .path{
+  display:inline-block;margin-top:8px;font-family:var(--font-mono);font-size:9.5px;
+  letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;
+}
+.path.named{background:color-mix(in srgb,var(--info) 14%,transparent);color:var(--info);}
+.path.anon{background:rgba(45,31,54,.07);color:var(--brand-muted);}
+.path.both{background:color-mix(in srgb,var(--tenant-primary) 13%,transparent);color:var(--tenant-primary);}
+
+/* ===== iPhone frame ================================================== */
+.iphone{
+  position:relative;width:328px;height:706px;border-radius:58px;
+  background:linear-gradient(150deg,#3a3a40,#1d1d20 38%,#2b2b30 75%,#161618);
+  padding:13px;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.06) inset,
+    0 1px 1px rgba(255,255,255,.18) inset,
+    0 26px 50px -18px rgba(45,31,54,.5),
+    0 8px 22px -10px rgba(45,31,54,.35);
+}
+/* side buttons */
+.iphone::before{ /* power */
+  content:"";position:absolute;right:-3px;top:182px;width:3px;height:78px;
+  border-radius:0 3px 3px 0;background:linear-gradient(#3a3a40,#222);
+}
+.btnstack{position:absolute;left:-3px;top:150px;}
+.btnstack i{
+  display:block;width:3px;border-radius:3px 0 0 3px;background:linear-gradient(#3a3a40,#222);
+  margin-bottom:18px;
+}
+.btnstack i.act{height:30px}
+.btnstack i.vol{height:54px}
+.iphone-screen{
+  position:relative;width:100%;height:100%;border-radius:46px;overflow:hidden;
+  background:var(--brand-cream);display:flex;flex-direction:column;
+}
+/* dynamic island */
+.island{
+  position:absolute;top:11px;left:50%;transform:translateX(-50%);
+  width:92px;height:27px;background:#000;border-radius:16px;z-index:40;
+}
+.island::after{ /* camera */
+  content:"";position:absolute;right:11px;top:50%;transform:translateY(-50%);
+  width:7px;height:7px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#26323a,#05080a 70%);
+  box-shadow:0 0 0 1px rgba(255,255,255,.05);
+}
+
+/* status bar */
+.statusbar{
+  height:46px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 26px 5px;font-size:13px;font-weight:600;color:var(--brand-plum);z-index:30;
+}
+.statusbar .ico{display:flex;align-items:center;gap:6px}
+.statusbar svg{display:block}
+
+/* ---- in-app shell (mirrors PublicShell) ---------------------------- */
+.app{display:flex;flex-direction:column;flex:1;min-height:0;}
+.app-header{
+  flex:none;border-bottom:1px solid var(--line);background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.brand{display:flex;align-items:center;gap:9px;min-width:0;}
+.mark{
+  width:30px;height:30px;border-radius:8px;background:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;border:1px solid var(--line);
+}
+.legal{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.site-label{font-size:11px;color:var(--brand-muted);text-align:right;flex:none;max-width:45%;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.app-body{flex:1;min-height:0;overflow-y:auto;padding:22px 20px 18px;}
+.app-body::-webkit-scrollbar{width:0;height:0}
+.app-body{scrollbar-width:none}
+.app-footer{
+  flex:none;border-top:1px solid var(--line);padding:9px 18px;
+  display:flex;align-items:center;justify-content:center;
+}
+.powered{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--brand-muted);}
+.wordmark{
+  font-family:"Poiret One",var(--font-display);font-size:16px;letter-spacing:.01em;
+  color:var(--brand-plum);text-transform:lowercase;line-height:1;
+}
+.wordmark .e{color:var(--ember);}
+
+/* ---- survey content primitives ------------------------------------- */
+.eyebrow{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brand-muted);font-weight:500;margin:0 0 11px;
+}
+.disp{
+  font-family:var(--font-display);font-style:italic;font-weight:500;
+  letter-spacing:-.02em;line-height:1.12;color:var(--brand-plum);margin:0;
+}
+.h1{font-size:30px;}
+.h2{font-size:26px;}
+.h3{font-size:21px;}
+.disp b{color:var(--survey-text-accent);font-weight:500;}
+.lead{font-size:13.5px;line-height:1.6;color:var(--brand-muted);margin:14px 0 0;}
+.lead.plum{color:color-mix(in srgb,var(--brand-plum) 85%,transparent);}
+.tiny{font-size:11px;color:var(--brand-muted);line-height:1.5;}
+.label-strong{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:600;color:var(--brand-muted);margin:22px 0 12px;
+}
+
+.card{border:1px solid var(--line);background:#fff;border-radius:20px;padding:18px;
+  display:flex;flex-direction:column;gap:11px;}
+.card+.card{margin-top:14px;}
+.card.hl{border-color:color-mix(in srgb,var(--tenant-accent) 60%,var(--line));}
+.tag{
+  align-self:flex-start;font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+  font-weight:600;padding:4px 9px;border-radius:7px;
+}
+.tag-info{background:color-mix(in srgb,var(--info) 15%,transparent);color:var(--info);}
+.tag-muted{background:color-mix(in srgb,var(--brand-plum) 8%,transparent);color:var(--brand-muted);}
+.card .body{font-size:13px;line-height:1.55;color:var(--brand-muted);margin:0;}
+.card .heading{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:19px;
+  letter-spacing:-.015em;color:var(--brand-plum);margin:0;}
+
+.pill{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:8px;
+  background:var(--tenant-primary);color:var(--brand-cream);
+  font-size:13px;font-weight:600;padding:10px 18px;border-radius:999px;border:none;margin-top:4px;
+}
+.pill.full{width:100%;justify-content:center;align-self:stretch;padding:13px 18px;}
+.pill.soft{background:var(--brand-soft);color:var(--brand-muted);}
+.linkcta{font-size:13px;font-weight:600;color:var(--brand-plum);display:inline-flex;gap:7px;align-items:center;margin-top:auto;padding-top:6px;}
+.underline{text-decoration:underline;text-underline-offset:2px;}
+
+/* form fields */
+.field{display:flex;flex-direction:column;gap:6px;margin-top:16px;}
+.field .flabel{font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--brand-muted);}
+.input{
+  border:1px solid var(--line-2);background:#fff;border-radius:10px;padding:11px 13px;
+  font-family:var(--font-body);font-size:15px;color:var(--brand-plum);
+}
+.input.ph{color:#a99fae;}
+.fhelp{font-size:11px;color:var(--brand-muted);}
+
+/* footer nav (survey runner) */
+.foot-nav{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.navlink{font-size:13px;color:var(--brand-muted);display:inline-flex;align-items:center;gap:5px;background:none;border:none;}
+.skip{font-size:11.5px;color:var(--brand-muted);text-decoration:underline;text-underline-offset:3px;background:none;border:none;}
+
+/* progress + meta */
+.progress{height:4px;border-radius:999px;background:color-mix(in srgb,var(--tenant-primary) 12%,transparent);overflow:hidden;}
+.progress > i{display:block;height:100%;background:var(--tenant-primary);border-radius:999px;}
+.meta{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--brand-muted);margin:12px 0 18px;}
+.area{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:600;color:var(--survey-text-accent);margin:0 0 10px;}
+.sending{font-size:11px;color:var(--brand-muted);margin:12px 0 0;}
+.sending b{color:var(--brand-plum);font-weight:600;}
+
+/* stars */
+.stars{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:18px 0 6px;}
+.stars svg{width:100%;height:auto;display:block}
+
+/* nps */
+.nps{padding:14px 0 0;}
+.nps-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
+.pip{
+  border:1px solid var(--line-2);background:#fff;border-radius:8px;
+  min-height:40px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:500;color:var(--survey-widget-idle);
+}
+.pip.on{color:#fff;transform:scale(1.06);font-weight:600;}
+.nps-cap{text-align:center;font-size:11.5px;color:var(--brand-muted);margin-top:12px;}
+
+/* follow-up probe */
+.probe{margin-top:18px;border:1px solid var(--line);background:color-mix(in srgb,var(--brand-soft) 40%,#fff);
+  border-radius:16px;padding:15px;}
+.probe .q{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:17px;color:var(--brand-plum);margin:0 0 11px;}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;}
+.fchip{font-size:11.5px;padding:6px 11px;border-radius:999px;border:1px solid var(--line-2);
+  background:#fff;color:var(--brand-plum);}
+.fchip.on{background:var(--tenant-primary);border-color:var(--tenant-primary);color:#fff;}
+.textarea{border:1px solid var(--line-2);background:#fff;border-radius:10px;padding:11px 12px;
+  font-family:var(--font-body);font-size:13px;color:#a99fae;line-height:1.5;min-height:64px;}
+
+/* OTP boxes */
+.otp{display:flex;gap:8px;margin-top:20px;}
+.otp .box{flex:1;aspect-ratio:1/1.15;border:1px solid var(--line-2);border-radius:11px;background:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;color:var(--brand-plum);}
+.otp .box.cur{border-color:var(--tenant-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--tenant-primary) 16%,transparent);}
+.otp .box.empty{color:#cfc6d2;}
+
+/* danger callout */
+.callout{border:1px solid color-mix(in srgb,var(--danger) 25%,transparent);
+  background:color-mix(in srgb,var(--danger) 5%,#fff);border-radius:18px;padding:15px;margin-top:18px;}
+.callout .t{font-size:13px;font-weight:700;color:var(--danger);margin:0 0 5px;}
+.callout .b{font-size:13px;line-height:1.55;color:color-mix(in srgb,var(--brand-plum) 80%,transparent);margin:0;}
+
+/* turnstile */
+.turnstile{display:flex;align-items:center;gap:10px;border:1px solid var(--line-2);background:#fff;
+  border-radius:12px;padding:11px 13px;margin-top:18px;}
+.ts-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--ok);flex:none;
+  display:flex;align-items:center;justify-content:center;}
+.ts-txt{font-size:12.5px;color:var(--brand-plum);}
+.ts-brand{margin-left:auto;font-size:9px;color:var(--brand-muted);text-align:right;line-height:1.2;}
+
+/* thanks */
+.center{text-align:center;}
+.tick{width:54px;height:54px;border-radius:50%;background:color-mix(in srgb,var(--ok) 18%,transparent);
+  display:flex;align-items:center;justify-content:center;margin:6px auto 16px;}
+.booster{border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px;text-align:left;margin-top:26px;}
+.sendmore{font-size:13px;color:var(--brand-muted);text-decoration:underline;text-underline-offset:2px;display:inline-block;margin-top:24px;}
+
+.footnote{font-size:11px;color:var(--brand-muted);margin-top:22px;}
+.footnote a{color:var(--brand-muted);}
+
+/* ---- admin section (real screenshots) ------------------------------ */
+.admin{max-width:1180px;margin:14px auto 0;padding:46px 24px 30px;border-top:1px solid var(--line);}
+.admin-head{max-width:780px;margin:0 auto 34px;}
+.admin-gallery{display:grid;grid-template-columns:1fr;gap:40px;align-items:start;justify-items:center;}
+@media(min-width:980px){.admin-gallery{grid-template-columns:1fr 1fr;}}
+.shot{width:100%;max-width:560px;}
+.shot.hero{grid-column:1/-1;max-width:920px;}
+.shot.phone{max-width:328px;}
+figure{margin:0;}
+figcaption{margin-top:16px;text-align:center;}
+figcaption .t{font-weight:600;font-size:15px;color:var(--brand-plum);}
+figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-top:4px;max-width:420px;margin-inline:auto;}
+.browser{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 22px 48px -22px rgba(45,31,54,.45);}
+.browser-bar{height:40px;display:flex;align-items:center;gap:9px;padding:0 14px;background:#ECEAF0;border-bottom:1px solid var(--line);}
+.dots{display:flex;gap:6px;}
+.dots i{width:11px;height:11px;border-radius:50%;display:block;}
+.url{margin-left:6px;flex:1;background:#fff;border-radius:8px;height:24px;display:flex;align-items:center;padding:0 12px;font-family:var(--font-mono);font-size:11px;color:var(--brand-muted);white-space:nowrap;overflow:hidden;}
+.browser-view{height:470px;overflow-y:auto;background:#fff;}
+.shot.hero .browser-view{height:620px;}
+.browser-view::-webkit-scrollbar{width:8px;}
+.browser-view::-webkit-scrollbar-thumb{background:rgba(45,31,54,.18);border-radius:8px;}
+.browser-view img{width:100%;display:block;}
+.shot.phone .iphone{margin:0 auto;}
+.shot.phone .iphone-screen{display:block;}
+.phone-view{position:absolute;inset:0;overflow-y:auto;border-radius:46px;}
+.phone-view::-webkit-scrollbar{width:0;}
+.phone-view img{width:100%;display:block;}
+.admin-foot{max-width:780px;margin:38px auto 0;text-align:center;font-size:12.5px;color:var(--brand-muted);line-height:1.6;}
+
+/* ---- kiosk section (iPad, survey on a loop) ------------------------ */
+.kiosk{max-width:1180px;margin:14px auto 0;padding:46px 24px 30px;border-top:1px solid var(--line);}
+.kiosk-head{max-width:780px;margin:0 auto 32px;}
+.ipad-wrap{display:flex;flex-direction:column;align-items:center;gap:18px;}
+.ipad{position:relative;width:440px;max-width:88vw;aspect-ratio:3/4;border-radius:32px;
+  background:linear-gradient(150deg,#3a3a40,#1d1d20 45%,#2b2b30 80%,#161618);padding:15px;
+  box-shadow:0 0 0 2px rgba(255,255,255,.06) inset,0 1px 1px rgba(255,255,255,.15) inset,
+    0 34px 64px -22px rgba(45,31,54,.55),0 10px 26px -12px rgba(45,31,54,.4);}
+.ipad-cam{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#26323a,#05080a 70%);z-index:5;}
+.ipad-screen{position:relative;width:100%;height:100%;border-radius:18px;overflow:hidden;background:var(--brand-cream);}
+.kbar{position:absolute;top:0;left:0;right:0;height:44px;z-index:6;display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);}
+.kbar .b{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--brand-plum);}
+.kbar .b .m{width:24px;height:24px;}
+.kbar .tag{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--brand-muted);border:1px solid var(--line-2);border-radius:999px;padding:3px 8px;}
+.kscene{position:absolute;inset:44px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:30px 34px;opacity:0;animation:kfade 12s infinite both;}
+.kscene:nth-of-type(1){animation-delay:0s;}
+.kscene:nth-of-type(2){animation-delay:-4s;}
+.kscene:nth-of-type(3){animation-delay:-8s;}
+@keyframes kfade{0%{opacity:0}2%{opacity:1}30%{opacity:1}34%{opacity:0}100%{opacity:0}}
+.kscene .klogo{width:60px;height:60px;border-radius:16px;background:#fff;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.kscene .klogo svg{width:40px;height:40px;}
+.kscene .keyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brand-muted);margin:0 0 12px;}
+.kscene h2{font-family:var(--font-display);font-style:italic;font-weight:500;letter-spacing:-.02em;line-height:1.12;
+  font-size:32px;color:var(--brand-plum);margin:0 0 14px;}
+.kscene p{font-size:14.5px;line-height:1.6;color:var(--brand-muted);margin:0;max-width:300px;}
+.kbtn{margin-top:26px;display:inline-flex;align-items:center;gap:10px;background:var(--tenant-primary);
+  color:var(--brand-cream);font-size:16px;font-weight:600;padding:15px 34px;border-radius:999px;}
+.kstars{display:flex;gap:12px;margin:22px 0 4px;}
+.kstars svg{width:46px;height:46px;}
+.ktick{width:74px;height:74px;border-radius:50%;background:color-mix(in srgb,var(--ok) 18%,transparent);
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.kreset{margin-top:26px;width:160px;height:5px;border-radius:999px;background:color-mix(in srgb,var(--tenant-primary) 14%,transparent);overflow:hidden;}
+.kreset > i{display:block;height:100%;background:var(--tenant-primary);border-radius:999px;width:0;animation:kbar 12s linear infinite;}
+@keyframes kbar{0%{width:0}66%{width:0}99%{width:100%}100%{width:100%}}
+.kdots{display:flex;gap:7px;}
+.kdots i{width:7px;height:7px;border-radius:50%;background:var(--line-2);animation:kdot 12s infinite;}
+.kdots i:nth-child(1){animation-delay:0s}.kdots i:nth-child(2){animation-delay:-4s}.kdots i:nth-child(3){animation-delay:-8s}
+@keyframes kdot{0%,34%{background:var(--line-2)}2%,30%{background:var(--tenant-primary)}}
+
+/* ---- digital channels (QR poster, email, SMS, NFC) ----------------- */
+.channels{max-width:1180px;margin:14px auto 0;padding:46px 24px 30px;border-top:1px solid var(--line);}
+.channels-head{max-width:800px;margin:0 auto 36px;text-align:center;}
+.ch-grid{display:grid;grid-template-columns:1fr;gap:30px;max-width:300px;margin:0 auto;justify-content:center;align-items:start;}
+@media(min-width:680px){.ch-grid{grid-template-columns:1fr 1fr;max-width:520px;}}
+@media(min-width:1040px){.ch-grid{grid-template-columns:repeat(4,1fr);max-width:none;gap:26px 24px;}}
+.ch{width:100%;display:flex;flex-direction:column;}
+.ch figcaption{margin-top:15px;text-align:center;}
+.ch figcaption .t{font-weight:600;font-size:14.5px;color:var(--brand-plum);}
+.ch figcaption .d{font-size:12px;line-height:1.5;color:var(--brand-muted);margin-top:4px;}
+.ch-frame{flex:1;}
+/* QR poster */
+.poster{border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden;
+  box-shadow:0 22px 46px -24px rgba(45,31,54,.5);display:flex;flex-direction:column;}
+.poster .pband{height:9px;background:var(--tenant-primary);}
+.poster .pinner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 20px;}
+.poster .plogo{width:50px;height:50px;border-radius:13px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:13px;}
+.poster .plogo svg{width:34px;height:34px;}
+.poster h3{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:25px;color:var(--brand-plum);margin:0 0 5px;letter-spacing:-.02em;}
+.poster .psub{font-size:12px;color:var(--brand-muted);margin:0 0 16px;line-height:1.4;}
+.poster .qr{width:152px;height:152px;padding:11px;background:#fff;border:1px solid var(--line);border-radius:13px;}
+.poster .qr svg{width:100%;height:100%;display:block;}
+.poster .pfoot{margin-top:16px;font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-muted);}
+/* email signature */
+.email{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);overflow:hidden;height:100%;}
+.email .ehdr{padding:12px 16px;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--brand-muted);line-height:1.5;}
+.email .ehdr b{color:var(--brand-plum);}
+.email .ebody{padding:16px;font-size:12.5px;color:var(--brand-plum);line-height:1.55;}
+.email .sig{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;gap:11px;align-items:center;}
+.email .sig .m{width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none;}
+.email .sig .m svg{width:28px;height:28px;}
+.email .sig .lockup{height:24px;width:auto;display:block;}
+.email .sig .who .n{font-weight:700;font-size:12.5px;}
+.email .sig .who .r{font-size:11px;color:var(--brand-muted);}
+.email .ebtn{margin-top:14px;display:inline-flex;align-items:center;gap:7px;background:var(--tenant-primary);color:var(--brand-cream);font-size:12px;font-weight:600;padding:9px 15px;border-radius:999px;}
+/* SMS */
+.sms{border-radius:22px;background:#EAE9EE;border:1px solid var(--line);padding:18px 14px;height:100%;min-height:240px;display:flex;flex-direction:column;gap:9px;box-shadow:0 22px 46px -24px rgba(45,31,54,.5);}
+.sms .from{text-align:center;font-size:10.5px;color:var(--brand-muted);margin-bottom:2px;}
+.sms .bub{max-width:88%;background:#fff;border-radius:16px 16px 16px 5px;padding:10px 13px;font-size:12.5px;line-height:1.5;color:var(--brand-plum);box-shadow:0 1px 2px rgba(45,31,54,.08);}
+.sms .bub a{color:var(--tenant-primary);font-weight:600;word-break:break-all;}
+.sms .bub.me{align-self:flex-end;background:var(--tenant-primary);color:#fff;border-radius:16px 16px 5px 16px;}
+/* NFC */
+.nfc{border-radius:14px;background:linear-gradient(150deg,#fff,#F4F1F5);border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);display:flex;align-items:center;justify-content:center;padding:18px;}
+.nfc img{width:100%;max-width:200px;aspect-ratio:1;height:auto;object-fit:cover;border-radius:50%;display:block;}
+/* newsletter */
+.news{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);overflow:hidden;height:100%;}
+.news .nhead{background:var(--tenant-primary);color:var(--brand-cream);padding:13px 16px;}
+.news .nhead .k{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+.news .nhead .t{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:17px;letter-spacing:-.01em;margin-top:2px;}
+.news .nbody{padding:16px;}
+.news .line{height:7px;border-radius:4px;background:var(--brand-soft);margin-bottom:8px;}
+.news .line.s{width:62%;}
+.news .cta-box{margin-top:15px;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;background:color-mix(in srgb,var(--tenant-accent) 12%,#fff);}
+.news .cta-box .q{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:15px;color:var(--brand-plum);margin-bottom:10px;}
+/* website embed */
+.embed{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);overflow:hidden;height:100%;}
+.embed .ebar{height:32px;display:flex;align-items:center;gap:6px;padding:0 11px;background:#ECEAF0;border-bottom:1px solid var(--line);}
+.embed .ebar .d{width:8px;height:8px;border-radius:50%;display:block;}
+.embed .ebar .u{margin-left:5px;flex:1;background:#fff;border-radius:6px;height:18px;font-family:var(--font-mono);font-size:9px;color:var(--brand-muted);display:flex;align-items:center;padding:0 9px;white-space:nowrap;overflow:hidden;}
+.embed .eview{position:relative;height:178px;background:linear-gradient(160deg,#fff,#F6F2F4);padding:14px;overflow:hidden;}
+.embed .eline{height:8px;border-radius:4px;background:var(--brand-soft);margin-bottom:9px;}
+.embed .eline.s{width:58%;}
+.embed .widget{position:absolute;right:12px;bottom:12px;display:flex;align-items:center;gap:7px;background:var(--tenant-primary);color:var(--brand-cream);border-radius:12px;padding:9px 13px;font-size:11.5px;font-weight:600;box-shadow:0 10px 20px -7px color-mix(in srgb,var(--tenant-primary) 60%,transparent);}
+.embed .widget svg{width:15px;height:15px;}
+/* automated follow-ups */
+.auto{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);height:100%;padding:16px;}
+.auto .abadge{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--tenant-primary);background:color-mix(in srgb,var(--tenant-primary) 12%,transparent);border-radius:999px;padding:4px 10px;margin-bottom:14px;}
+.auto .abadge svg{width:11px;height:11px;}
+.auto .row{display:flex;gap:10px;align-items:flex-start;}
+.auto .rail{display:flex;flex-direction:column;align-items:center;flex:none;padding-top:3px;}
+.auto .rail .dot{width:10px;height:10px;border-radius:50%;background:var(--tenant-accent);}
+.auto .rail .ln{width:2px;flex:1;min-height:26px;background:var(--line-2);}
+.auto .tx{font-size:11.5px;color:var(--brand-plum);line-height:1.4;padding-bottom:12px;}
+.auto .tx b{font-weight:700;}
+.auto .msg{margin-top:6px;background:var(--brand-soft);border-radius:10px;padding:9px 11px;font-size:11px;color:var(--brand-plum);line-height:1.45;}
+.auto .msg a{color:var(--tenant-primary);font-weight:600;}
+/* social bio link */
+.social{border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 46px -24px rgba(45,31,54,.5);overflow:hidden;height:100%;}
+.social .stop{padding:15px 16px;display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--line);}
+.social .av{width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none;}
+.social .av svg{width:30px;height:30px;}
+.social .h .at{font-weight:700;font-size:13px;}
+.social .h .meta{font-size:10.5px;color:var(--brand-muted);margin-top:1px;}
+.social .sbody{padding:14px 16px;}
+.social .bio{font-size:11.5px;color:var(--brand-plum);line-height:1.5;margin-bottom:11px;}
+.social .link{display:flex;align-items:center;gap:8px;border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;font-size:12px;font-weight:600;color:var(--tenant-primary);}
+.social .link svg{width:14px;height:14px;}
+.social .link .ar{margin-left:auto;}
+.nfc .tag{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center;padding:22px;}
+.nfc .disc{width:90px;height:90px;border-radius:50%;background:var(--tenant-primary);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px -8px color-mix(in srgb,var(--tenant-primary) 60%,transparent);}
+.nfc .disc svg{width:42px;height:42px;}
+.nfc .tag .l{font-weight:700;font-size:13.5px;color:var(--brand-plum);}
+.nfc .tag .s{font-size:11.5px;color:var(--brand-muted);}
+
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <p class="page-eyebrow">A preview for emberry — Aged Care</p>
+  <h1 class="page-title">A feedback experience, built for <b>aged care</b>.</h1>
+  <p class="page-sub">
+    This is exactly what your residents and families see when they share feedback, and what your team
+    gets back, all in your own colours and logo. Take a scroll: the survey on a phone, a kiosk for
+    the front desk, the easy ways to share it, and the dashboard behind it all.
+  </p>
+</header>
+
+<div class="channels-head" style="margin:34px auto 20px">
+  <p class="page-eyebrow">On their phone</p>
+  <h2 class="page-title">The whole journey, in under a minute.</h2>
+</div>
+
+<nav class="legend">
+  <span class="chip"><span class="n">1</span>Welcome</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">2</span>Add your name</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">3</span>Quick code</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">4</span>Choose how</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">5</span>Rate it</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">6</span>Recommend us</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">7</span>Add a comment</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">8</span>Stay private</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">9</span>Thank you</span>
+</nav>
+
+<main class="gallery">
+
+<!-- ============================================================== 1 · WELCOME -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar">
+        <span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand">
+            <span class="mark">
+              <svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg>
+            </span>
+            <span class="legal">emberry</span>
+          </div>
+          <span class="site-label">Aged Care · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">You were invited by emberry</p>
+          <h1 class="disp h1">Your feedback for <b>emberry</b>.</h1>
+          <p class="lead">Your feedback stays private to the emberry team. It never appears on emberry's public profile, or anywhere online. Contact information, if provided, is used for follow-up only, never for marketing.</p>
+          <p class="label-strong">How would you like to share?</p>
+
+          <div class="card">
+            <span class="tag tag-info">Share my name</span>
+            <p class="body">So the emberry team can recognise you, reply, and follow up.</p>
+            <span class="pill">Continue with your name <span aria-hidden>→</span></span>
+          </div>
+          <div class="card">
+            <span class="tag tag-muted">Stay anonymous</span>
+            <p class="body">Only your words and ratings. Final once sent.</p>
+            <span class="pill">Continue anonymously <span aria-hidden>→</span></span>
+          </div>
+
+          <p class="footnote">By continuing you agree to our <a class="underline" href="#">Privacy</a> &amp; <a class="underline" href="#">Terms</a>.</p>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px">
+              <svg width="15" height="15" viewBox="0 -4.07 120 120"><g>
+                <circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/>
+              </g></svg>
+              <span class="wordmark"><span class="e">e</span>mberry</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 1</div>
+    <div class="name">Welcome</div>
+    <div class="desc">Your customers tap the link and choose how to share: with their name, or completely anonymous. No app, no password.</div>
+    <span class="cap path both">Every path</span>
+  </div>
+</div>
+
+<!-- ============================================================== 2 · IDENTIFY -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span><span class="legal">emberry</span></div>
+          <span class="site-label">Aged Care · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">Share my name</p>
+          <h1 class="disp h1">How should the emberry team reach you?</h1>
+          <p class="lead">We'll send a one-time code to confirm your email.</p>
+
+          <div class="field">
+            <span class="flabel">Your name</span>
+            <div class="input ph">e.g. Sarah Maguire</div>
+          </div>
+          <div class="field">
+            <span class="flabel">Email</span>
+            <div class="input ph">you@example.com</div>
+            <span class="fhelp">Used once to send your code. Never shared, never for marketing.</span>
+          </div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="pill" style="margin-top:0">Continue <span aria-hidden>→</span></span>
+          </div>
+          <p class="footnote center" style="text-align:center">Prefer not to share your name? <a class="underline" href="#">Continue anonymously</a>.</p>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 2</div>
+    <div class="name">Add your name</div>
+    <div class="desc">If they'd like a reply, they add a name and a way to reach them. That's the whole form.</div>
+    <span class="cap path named">With a name</span>
+  </div>
+</div>
+
+<!-- ============================================================== 3 · OTP -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span><span class="legal">emberry</span></div>
+          <span class="site-label">Aged Care · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">One-time code</p>
+          <h1 class="disp h1">Enter your code.</h1>
+          <p class="lead">Enter the 6-digit code we sent to s•••••@gmail.com. It expires in 10 minutes.</p>
+
+          <div class="otp">
+            <div class="box">4</div><div class="box">1</div><div class="box">9</div>
+            <div class="box cur">2</div><div class="box empty">•</div><div class="box empty">•</div>
+          </div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="pill soft" style="margin-top:0">Verify <span aria-hidden>→</span></span>
+          </div>
+          <p class="footnote center" style="text-align:center"><a class="underline" href="#">Use a different email</a></p>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 3</div>
+    <div class="name">A quick code</div>
+    <div class="opt">Optional · can turn off</div>
+    <div class="desc">A one-time code keeps feedback genuine and blocks spam. Or switch it off for one-tap, no-code feedback.</div>
+    <span class="cap path named">With a name</span>
+  </div>
+</div>
+
+<!-- ============================================================== 4 · MODE -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span><span class="legal">emberry</span></div>
+          <span class="site-label">Aged Care · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">How would you like to share?</p>
+          <h1 class="disp h1">A <b>quick check-in</b>, or <b>your own topics</b>?</h1>
+          <p class="lead">Either takes a few minutes. <b style="color:var(--brand-plum);font-style:normal">The emberry team</b> sees the same care either way.</p>
+
+          <div class="card" style="margin-top:18px">
+            <span class="tag tag-muted">Quick check-in</span>
+            <p class="heading">Standard survey.</p>
+            <p class="body">One question across each area <b style="color:var(--brand-plum)">we</b> care about. About five minutes.</p>
+            <span class="linkcta">Start a quick check-in <span aria-hidden>→</span></span>
+          </div>
+          <div class="card">
+            <span class="tag tag-muted">Pick my topics</span>
+            <p class="heading">Pick the areas that matter to you.</p>
+            <p class="body">Only what you choose. About three minutes.</p>
+            <span class="linkcta">Choose topics <span aria-hidden>→</span></span>
+          </div>
+
+          <div class="foot-nav"><span class="navlink"><span aria-hidden>←</span> Back</span><span></span></div>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 4</div>
+    <div class="name">Quick check-in, or their topics</div>
+    <div class="opt">Optional · can turn off</div>
+    <div class="desc">A fast check-in across everything, or they pick just the topics they care about.</div>
+    <span class="cap path both">Every path</span>
+  </div>
+</div>
+
+<!-- ============================================================== 5 · STAR QUESTION -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span><span class="legal">emberry</span></div>
+          <span class="site-label">Aged Care · Feedback</span>
+        </div>
+        <div class="app-body">
+          <div class="progress"><i style="width:20%"></i></div>
+          <div class="meta"><span>Step 1 of 5</span><span>≈ 2 min left</span></div>
+          <p class="area">Care & Wellbeing</p>
+          <h2 class="disp h2">How well does the care here fit your family&rsquo;s needs?</h2>
+          <p class="lead">Tap a star. One tap to choose.</p>
+          <p class="sending">Sending as <b>Sarah</b> · only <b>the emberry team</b> will see this.</p>
+
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#F2542D" stroke="#F2542D" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#F2542D" stroke="#F2542D" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#F2542D" stroke="#F2542D" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#F2542D" stroke="#F2542D" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="none" stroke="#9B92A0" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="skip">Skip this one</span>
+            <span class="pill" style="margin-top:0">Continue <span aria-hidden>→</span></span>
+          </div>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 5</div>
+    <div class="name">Rate each area</div>
+    <div class="desc">A tap to rate each part of their experience. Quick, friendly, and in your colours.</div>
+    <span class="cap path both">Every path</span>
+  </div>
+</div>
+
+<!-- ============================================================== 6 · NPS + PROBE -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span><span class="legal">emberry</span></div>
+          <span class="site-label">Aged Care · Feedback</span>
+        </div>
+        <div class="app-body">
+          <div class="progress"><i style="width:80%"></i></div>
+          <div class="meta"><span>Step 4 of 5</span><span>≈ 1 min left</span></div>
+          <h2 class="disp h2">How likely are you to recommend us?</h2>
+          <p class="lead">To a friend or family member.</p>
+
+          <div class="nps">
+            <div class="nps-grid">
+              <div class="pip">0</div><div class="pip">1</div><div class="pip">2</div><div class="pip">3</div><div class="pip">4</div><div class="pip">5</div>
+              <div class="pip on" style="background:#B84A4A;border-color:#B84A4A">6</div><div class="pip">7</div><div class="pip">8</div><div class="pip">9</div><div class="pip">10</div>
+            </div>
+            <div class="nps-cap">0 = Not at all · 10 = Very likely</div>
+          </div>
+
+          <div class="probe">
+            <p class="q">What would make it better?</p>
+            <div class="chips">
+              <span class="fchip on">Care</span>
+              <span class="fchip">Meals</span>
+              <span class="fchip">Activities</span>
+              <span class="fchip">Staff</span>
+            </div>
+            <div class="textarea">Add any detail. Names, times, exact spots. The team will see this with your rating.</div>
+          </div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="skip">Skip this one</span>
+            <span class="pill" style="margin-top:0">Continue <span aria-hidden>→</span></span>
+          </div>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 6</div>
+    <div class="name">Would they recommend you?</div>
+    <div class="desc">The simple 0 to 10 score. If it's low, a gentle follow-up asks what would make it better.</div>
+    <span class="cap path both">Every path</span>
+  </div>
+</div>
+
+<!-- ============================================================== 7 · COMMENTS -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span><span class="legal">emberry</span></div>
+          <span class="site-label">Aged Care · Feedback</span>
+        </div>
+        <div class="app-body">
+          <div class="progress"><i style="width:100%"></i></div>
+          <div class="meta"><span>Step 5 of 5</span><span>≈ 1 min left</span></div>
+          <p class="area" style="color:var(--brand-muted)">Optional</p>
+          <h2 class="disp h2">Anything else you'd like to share?</h2>
+          <p class="lead">Anything you'd like the team to know.</p>
+
+          <div class="textarea" style="min-height:140px;margin-top:18px">Anything you'd like the team to know.</div>
+
+          <div class="foot-nav">
+            <span class="navlink"><span aria-hidden>←</span> Back</span>
+            <span class="skip">Skip this one</span>
+            <span class="pill" style="margin-top:0">Submit <span aria-hidden>→</span></span>
+          </div>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 7</div>
+    <div class="name">Anything else?</div>
+    <div class="opt">Optional · can turn off</div>
+    <div class="desc">Room to add a comment in their own words. Always optional for the respondent, and you can drop the step entirely.</div>
+    <span class="cap path both">Every path</span>
+  </div>
+</div>
+
+<!-- ============================================================== 8 · ANON CONFIRM -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span><span class="legal">emberry</span></div>
+          <span class="site-label">Aged Care · Feedback</span>
+        </div>
+        <div class="app-body">
+          <p class="eyebrow">One last step</p>
+          <h1 class="disp h1">Confirm and send anonymously.</h1>
+          <p class="lead">Your answers are ready to send to <b style="color:var(--brand-plum)">the emberry team</b>. No name, email, or contact details will be attached.</p>
+
+          <div class="callout">
+            <p class="t">Anonymity is final and irreversible.</p>
+            <p class="b">Once you submit, no one (including you) can identify, edit, or withdraw this feedback. The team cannot reply.</p>
+          </div>
+
+          <div class="turnstile">
+            <span class="ts-check"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" stroke="#4F9D7C" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="ts-txt">Success!</span>
+            <span class="ts-brand">Cloudflare<br>Privacy · Terms</span>
+          </div>
+
+          <span class="pill full" style="margin-top:18px">Submit anonymously <span aria-hidden>→</span></span>
+
+          <p class="footnote center" style="text-align:center">Changed your mind?<br><a class="underline" href="#">Share your name (keep my answers)</a></p>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 8</div>
+    <div class="name">Stay private</div>
+    <div class="desc">Prefer to stay anonymous? One clear, private send, with no name attached.</div>
+    <span class="cap path anon">Anonymous</span>
+  </div>
+</div>
+
+<!-- ============================================================== 9 · THANKS -->
+<div class="frame">
+  <div class="iphone">
+    <div class="btnstack"><i class="act"></i><i class="vol"></i><i class="vol"></i></div>
+    <div class="iphone-screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span>
+        <span class="ico">
+          <svg width="18" height="12" viewBox="0 0 18 12"><g fill="#2D1F36"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5l.01 0M2 5.5a9 9 0 0 1 12 0M4.5 8a5.5 5.5 0 0 1 7 0" stroke="#2D1F36" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2D1F36" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#2D1F36"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#2D1F36" fill-opacity=".45"/></svg>
+        </span>
+      </div>
+      <div class="app">
+        <div class="app-header">
+          <div class="brand"><span class="mark"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span><span class="legal">emberry</span></div>
+          <span class="site-label">Aged Care · Feedback</span>
+        </div>
+        <div class="app-body center">
+          <div class="tick"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="#4F9D7C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h1 class="disp h1">Thank you.</h1>
+          <p class="lead" style="margin-left:auto;margin-right:auto;max-width:240px">We'll read every word, and if anything needs a reply, someone will be in touch shortly.</p>
+
+          <div class="booster">
+            <p class="eyebrow" style="margin-bottom:6px">Optional</p>
+            <h3 class="disp h3" style="margin-bottom:6px">Help others find <b>emberry</b>?</h3>
+            <p class="body" style="color:var(--brand-muted);font-size:13px;line-height:1.55;margin:0 0 14px">If you'd like to also share a public review, it really helps other families. This is separate from your private feedback above.</p>
+            <span class="pill" style="margin-top:0">
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#fff" d="M21.35 11.1h-9.17v2.92h5.27c-.23 1.4-1.6 4.1-5.27 4.1-3.17 0-5.76-2.62-5.76-5.85s2.59-5.85 5.76-5.85c1.8 0 3.01.77 3.7 1.43l2.52-2.43C16.9 5.5 14.76 4.6 12.18 4.6 7.5 4.6 3.7 8.4 3.7 13.1s3.8 8.5 8.48 8.5c4.9 0 8.14-3.44 8.14-8.29 0-.56-.06-.98-.97-2.21z"/></svg>
+              Leave a Google review <span aria-hidden>→</span>
+            </span>
+          </div>
+
+          <a class="sendmore" href="#">Send more feedback</a>
+        </div>
+        <div class="app-footer">
+          <span class="powered">Powered by
+            <span class="powered" style="gap:5px"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">
+    <div class="step">Screen 9</div>
+    <div class="name">A warm thank you</div>
+    <div class="desc">A friendly thank you, plus an optional nudge to leave a public Google review.</div>
+    <span class="cap path both">Every path</span>
+  </div>
+</div>
+
+</main>
+
+<section class="kiosk">
+  <div class="kiosk-head">
+    <p class="page-eyebrow">On-site · kiosk mode</p>
+    <h2 class="page-title">An <b>iPad at the door</b>, on a loop.</h2>
+    <p class="page-sub">The same survey, set to kiosk mode for an unattended tablet at reception or the front desk.
+      It stays anonymous, takes seconds, and resets itself after every response, ready for the next person.</p>
+  </div>
+  <div class="ipad-wrap">
+    <div class="ipad">
+      <div class="ipad-cam"></div>
+      <div class="ipad-screen">
+        <div class="kbar">
+          <span class="b"><span class="m"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span>emberry</span>
+          <span class="tag">Kiosk · emberry</span>
+        </div>
+
+        <!-- Scene 1 · welcome -->
+        <div class="kscene">
+          <span class="klogo"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span>
+          <p class="keyebrow">emberry</p>
+          <h2>How are we doing?</h2>
+          <p>Tap to share quick, private feedback with the emberry team. Takes less than a minute.</p>
+          <span class="kbtn">Start <span aria-hidden>→</span></span>
+        </div>
+
+        <!-- Scene 2 · a quick rating -->
+        <div class="kscene">
+          <p class="keyebrow">Care & Wellbeing</p>
+          <h2>How was everything today?</h2>
+          <div class="kstars">
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#F2542D" stroke="#F2542D" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#F2542D" stroke="#F2542D" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#F2542D" stroke="#F2542D" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#F2542D" stroke="#F2542D" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="none" stroke="#9B92A0" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <p>Tap a star. No name needed.</p>
+        </div>
+
+        <!-- Scene 3 · thanks + auto-reset -->
+        <div class="kscene">
+          <span class="ktick"><svg width="38" height="38" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="var(--ok)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h2>Thank you!</h2>
+          <p>Your feedback goes straight to the emberry team.</p>
+          <div class="kreset"><i></i></div>
+          <p style="margin-top:10px;font-size:12px">Starting over…</p>
+        </div>
+      </div>
+    </div>
+    <div class="kdots"><i></i><i></i><i></i></div>
+    <p class="admin-foot" style="margin-top:8px">Hands-free: welcome → rate → thank you → reset, looping for the next person.</p>
+  </div>
+</section>
+
+<section class="channels">
+  <div class="channels-head">
+    <p class="page-eyebrow">More ways to ask</p>
+    <h2 class="page-title">One survey, everywhere your families are.</h2>
+    <p class="page-sub">It's the same link behind everything below. Print it, tap it, email it, or text it,
+      whatever fits the moment. Every response lands in the one dashboard.</p>
+  </div>
+  <div class="ch-grid">
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="poster">
+        <div class="pband"></div>
+        <div class="pinner">
+          <div class="plogo"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></div>
+          <h3>How did we do?</h3>
+          <p class="psub">Scan to share quick,<br>private feedback.</p>
+          <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h33v33H0z"/><path stroke="#2D1F36" d="M0 0.5h7m3 0h5m1 0h2m1 0h2m2 0h1m2 0h7M0 1.5h1m5 0h1m3 0h2m1 0h5m3 0h2m3 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h3m3 0h1m1 0h3m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h1m4 0h1m2 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h1m1 0h2m2 0h5m1 0h1m1 0h1m3 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h2m4 0h2m2 0h1m2 0h1m1 0h1M0 8.5h1m1 0h5m2 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h3m1 0h5M0 9.5h2m1 0h2m2 0h2m1 0h3m3 0h1m2 0h3m1 0h1m2 0h2m1 0h2m1 0h1M1 10.5h2m3 0h2m1 0h4m2 0h1m2 0h1m1 0h3m2 0h2m1 0h1m1 0h2M0 11.5h1m1 0h3m3 0h3m1 0h1m1 0h1m1 0h1m3 0h4m1 0h2m1 0h5M0 12.5h1m2 0h1m2 0h2m1 0h1m2 0h1m5 0h1m2 0h1m2 0h2m1 0h3m1 0h2M0 13.5h2m1 0h1m1 0h1m1 0h1m1 0h3m1 0h5m2 0h2m1 0h1m1 0h3m3 0h2M0 14.5h2m1 0h4m5 0h1m1 0h1m3 0h2m2 0h1m2 0h2m2 0h1m1 0h1M2 15.5h2m4 0h3m1 0h1m3 0h1m2 0h12M0 16.5h2m1 0h1m2 0h1m4 0h1m2 0h1m2 0h3m4 0h2m1 0h2m3 0h1M1 17.5h1m5 0h2m2 0h2m4 0h4m2 0h1m1 0h3m1 0h2m1 0h1M0 18.5h3m2 0h3m3 0h1m3 0h3m4 0h1m2 0h1m1 0h2m1 0h1M0 19.5h4m4 0h1m1 0h1m1 0h1m2 0h5m4 0h7m1 0h1M2 20.5h1m1 0h1m1 0h1m1 0h3m2 0h2m1 0h1m3 0h3m1 0h2m1 0h3m1 0h1M0 21.5h3m1 0h1m3 0h1m5 0h2m1 0h2m4 0h1m2 0h1m2 0h2m1 0h1M0 22.5h1m1 0h1m1 0h1m1 0h2m2 0h3m1 0h4m2 0h1m1 0h1m1 0h1m3 0h4M0 23.5h1m3 0h2m1 0h1m3 0h5m2 0h1m2 0h1m3 0h6m1 0h1M0 24.5h1m3 0h1m1 0h2m1 0h1m3 0h1m1 0h1m1 0h1m4 0h7m2 0h2M8 25.5h2m1 0h2m1 0h1m1 0h1m1 0h4m2 0h1m3 0h1m1 0h1m1 0h1M0 26.5h7m4 0h1m1 0h4m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h2M0 27.5h1m5 0h1m1 0h1m1 0h5m1 0h1m3 0h5m3 0h5M0 28.5h1m1 0h3m1 0h1m1 0h5m1 0h1m3 0h2m1 0h1m2 0h6m1 0h2M0 29.5h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h2m3 0h3m1 0h2m2 0h1m3 0h1M0 30.5h1m1 0h3m1 0h1m1 0h3m1 0h2m3 0h3m1 0h7m1 0h2M0 31.5h1m5 0h1m2 0h1m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m2 0h3M0 32.5h7m1 0h7m2 0h1m1 0h1m2 0h4m1 0h1m3 0h1"/></svg>
+</div>
+          <div class="pfoot">emberry</div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Poster &amp; QR code</div><div class="d">Print it for the door or the counter. One scan opens the survey.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="email">
+        <div class="ehdr">From <b>emberry</b><br>To: families</div>
+        <div class="ebody">
+          …thanks again for trusting us with their care. We'd love to know how we're doing.
+          <div class="sig">
+            <img class="lockup" src="../assets/emberry-email-logo.png" alt="emberry">
+            <span class="who"><div class="r">Care team</div></span>
+          </div>
+          <a class="ebtn" href="https://staging.emberry.com.au/f/agedcare/welcome">Share your feedback <span aria-hidden>→</span></a>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Email signature</div><div class="d">A friendly button on every email your team already sends.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="news">
+        <div class="nhead"><div class="k">Newsletter</div><div class="t">This month at emberry</div></div>
+        <div class="nbody">
+          <div class="line"></div><div class="line"></div><div class="line s"></div>
+          <div class="cta-box">
+            <div class="q">How are we doing?</div>
+            <a class="ebtn" href="https://staging.emberry.com.au/f/agedcare/welcome">Share your feedback <span aria-hidden>→</span></a>
+          </div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Newsletter</div><div class="d">Pop the feedback button into the email newsletter you already send.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="sms">
+        <div class="from">emberry</div>
+        <div class="bub">Hi! Thanks for choosing us for their care. We'd love your quick feedback (takes a minute): <a href="https://staging.emberry.com.au/f/agedcare/welcome">emberry.au/feedback</a></div>
+        <div class="bub me">Done, thanks! ⭐️⭐️⭐️⭐️⭐️</div>
+      </div></div>
+      <figcaption><div class="t">Text message</div><div class="d">Send the link by SMS, the surest way to get a reply.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="nfc"><img src="nfc.png" alt="emberry feedback tag"></div></div>
+      <figcaption><div class="t">NFC tags</div><div class="d">Stick a tap-to-open tag around your facility. A phone tap opens the survey, no scanning needed.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="embed">
+        <div class="ebar"><span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span><span class="u">emberry.com.au</span></div>
+        <div class="eview">
+          <div class="eline"></div><div class="eline"></div><div class="eline s"></div>
+          <div class="widget"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20l1.3-3.1A8.4 8.4 0 1 1 21 11.5z"/></svg> How are we doing?</div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">On your website</div><div class="d">A "How are we doing?" tab sits on your site, open for feedback any time.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="auto">
+        <span class="abadge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> Automatic</span>
+        <div class="row">
+          <div class="rail"><span class="dot"></span><span class="ln"></span></div>
+          <div class="tx"><b>A new resident settles in</b></div>
+        </div>
+        <div class="row">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="tx"><b>A day later</b>, an email and text send themselves
+            <div class="msg">How is everything settling in? <a href="https://staging.emberry.com.au/f/agedcare/welcome">Share feedback →</a></div>
+          </div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Booking &amp; follow-ups</div><div class="d">Auto-send the link after a move-in, a care review, or a family meeting.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="social">
+        <div class="stop"><span class="av"><svg width="30" height="30" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg></span><div class="h"><div class="at">emberry</div><div class="meta">@emberry</div></div></div>
+        <div class="sbody">
+          <div class="bio">Link in bio 👇 we'd love your feedback.</div>
+          <div class="link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20l1.3-3.1A8.4 8.4 0 1 1 21 11.5z"/></svg> Share your feedback <span class="ar" aria-hidden>→</span></div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Social bio link</div><div class="d">Pop the link in your Instagram or Facebook bio.</div></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+</body>
+</html>
