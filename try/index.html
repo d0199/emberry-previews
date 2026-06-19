@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>emberry · try the survey in your brand</title>
-<meta name="description" content="See the emberry feedback survey restyled live in your own business name and colour.">
+<meta name="description" content="See the emberry feedback survey restyled live in your own vertical, business name, logo and colour.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500;0,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Poiret+One&display=swap" rel="stylesheet">
@@ -483,41 +483,58 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 
 </style>
 <style>
-/* ===== interactive try-it layer ============================================ */
 *{scroll-behavior:smooth}
-.pill,.progress > i,.fchip.on,.app-header .mark,.t-name,.area,.page-title b,.otp .box.cur{transition:background .25s ease,color .25s ease,box-shadow .25s ease;}
-.toolbar{position:sticky;top:0;z-index:100;background:rgba(250,246,240,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
-.tb-inner{max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;}
+.pill,.progress > i,.fchip.on,.app-header .mark,.t-name,.area,.page-title b,.otp .box.cur,.vchip,.swatch{transition:background .22s ease,color .22s ease,box-shadow .22s ease;}
+.toolbar{position:sticky;top:0;z-index:100;background:rgba(250,246,240,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+.tb-inner{max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:16px 26px;align-items:center;}
 .tb-tag{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-muted);}
 .tb-tag .wordmark{font-family:"Poiret One";text-transform:lowercase;font-size:17px;letter-spacing:.01em;color:var(--brand-plum);}
 .tb-tag .wordmark .e{color:var(--ember);}
 .tb-field{display:flex;flex-direction:column;gap:6px;}
 .tb-lab{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-muted);}
-.tb-field input[type=text]{font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--brand-plum);background:#fff;border:1px solid var(--line-2);border-radius:10px;padding:8px 13px;width:190px;outline:none;}
+.tb-field input[type=text]{font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--brand-plum);background:#fff;border:1px solid var(--line-2);border-radius:10px;padding:8px 13px;width:178px;outline:none;}
 .tb-field input[type=text]:focus{border-color:var(--tenant-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--tenant-primary) 16%,transparent);}
 .tb-colorrow{display:flex;align-items:center;gap:9px;}
-.swatch{width:24px;height:24px;border-radius:50%;background:var(--s);cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px var(--line-2);padding:0;transition:transform .12s,box-shadow .12s;}
+.swatch{width:24px;height:24px;border-radius:50%;background:var(--s);cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px var(--line-2);padding:0;}
 .swatch:hover{transform:scale(1.1);}
 .swatch.on{box-shadow:0 0 0 2px var(--tenant-primary);transform:scale(1.12);}
 .swatch.custom{display:inline-flex;align-items:center;justify-content:center;background:conic-gradient(from 90deg,#f2542d,#e0962b,#2e7d52,#0e7c7b,#4f46e5,#c42348,#f2542d);position:relative;overflow:hidden;color:#fff;}
 .swatch.custom svg{width:13px;height:13px;filter:drop-shadow(0 0 1px rgba(0,0,0,.4));}
 .swatch.custom input[type=color]{position:absolute;inset:-6px;width:200%;height:200%;opacity:0;cursor:pointer;border:0;padding:0;}
 #hexVal{font-family:var(--font-mono);font-size:11px;color:var(--brand-muted);min-width:62px;}
-.tb-reset{margin-left:auto;font-family:var(--font-body);font-size:12.5px;font-weight:600;color:var(--brand-muted);background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:8px 17px;cursor:pointer;transition:.15s;}
+.tb-logorow{display:flex;align-items:center;gap:9px;}
+.tb-logobtn{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-body);font-size:12.5px;font-weight:600;color:var(--brand-plum);background:#fff;border:1px dashed var(--line-2);border-radius:10px;padding:8px 13px;cursor:pointer;}
+.tb-logobtn:hover{border-color:var(--tenant-primary);color:var(--tenant-primary);}
+.tb-logobtn svg{width:14px;height:14px;}
+.tb-logoclear{font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--brand-muted);background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
+.tb-reset{margin-left:auto;font-family:var(--font-body);font-size:12.5px;font-weight:600;color:var(--brand-muted);background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:8px 17px;cursor:pointer;}
 .tb-reset:hover{color:var(--brand-plum);border-color:var(--brand-plum);}
-.hero{max-width:1100px;margin:0 auto;padding:42px 28px 2px;}
+/* vertical chips */
+.verticals{max-width:1280px;margin:0 auto;padding:18px 24px 0;display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;}
+.vgroup{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+.vglab{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-muted);margin-right:4px;display:inline-flex;align-items:center;}
+.vglab.reg::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--info);margin-right:6px;}
+.vsep{width:1px;height:26px;background:var(--line);}
+.vchip{font-family:var(--font-body);font-size:12.5px;font-weight:600;color:var(--brand-plum);background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.vchip:hover{border-color:var(--tenant-primary);color:var(--tenant-primary);}
+.vchip.on{background:var(--tenant-primary);border-color:var(--tenant-primary);color:#fff;}
+.hero{max-width:1100px;margin:0 auto;padding:30px 28px 2px;}
 .hero .page-eyebrow{display:flex;align-items:center;gap:8px;}
 .hero .page-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--tenant-primary);}
-/* tenant monogram + brand-coloured stars */
-.app-header .mark{background:var(--tenant-primary);border-color:transparent;}
+/* monogram + logo + brand stars */
+.app-header .mark{background:var(--tenant-primary);border-color:transparent;overflow:hidden;}
 .t-mono{color:#fff;font-family:var(--font-display);font-style:normal;font-weight:600;font-size:16px;line-height:1;}
+.t-logoimg{display:none;width:100%;height:100%;object-fit:contain;}
+body.has-logo .app-header .mark{background:#fff;border-color:var(--line);}
+body.has-logo .t-mono{display:none;}
+body.has-logo .t-logoimg{display:block;}
 .stars svg path.on,.kstars svg path.on{fill:var(--tenant-primary);stroke:var(--tenant-primary);}
 .endnote{max-width:1100px;margin:0 auto;padding:6px 28px 70px;}
 .endnote .card2{display:flex;gap:13px;align-items:flex-start;background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:16px;padding:16px 18px;max-width:680px;}
 .endnote .card2 .pill{margin:0;flex:none;}
 .endnote .card2 p{margin:0;font-size:13px;line-height:1.6;color:var(--brand-muted);}
 .endnote .card2 b{color:var(--brand-plum);}
-@media(max-width:640px){.tb-reset{margin-left:0;}.tb-field input[type=text]{width:150px;}}
+@media(max-width:660px){.tb-reset{margin-left:0;}.tb-field input[type=text]{width:150px;}.vsep{display:none;}}
 </style>
 </head>
 <body>
@@ -535,22 +552,47 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
         <button class="swatch" data-c="#F2542D" style="--s:#F2542D" title="emberry"></button>
         <button class="swatch" data-c="#0E7C7B" style="--s:#0E7C7B" title="Teal"></button>
         <button class="swatch" data-c="#2E7D52" style="--s:#2E7D52" title="Green"></button>
-        <button class="swatch" data-c="#4F46E5" style="--s:#4F46E5" title="Indigo"></button>
         <button class="swatch" data-c="#1F6FB2" style="--s:#1F6FB2" title="Blue"></button>
+        <button class="swatch" data-c="#4F46E5" style="--s:#4F46E5" title="Indigo"></button>
         <button class="swatch" data-c="#7A2E6B" style="--s:#7A2E6B" title="Plum"></button>
         <button class="swatch" data-c="#E0962B" style="--s:#E0962B" title="Amber"></button>
         <label class="swatch custom" title="Custom colour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><input id="brandColor" type="color" value="#F2542D"></label>
         <code id="hexVal">#F2542D</code>
       </div>
     </div>
+    <div class="tb-field">
+      <span class="tb-lab">Your logo</span>
+      <span class="tb-logorow">
+        <label class="tb-logobtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L8 8m4-4 4 4M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Upload<input id="brandLogo" type="file" accept="image/*" hidden></label>
+        <button id="logoClear" class="tb-logoclear" type="button" hidden>Remove</button>
+      </span>
+    </div>
     <button id="resetBtn" class="tb-reset">Reset to emberry</button>
+  </div>
+</div>
+
+<div class="verticals">
+  <div class="vgroup">
+    <span class="vglab reg">Regulated</span>
+    <button class="vchip" data-v="childcare">Childcare</button>
+    <button class="vchip" data-v="agedcare">Aged care</button>
+  </div>
+  <span class="vsep"></span>
+  <div class="vgroup">
+    <span class="vglab">Other</span>
+    <button class="vchip" data-v="gp">GP</button>
+    <button class="vchip" data-v="dental">Dental</button>
+    <button class="vchip" data-v="cafe">Caf&eacute;</button>
+    <button class="vchip" data-v="restaurant">Restaurant</button>
+    <button class="vchip" data-v="gym">Gym</button>
+    <button class="vchip" data-v="salon">Salon</button>
   </div>
 </div>
 
 <header class="hero">
   <p class="page-eyebrow"><span class="dot"></span>Interactive preview</p>
   <h1 class="page-title">See the survey in <b class="t-name">emberry</b>&rsquo;s colours.</h1>
-  <p class="page-sub">Type your business name and pick your colour up top &mdash; the whole respondent flow restyles live, logo and all. This is exactly what your customers would see when you collect feedback with emberry. <b>It&rsquo;s a mock-up; nothing is saved or sent.</b></p>
+  <p class="page-sub">Pick a vertical, type your business name, add your logo and colour &mdash; the whole respondent flow restyles live. This is exactly what your <span class="t-who">customers</span> would see when you collect feedback with emberry. <b>It&rsquo;s a mock-up; nothing is saved or sent.</b></p>
 </header>
 
 <nav class="legend">
@@ -585,7 +627,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
         <div class="app-header">
           <div class="brand">
             <span class="mark">
-              <span class="t-mono">e</span>
+              <span class="t-mono">e</span><img class="t-logoimg" alt="">
             </span>
             <span class="legal"><span class="t-name">emberry</span></span>
           </div>
@@ -646,7 +688,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><span class="t-mono">e</span></span><span class="legal"><span class="t-name">emberry</span></span></div>
+          <div class="brand"><span class="mark"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><span class="legal"><span class="t-name">emberry</span></span></div>
           <span class="site-label">Product · Feedback</span>
         </div>
         <div class="app-body">
@@ -701,7 +743,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><span class="t-mono">e</span></span><span class="legal"><span class="t-name">emberry</span></span></div>
+          <div class="brand"><span class="mark"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><span class="legal"><span class="t-name">emberry</span></span></div>
           <span class="site-label">Product · Feedback</span>
         </div>
         <div class="app-body">
@@ -752,7 +794,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><span class="t-mono">e</span></span><span class="legal"><span class="t-name">emberry</span></span></div>
+          <div class="brand"><span class="mark"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><span class="legal"><span class="t-name">emberry</span></span></div>
           <span class="site-label">Product · Feedback</span>
         </div>
         <div class="app-body">
@@ -807,14 +849,14 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><span class="t-mono">e</span></span><span class="legal"><span class="t-name">emberry</span></span></div>
+          <div class="brand"><span class="mark"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><span class="legal"><span class="t-name">emberry</span></span></div>
           <span class="site-label">Product · Feedback</span>
         </div>
         <div class="app-body">
           <div class="progress"><i style="width:20%"></i></div>
           <div class="meta"><span>Step 1 of 5</span><span>≈ 2 min left</span></div>
-          <p class="area">Product & Reliability</p>
-          <h2 class="disp h2">How well does <span class="t-name">emberry</span> fit the way your team works?</h2>
+          <p class="area" id="vArea">Product &amp; Reliability</p>
+          <h2 class="disp h2" id="vQ">How well does <span class="t-name">emberry</span> fit the way your team works?</h2>
           <p class="lead">Tap a star. One tap to choose.</p>
           <p class="sending">Sending as <b>Sarah</b> · only <b>the <span class="t-name">emberry</span> team</b> will see this.</p>
 
@@ -863,7 +905,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><span class="t-mono">e</span></span><span class="legal"><span class="t-name">emberry</span></span></div>
+          <div class="brand"><span class="mark"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><span class="legal"><span class="t-name">emberry</span></span></div>
           <span class="site-label">Product · Feedback</span>
         </div>
         <div class="app-body">
@@ -882,7 +924,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 
           <div class="probe">
             <p class="q">What would make it better?</p>
-            <div class="chips">
+            <div class="chips" id="vChips">
               <span class="fchip on">Setup</span>
               <span class="fchip">Reliability</span>
               <span class="fchip">Reporting</span>
@@ -928,7 +970,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><span class="t-mono">e</span></span><span class="legal"><span class="t-name">emberry</span></span></div>
+          <div class="brand"><span class="mark"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><span class="legal"><span class="t-name">emberry</span></span></div>
           <span class="site-label">Product · Feedback</span>
         </div>
         <div class="app-body">
@@ -978,7 +1020,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><span class="t-mono">e</span></span><span class="legal"><span class="t-name">emberry</span></span></div>
+          <div class="brand"><span class="mark"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><span class="legal"><span class="t-name">emberry</span></span></div>
           <span class="site-label">Product · Feedback</span>
         </div>
         <div class="app-body">
@@ -1032,7 +1074,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><span class="t-mono">e</span></span><span class="legal"><span class="t-name">emberry</span></span></div>
+          <div class="brand"><span class="mark"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><span class="legal"><span class="t-name">emberry</span></span></div>
           <span class="site-label">Product · Feedback</span>
         </div>
         <div class="app-body center">
@@ -1073,7 +1115,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 <div class="endnote">
   <div class="card2">
     <span class="pill" style="margin-top:0"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg>&nbsp;Powered by emberry</span>
-    <p>Every screen above is the real emberry respondent flow, restyled live in your brand. When you go live, your own logo replaces the monogram and the same colour carries across kiosk, posters, email and your dashboard.</p>
+    <p>Every screen above is the real emberry respondent flow, restyled live in your brand. The same colour and logo carry across kiosk, posters, email and your dashboard when you go live.</p>
   </div>
 </div>
 
@@ -1084,16 +1126,42 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   var colorEl=document.getElementById('brandColor');
   var hexEl=document.getElementById('hexVal');
   var swatches=document.querySelectorAll('.swatch[data-c]');
+  var logoInput=document.getElementById('brandLogo');
+  var logoClear=document.getElementById('logoClear');
   function h2hsl(H){var r,g,b;H=H.replace('#','');if(H.length===3){r=parseInt(H[0]+H[0],16);g=parseInt(H[1]+H[1],16);b=parseInt(H[2]+H[2],16);}else{r=parseInt(H.slice(0,2),16);g=parseInt(H.slice(2,4),16);b=parseInt(H.slice(4,6),16);}r/=255;g/=255;b/=255;var mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn,h=0,s=0,l=(mx+mn)/2;if(d){s=d/(1-Math.abs(2*l-1));if(mx===r)h=((g-b)/d)%6;else if(mx===g)h=(b-r)/d+2;else h=(r-g)/d+4;h*=60;if(h<0)h+=360;}return[h,s,l];}
   function hsl2h(h,s,l){var c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2,r=0,g=0,b=0;if(h<60){r=c;g=x;}else if(h<120){r=x;g=c;}else if(h<180){g=c;b=x;}else if(h<240){g=x;b=c;}else if(h<300){r=x;b=c;}else{r=c;b=x;}function f(v){return('0'+Math.round((v+m)*255).toString(16)).slice(-2);}return'#'+f(r)+f(g)+f(b);}
   function darken(hex,a){var p=h2hsl(hex);return hsl2h(p[0],p[1],Math.max(0,p[2]-a));}
   function setColor(hex){hex=hex||'#F2542D';root.style.setProperty('--tenant-primary',hex);root.style.setProperty('--tenant-accent',darken(hex,0.13));if(colorEl)colorEl.value=hex;if(hexEl)hexEl.textContent=hex.toUpperCase();swatches.forEach(function(s){s.classList.toggle('on',s.dataset.c.toLowerCase()===hex.toLowerCase());});}
   function setName(n){var nm=(n&&n.trim())?n.trim():'Your brand';var ini=(nm.replace(/[^A-Za-z0-9]/g,'').charAt(0)||'Y').toUpperCase();document.querySelectorAll('.t-name').forEach(function(e){e.textContent=nm;});document.querySelectorAll('.t-mono').forEach(function(e){e.textContent=ini;});}
+  var VERT={
+    childcare:{name:'Little Acorns',color:'#5AA469',who:'families',area:'Educators &amp; Care',q:'How well do our educators know and care for your child?',chips:['Educators','Communication','Settling in','Meals']},
+    agedcare:{name:'Riverside Aged Care',color:'#0E7C7B',who:'residents and families',area:'Care &amp; Wellbeing',q:'How well does the care here fit your family&rsquo;s needs?',chips:['Care','Meals','Activities','Staff']},
+    gp:{name:'Parkside Medical',color:'#1F6FB2',who:'patients',area:'Care &amp; Service',q:'How well did this visit meet your needs?',chips:['Wait time','Doctor','Reception','Booking']},
+    dental:{name:'Bright Smile Dental',color:'#1F9AAE',who:'patients',area:'Care &amp; Comfort',q:'How was your visit with us today?',chips:['Comfort','Wait time','Reception','Clarity']},
+    cafe:{name:'Corner Caf\u00e9',color:'#B5732E',who:'customers',area:'Coffee &amp; Service',q:'How was everything today?',chips:['Coffee','Food','Service','Speed']},
+    restaurant:{name:'The Larder',color:'#9A3B3B',who:'guests',area:'Food &amp; Service',q:'How was your meal with us?',chips:['Food','Service','Atmosphere','Value']},
+    gym:{name:'Pulse Fitness',color:'#5B3FD6',who:'members',area:'Facilities &amp; Coaching',q:'How are you finding your membership?',chips:['Classes','Equipment','Cleanliness','Staff']},
+    salon:{name:'Lumea Hair',color:'#8A4A86',who:'clients',area:'Service &amp; Care',q:'How happy are you with your visit?',chips:['Result','Stylist','Comfort','Value']}
+  };
+  var GENERAL={name:'emberry',color:'#F2542D',who:'customers',area:'Product &amp; Reliability',q:'How well does <span class="t-name">emberry</span> fit the way your team works?',chips:['Setup','Reliability','Reporting','Support']};
+  function applyVertical(v){
+    var d=v?VERT[v]:GENERAL;
+    document.getElementById('vArea').innerHTML=d.area;
+    document.getElementById('vQ').innerHTML=d.q;
+    document.getElementById('vChips').innerHTML=d.chips.map(function(c,i){return '<span class="fchip'+(i?'':' on')+'">'+c+'</span>';}).join('');
+    document.querySelectorAll('.t-who').forEach(function(e){e.textContent=d.who;});
+    nameEl.value=d.name;setName(d.name);setColor(d.color);
+    document.querySelectorAll('.vchip').forEach(function(c){c.classList.toggle('on',c.dataset.v===v);});
+  }
+  function clearLogo(){document.body.classList.remove('has-logo');logoInput.value='';logoClear.hidden=true;}
   nameEl.addEventListener('input',function(){setName(nameEl.value);});
   colorEl.addEventListener('input',function(){setColor(colorEl.value);});
   swatches.forEach(function(s){s.addEventListener('click',function(){setColor(s.dataset.c);});});
-  document.getElementById('resetBtn').addEventListener('click',function(){nameEl.value='emberry';setName('emberry');setColor('#F2542D');});
-  setName(nameEl.value||'emberry');setColor('#F2542D');
+  document.querySelectorAll('.vchip').forEach(function(c){c.addEventListener('click',function(){applyVertical(c.dataset.v);});});
+  logoInput.addEventListener('change',function(){var f=logoInput.files&&logoInput.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){document.querySelectorAll('.t-logoimg').forEach(function(im){im.src=rd.result;});document.body.classList.add('has-logo');logoClear.hidden=false;};rd.readAsDataURL(f);});
+  logoClear.addEventListener('click',clearLogo);
+  document.getElementById('resetBtn').addEventListener('click',function(){clearLogo();applyVertical(null);});
+  applyVertical(null);
 })();
 </script>
 </body>
