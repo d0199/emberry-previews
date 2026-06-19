@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>emberry · try the survey in your brand</title>
-<meta name="description" content="See the emberry feedback survey restyled live in your own vertical, business name, logo and colour.">
+<meta name="description" content="See the emberry feedback experience restyled live in your vertical, business name, logo and colour — phone, kiosk and every channel.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500;0,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Poiret+One&display=swap" rel="stylesheet">
@@ -484,7 +484,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 </style>
 <style>
 *{scroll-behavior:smooth}
-.pill,.progress > i,.fchip.on,.app-header .mark,.t-name,.area,.page-title b,.otp .box.cur,.vchip,.swatch{transition:background .22s ease,color .22s ease,box-shadow .22s ease;}
+.pill,.progress > i,.fchip.on,.app-header .mark,.t-name,.area,.page-title b,.otp .box.cur,.vchip,.swatch,.poster .pband,.email .ebtn,.kbtn{transition:background .22s ease,color .22s ease,box-shadow .22s ease;}
 .toolbar{position:sticky;top:0;z-index:100;background:rgba(250,246,240,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
 .tb-inner{max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:16px 26px;align-items:center;}
 .tb-tag{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-muted);}
@@ -509,7 +509,6 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 .tb-logoclear{font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--brand-muted);background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
 .tb-reset{margin-left:auto;font-family:var(--font-body);font-size:12.5px;font-weight:600;color:var(--brand-muted);background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:8px 17px;cursor:pointer;}
 .tb-reset:hover{color:var(--brand-plum);border-color:var(--brand-plum);}
-/* vertical chips */
 .verticals{max-width:1280px;margin:0 auto;padding:18px 24px 0;display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;}
 .vgroup{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
 .vglab{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-muted);margin-right:4px;display:inline-flex;align-items:center;}
@@ -521,15 +520,17 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 .hero{max-width:1100px;margin:0 auto;padding:30px 28px 2px;}
 .hero .page-eyebrow{display:flex;align-items:center;gap:8px;}
 .hero .page-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--tenant-primary);}
-/* monogram + logo + brand stars */
 .app-header .mark{background:var(--tenant-primary);border-color:transparent;overflow:hidden;}
 .t-mono{color:#fff;font-family:var(--font-display);font-style:normal;font-weight:600;font-size:16px;line-height:1;}
 .t-logoimg{display:none;width:100%;height:100%;object-fit:contain;}
-body.has-logo .app-header .mark{background:#fff;border-color:var(--line);}
+body.has-logo .app-header .mark,body.has-logo .kbar .m,body.has-logo .klogo,body.has-logo .plogo,body.has-logo .social .av{background:#fff !important;}
 body.has-logo .t-mono{display:none;}
 body.has-logo .t-logoimg{display:block;}
+.kbar .m,.klogo,.plogo,.social .av{overflow:hidden;}
+.kbar .m .t-mono,.klogo .t-mono,.plogo .t-mono,.social .av .t-mono{color:#fff;}
 .stars svg path.on,.kstars svg path.on{fill:var(--tenant-primary);stroke:var(--tenant-primary);}
-.endnote{max-width:1100px;margin:0 auto;padding:6px 28px 70px;}
+.elock{font-family:var(--font-display);font-style:italic;font-size:15px;color:var(--brand-plum);}
+.endnote{max-width:1100px;margin:0 auto;padding:30px 28px 70px;}
 .endnote .card2{display:flex;gap:13px;align-items:flex-start;background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:16px;padding:16px 18px;max-width:680px;}
 .endnote .card2 .pill{margin:0;flex:none;}
 .endnote .card2 p{margin:0;font-size:13px;line-height:1.6;color:var(--brand-muted);}
@@ -542,12 +543,9 @@ body.has-logo .t-logoimg{display:block;}
 <div class="toolbar">
   <div class="tb-inner">
     <span class="tb-tag"><svg width="17" height="17" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg><span class="wordmark"><span class="e">e</span>mberry</span> · live preview</span>
-    <label class="tb-field">
-      <span class="tb-lab">Your business name</span>
-      <input id="brandName" type="text" value="emberry" maxlength="24" autocomplete="off" spellcheck="false" placeholder="Your brand">
-    </label>
-    <div class="tb-field">
-      <span class="tb-lab">Your brand colour</span>
+    <label class="tb-field"><span class="tb-lab">Your business name</span>
+      <input id="brandName" type="text" value="emberry" maxlength="24" autocomplete="off" spellcheck="false" placeholder="Your brand"></label>
+    <div class="tb-field"><span class="tb-lab">Your brand colour</span>
       <div class="tb-colorrow">
         <button class="swatch" data-c="#F2542D" style="--s:#F2542D" title="emberry"></button>
         <button class="swatch" data-c="#0E7C7B" style="--s:#0E7C7B" title="Teal"></button>
@@ -558,41 +556,34 @@ body.has-logo .t-logoimg{display:block;}
         <button class="swatch" data-c="#E0962B" style="--s:#E0962B" title="Amber"></button>
         <label class="swatch custom" title="Custom colour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><input id="brandColor" type="color" value="#F2542D"></label>
         <code id="hexVal">#F2542D</code>
-      </div>
-    </div>
-    <div class="tb-field">
-      <span class="tb-lab">Your logo</span>
+      </div></div>
+    <div class="tb-field"><span class="tb-lab">Your logo</span>
       <span class="tb-logorow">
         <label class="tb-logobtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L8 8m4-4 4 4M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Upload<input id="brandLogo" type="file" accept="image/*" hidden></label>
         <button id="logoClear" class="tb-logoclear" type="button" hidden>Remove</button>
-      </span>
-    </div>
+      </span></div>
     <button id="resetBtn" class="tb-reset">Reset to emberry</button>
   </div>
 </div>
 
 <div class="verticals">
-  <div class="vgroup">
-    <span class="vglab reg">Regulated</span>
+  <div class="vgroup"><span class="vglab reg">Regulated</span>
     <button class="vchip" data-v="childcare">Childcare</button>
-    <button class="vchip" data-v="agedcare">Aged care</button>
-  </div>
+    <button class="vchip" data-v="agedcare">Aged care</button></div>
   <span class="vsep"></span>
-  <div class="vgroup">
-    <span class="vglab">Other</span>
+  <div class="vgroup"><span class="vglab">Other</span>
     <button class="vchip" data-v="gp">GP</button>
     <button class="vchip" data-v="dental">Dental</button>
     <button class="vchip" data-v="cafe">Caf&eacute;</button>
     <button class="vchip" data-v="restaurant">Restaurant</button>
     <button class="vchip" data-v="gym">Gym</button>
-    <button class="vchip" data-v="salon">Salon</button>
-  </div>
+    <button class="vchip" data-v="salon">Salon</button></div>
 </div>
 
 <header class="hero">
   <p class="page-eyebrow"><span class="dot"></span>Interactive preview</p>
   <h1 class="page-title">See the survey in <b class="t-name">emberry</b>&rsquo;s colours.</h1>
-  <p class="page-sub">Pick a vertical, type your business name, add your logo and colour &mdash; the whole respondent flow restyles live. This is exactly what your <span class="t-who">customers</span> would see when you collect feedback with emberry. <b>It&rsquo;s a mock-up; nothing is saved or sent.</b></p>
+  <p class="page-sub">Pick a vertical, type your business name, add your logo and colour &mdash; the whole experience restyles live: the phone survey, the on-site kiosk, and every channel you can share it through. This is exactly what your <span class="t-who">customers</span> would see. <b>It&rsquo;s a mock-up; nothing is saved or sent.</b></p>
 </header>
 
 <nav class="legend">
@@ -1112,22 +1103,185 @@ body.has-logo .t-logoimg{display:block;}
 
 </main>
 
+<section class="kiosk">
+  <div class="kiosk-head">
+    <p class="page-eyebrow">On-site · kiosk mode</p>
+    <h2 class="page-title">An <b>iPad at the door</b>, on a loop.</h2>
+    <p class="page-sub">The same survey, set to kiosk mode for an unattended tablet at reception or the front desk.
+      It stays anonymous, takes seconds, and resets itself after every response, ready for the next person.</p>
+  </div>
+  <div class="ipad-wrap">
+    <div class="ipad">
+      <div class="ipad-cam"></div>
+      <div class="ipad-screen">
+        <div class="kbar">
+          <span class="b"><span class="m"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><span class="t-name">emberry</span></span>
+          <span class="tag">Kiosk · <span class="t-name">emberry</span></span>
+        </div>
+
+        <!-- Scene 1 · welcome -->
+        <div class="kscene">
+          <span class="klogo"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span>
+          <p class="keyebrow"><span class="t-name">emberry</span></p>
+          <h2>How are we doing?</h2>
+          <p>Tap to share quick, private feedback with the <span class="t-name">emberry</span> team. Takes less than a minute.</p>
+          <span class="kbtn">Start <span aria-hidden>→</span></span>
+        </div>
+
+        <!-- Scene 2 · a quick rating -->
+        <div class="kscene">
+          <p class="keyebrow">Product & Reliability</p>
+          <h2>How was everything today?</h2>
+          <div class="kstars">
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" class="on" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" class="on" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" class="on" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" class="on" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="none" stroke="#9B92A0" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <p>Tap a star. No name needed.</p>
+        </div>
+
+        <!-- Scene 3 · thanks + auto-reset -->
+        <div class="kscene">
+          <span class="ktick"><svg width="38" height="38" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="var(--ok)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h2>Thank you!</h2>
+          <p>Your feedback goes straight to the <span class="t-name">emberry</span> team.</p>
+          <div class="kreset"><i></i></div>
+          <p style="margin-top:10px;font-size:12px">Starting over…</p>
+        </div>
+      </div>
+    </div>
+    <div class="kdots"><i></i><i></i><i></i></div>
+    <p class="admin-foot" style="margin-top:8px">Hands-free: welcome → rate → thank you → reset, looping for the next person.</p>
+  </div>
+</section>
+
+<section class="channels">
+  <div class="channels-head">
+    <p class="page-eyebrow">More ways to ask</p>
+    <h2 class="page-title">One survey, everywhere your customers are.</h2>
+    <p class="page-sub">It's the same link behind everything below. Print it, tap it, email it, or text it,
+      whatever fits the moment. Every response lands in the one dashboard.</p>
+  </div>
+  <div class="ch-grid">
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="poster">
+        <div class="pband"></div>
+        <div class="pinner">
+          <div class="plogo"><span class="t-mono">e</span><img class="t-logoimg" alt=""></div>
+          <h3>How did we do?</h3>
+          <p class="psub">Scan to share quick,<br>private feedback.</p>
+          <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h33v33H0z"/><path stroke="#2D1F36" d="M0 0.5h7m3 0h5m1 0h2m1 0h2m2 0h1m2 0h7M0 1.5h1m5 0h1m3 0h2m1 0h5m3 0h2m3 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h3m3 0h1m1 0h3m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h1m4 0h1m2 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h1m1 0h2m2 0h5m1 0h1m1 0h1m3 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h2m4 0h2m2 0h1m2 0h1m1 0h1M0 8.5h1m1 0h5m2 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h3m1 0h5M0 9.5h2m1 0h2m2 0h2m1 0h3m3 0h1m2 0h3m1 0h1m2 0h2m1 0h2m1 0h1M1 10.5h2m3 0h2m1 0h4m2 0h1m2 0h1m1 0h3m2 0h2m1 0h1m1 0h2M0 11.5h1m1 0h3m3 0h3m1 0h1m1 0h1m1 0h1m3 0h4m1 0h2m1 0h5M0 12.5h1m2 0h1m2 0h2m1 0h1m2 0h1m5 0h1m2 0h1m2 0h2m1 0h3m1 0h2M0 13.5h2m1 0h1m1 0h1m1 0h1m1 0h3m1 0h5m2 0h2m1 0h1m1 0h3m3 0h2M0 14.5h2m1 0h4m5 0h1m1 0h1m3 0h2m2 0h1m2 0h2m2 0h1m1 0h1M2 15.5h2m4 0h3m1 0h1m3 0h1m2 0h12M0 16.5h2m1 0h1m2 0h1m4 0h1m2 0h1m2 0h3m4 0h2m1 0h2m3 0h1M1 17.5h1m5 0h2m2 0h2m4 0h4m2 0h1m1 0h3m1 0h2m1 0h1M0 18.5h3m2 0h3m3 0h1m3 0h3m4 0h1m2 0h1m1 0h2m1 0h1M0 19.5h4m4 0h1m1 0h1m1 0h1m2 0h5m4 0h7m1 0h1M2 20.5h1m1 0h1m1 0h1m1 0h3m2 0h2m1 0h1m3 0h3m1 0h2m1 0h3m1 0h1M0 21.5h3m1 0h1m3 0h1m5 0h2m1 0h2m4 0h1m2 0h1m2 0h2m1 0h1M0 22.5h1m1 0h1m1 0h1m1 0h2m2 0h3m1 0h4m2 0h1m1 0h1m1 0h1m3 0h4M0 23.5h1m3 0h2m1 0h1m3 0h5m2 0h1m2 0h1m3 0h6m1 0h1M0 24.5h1m3 0h1m1 0h2m1 0h1m3 0h1m1 0h1m1 0h1m4 0h7m2 0h2M8 25.5h2m1 0h2m1 0h1m1 0h1m1 0h4m2 0h1m3 0h1m1 0h1m1 0h1M0 26.5h7m4 0h1m1 0h4m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h2M0 27.5h1m5 0h1m1 0h1m1 0h5m1 0h1m3 0h5m3 0h5M0 28.5h1m1 0h3m1 0h1m1 0h5m1 0h1m3 0h2m1 0h1m2 0h6m1 0h2M0 29.5h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h2m3 0h3m1 0h2m2 0h1m3 0h1M0 30.5h1m1 0h3m1 0h1m1 0h3m1 0h2m3 0h3m1 0h7m1 0h2M0 31.5h1m5 0h1m2 0h1m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m2 0h3M0 32.5h7m1 0h7m2 0h1m1 0h1m2 0h4m1 0h1m3 0h1"/></svg>
+</div>
+          <div class="pfoot"><span class="t-name">emberry</span></div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Poster &amp; QR code</div><div class="d">Print it for the door or the counter. One scan opens the survey.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="email">
+        <div class="ehdr">From <b><span class="t-name">emberry</span></b><br>To: customers</div>
+        <div class="ebody">
+          …thanks again for stopping by. We'd love to know how we're doing.
+          <div class="sig">
+            <b class="elock"><span class="t-name">emberry</span></b>
+            <span class="who"><div class="r">The team</div></span>
+          </div>
+          <a class="ebtn" href="#">Share your feedback <span aria-hidden>→</span></a>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Email signature</div><div class="d">A friendly button on every email your team already sends.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="news">
+        <div class="nhead"><div class="k">Newsletter</div><div class="t">This month at <span class="t-name">emberry</span></div></div>
+        <div class="nbody">
+          <div class="line"></div><div class="line"></div><div class="line s"></div>
+          <div class="cta-box">
+            <div class="q">How are we doing?</div>
+            <a class="ebtn" href="#">Share your feedback <span aria-hidden>→</span></a>
+          </div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Newsletter</div><div class="d">Pop the feedback button into the email newsletter you already send.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="sms">
+        <div class="from"><span class="t-name">emberry</span></div>
+        <div class="bub">Hi! Thanks for stopping by. We'd love your quick feedback (takes a minute): <a href="#">share feedback</a></div>
+        <div class="bub me">Done, thanks! ⭐️⭐️⭐️⭐️⭐️</div>
+      </div></div>
+      <figcaption><div class="t">Text message</div><div class="d">Send the link by SMS, the surest way to get a reply.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="nfc"><img src="nfc.png" alt="feedback tag"></div></div>
+      <figcaption><div class="t">NFC tags</div><div class="d">Stick a tap-to-open tag around your facility. A phone tap opens the survey, no scanning needed.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="embed">
+        <div class="ebar"><span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span><span class="u">yourbusiness.com</span></div>
+        <div class="eview">
+          <div class="eline"></div><div class="eline"></div><div class="eline s"></div>
+          <div class="widget"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20l1.3-3.1A8.4 8.4 0 1 1 21 11.5z"/></svg> How are we doing?</div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">On your website</div><div class="d">A "How are we doing?" tab sits on your site, open for feedback any time.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="auto">
+        <span class="abadge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> Automatic</span>
+        <div class="row">
+          <div class="rail"><span class="dot"></span><span class="ln"></span></div>
+          <div class="tx"><b>A visit or order wraps up</b></div>
+        </div>
+        <div class="row">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="tx"><b>A day later</b>, an email and text send themselves
+            <div class="msg">How did we do? <a href="#">Share feedback →</a></div>
+          </div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Booking &amp; follow-ups</div><div class="d">Auto-send the link after a visit, a booking, or a follow-up.</div></figcaption>
+    </figure>
+
+    <figure class="ch">
+      <div class="ch-frame"><div class="social">
+        <div class="stop"><span class="av"><span class="t-mono">e</span><img class="t-logoimg" alt=""></span><div class="h"><div class="at"><span class="t-name">emberry</span></div><div class="meta">@<span class="t-name">emberry</span></div></div></div>
+        <div class="sbody">
+          <div class="bio">Link in bio 👇 we'd love your feedback.</div>
+          <div class="link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20l1.3-3.1A8.4 8.4 0 1 1 21 11.5z"/></svg> Share your feedback <span class="ar" aria-hidden>→</span></div>
+        </div>
+      </div></div>
+      <figcaption><div class="t">Social bio link</div><div class="d">Pop the link in your Instagram or Facebook bio.</div></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+
+
+
+
 <div class="endnote">
   <div class="card2">
     <span class="pill" style="margin-top:0"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg>&nbsp;Powered by emberry</span>
-    <p>Every screen above is the real emberry respondent flow, restyled live in your brand. The same colour and logo carry across kiosk, posters, email and your dashboard when you go live.</p>
+    <p>Everything above is the real emberry experience, restyled live in your brand &mdash; phone, kiosk, poster, email, SMS, NFC, website and social, plus the dashboard behind it.</p>
   </div>
 </div>
 
 <script>
 (function(){
   var root=document.documentElement;
-  var nameEl=document.getElementById('brandName');
-  var colorEl=document.getElementById('brandColor');
-  var hexEl=document.getElementById('hexVal');
-  var swatches=document.querySelectorAll('.swatch[data-c]');
-  var logoInput=document.getElementById('brandLogo');
-  var logoClear=document.getElementById('logoClear');
+  var nameEl=document.getElementById('brandName'),colorEl=document.getElementById('brandColor'),hexEl=document.getElementById('hexVal');
+  var swatches=document.querySelectorAll('.swatch[data-c]'),logoInput=document.getElementById('brandLogo'),logoClear=document.getElementById('logoClear');
   function h2hsl(H){var r,g,b;H=H.replace('#','');if(H.length===3){r=parseInt(H[0]+H[0],16);g=parseInt(H[1]+H[1],16);b=parseInt(H[2]+H[2],16);}else{r=parseInt(H.slice(0,2),16);g=parseInt(H.slice(2,4),16);b=parseInt(H.slice(4,6),16);}r/=255;g/=255;b/=255;var mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn,h=0,s=0,l=(mx+mn)/2;if(d){s=d/(1-Math.abs(2*l-1));if(mx===r)h=((g-b)/d)%6;else if(mx===g)h=(b-r)/d+2;else h=(r-g)/d+4;h*=60;if(h<0)h+=360;}return[h,s,l];}
   function hsl2h(h,s,l){var c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2,r=0,g=0,b=0;if(h<60){r=c;g=x;}else if(h<120){r=x;g=c;}else if(h<180){g=c;b=x;}else if(h<240){g=x;b=c;}else if(h<300){r=x;b=c;}else{r=c;b=x;}function f(v){return('0'+Math.round((v+m)*255).toString(16)).slice(-2);}return'#'+f(r)+f(g)+f(b);}
   function darken(hex,a){var p=h2hsl(hex);return hsl2h(p[0],p[1],Math.max(0,p[2]-a));}
@@ -1144,15 +1298,7 @@ body.has-logo .t-logoimg{display:block;}
     salon:{name:'Lumea Hair',color:'#8A4A86',who:'clients',area:'Service &amp; Care',q:'How happy are you with your visit?',chips:['Result','Stylist','Comfort','Value']}
   };
   var GENERAL={name:'emberry',color:'#F2542D',who:'customers',area:'Product &amp; Reliability',q:'How well does <span class="t-name">emberry</span> fit the way your team works?',chips:['Setup','Reliability','Reporting','Support']};
-  function applyVertical(v){
-    var d=v?VERT[v]:GENERAL;
-    document.getElementById('vArea').innerHTML=d.area;
-    document.getElementById('vQ').innerHTML=d.q;
-    document.getElementById('vChips').innerHTML=d.chips.map(function(c,i){return '<span class="fchip'+(i?'':' on')+'">'+c+'</span>';}).join('');
-    document.querySelectorAll('.t-who').forEach(function(e){e.textContent=d.who;});
-    nameEl.value=d.name;setName(d.name);setColor(d.color);
-    document.querySelectorAll('.vchip').forEach(function(c){c.classList.toggle('on',c.dataset.v===v);});
-  }
+  function applyVertical(v){var d=v?VERT[v]:GENERAL;document.getElementById('vArea').innerHTML=d.area;document.getElementById('vQ').innerHTML=d.q;document.getElementById('vChips').innerHTML=d.chips.map(function(c,i){return '<span class="fchip'+(i?'':' on')+'">'+c+'</span>';}).join('');document.querySelectorAll('.t-who').forEach(function(e){e.textContent=d.who;});nameEl.value=d.name;setName(d.name);setColor(d.color);document.querySelectorAll('.vchip').forEach(function(c){c.classList.toggle('on',c.dataset.v===v);});}
   function clearLogo(){document.body.classList.remove('has-logo');logoInput.value='';logoClear.hidden=true;}
   nameEl.addEventListener('input',function(){setName(nameEl.value);});
   colorEl.addEventListener('input',function(){setColor(colorEl.value);});
