@@ -49,7 +49,12 @@ body{
 }
 
 /* ---- page chrome ---------------------------------------------------- */
-.page-head{max-width:1100px;margin:0 auto;padding:56px 28px 8px;}
+.topbar{max-width:1100px;margin:0 auto;padding:32px 28px 2px;}
+.site-logo{display:inline-flex;align-items:center;gap:9px;text-decoration:none;}
+.site-logo svg{display:block;}
+.site-logo .wordmark{font-size:26px;line-height:1;}
+.site-logo:hover .wordmark{opacity:.8;}
+.page-head{max-width:1100px;margin:0 auto;padding:22px 28px 8px;}
 .page-eyebrow{
   font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--brand-muted);margin:0 0 14px;
@@ -483,6 +488,13 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 </head>
 <body>
 
+<div class="topbar">
+  <a class="site-logo" href="https://www.emberry.com.au/industries/aged-care" target="_blank" rel="noopener">
+    <svg width="28" height="28" viewBox="0 -4.07 120 120" aria-hidden="true"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg>
+    <span class="wordmark"><span class="e">e</span>mberry</span>
+  </a>
+</div>
+
 <header class="page-head">
   <p class="page-eyebrow">A preview for St Vincent's Care</p>
   <h1 class="page-title">A feedback experience, built for <b>St Vincent's Care</b>.</h1>
@@ -503,7 +515,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   <span class="chip"><span class="n">2</span>Add your name</span><span class="arrow">→</span>
   <span class="chip"><span class="n">3</span>Quick code</span><span class="arrow">→</span>
   <span class="chip"><span class="n">4</span>Choose how</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">5</span>Rate it</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">5</span>Rate</span><span class="arrow">→</span>
   <span class="chip"><span class="n">6</span>Recommend us</span><span class="arrow">→</span>
   <span class="chip"><span class="n">7</span>Add a comment</span><span class="arrow">→</span>
   <span class="chip"><span class="n">8</span>Stay private</span><span class="arrow">→</span>
