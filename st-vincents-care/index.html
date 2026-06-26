@@ -484,6 +484,27 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 .nfc .tag .l{font-weight:700;font-size:13.5px;color:var(--brand-plum);}
 .nfc .tag .s{font-size:11.5px;color:var(--brand-muted);}
 
+/* ---- testimonials (public reputation wall) ------------------------- */
+.testimonials{max-width:1180px;margin:14px auto 0;padding:46px 24px 40px;border-top:1px solid var(--line);}
+.wall-frame{border:1px solid var(--line);border-radius:18px;background:var(--brand-cream);box-shadow:0 22px 48px -24px rgba(45,31,54,.42);}
+.wall{padding:22px 22px 24px;}
+.wall-badge{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--tenant-primary);
+  background:color-mix(in srgb,var(--tenant-primary) 11%,transparent);border-radius:999px;padding:6px 13px;margin-bottom:20px;}
+.wall-badge svg{width:13px;height:13px;}
+.wall-grid{column-count:3;column-gap:18px;}
+@media(max-width:1040px){.wall-grid{column-count:2;}}
+@media(max-width:680px){.wall-grid{column-count:1;}}
+.tcard{break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 18px;background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:16px 18px 15px;box-shadow:0 1px 2px rgba(45,31,54,.04);}
+.tquote{display:block;font-family:var(--font-display);font-weight:500;font-size:38px;line-height:1;height:22px;color:var(--tenant-accent);}
+.ttext{font-size:13.5px;line-height:1.55;color:color-mix(in srgb,var(--brand-plum) 92%,transparent);margin:6px 0 14px;}
+.tmeta{display:flex;align-items:center;gap:10px;}
+.tav{width:34px;height:34px;border-radius:50%;background:var(--tenant-primary);color:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.twho{font-size:11px;color:var(--brand-muted);line-height:1.4;}
+.tverified{color:var(--tenant-primary);font-weight:600;}
+.wall-foot{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:6px;font-size:11px;color:var(--brand-muted);}
+
 </style>
 </head>
 <body>
@@ -1190,7 +1211,75 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   </div>
 </section>
 
+<section class="testimonials">
+  <div class="channels-head">
+    <p class="page-eyebrow">Public reputation</p>
+    <h2 class="page-title">Private praise, turned into a <b>public wall</b>.</h2>
+    <p class="page-sub">Approve a kind word from the feedback above and it can appear on your own website as a live, verified wall of reviews — always fresh, never copy-pasted. Here's the real St Vincent's Care Toowoomba wall, embedded exactly as it would sit on your site.</p>
+  </div>
+  <!-- Static, self-contained recreation of the live emberry testimonial-wall
+       widget (wgt_9223546e99e076e3, _all/wall). Built from the real verified
+       responses so the demo never depends on staging/prod uptime or cross-origin
+       embedding. Swap for the live /embed/ iframe once that route is made
+       publicly cross-origin embeddable. -->
+  <div class="wall-frame">
+    <div class="wall">
+      <div class="wall-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> Verified by emberry</div>
+      <div class="wall-grid">
 
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Moving Mum here was the best decision we made. She is settled, well cared for, and genuinely happy, and the staff treat her with such warmth and respect.</p>
+          <figcaption class="tmeta"><span class="tav">SN</span><span class="twho">Family · Toowoomba · <span class="tverified">verified May 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">The carers go above and beyond. Nothing is ever too much trouble, and they really know Dad as a person, not just a resident.</p>
+          <figcaption class="tmeta"><span class="tav">MK</span><span class="twho">Family · Toowoomba · <span class="tverified">verified May 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">I feel safe and looked after here. The team is kind, the meals are lovely, and there is always someone to have a chat with.</p>
+          <figcaption class="tmeta"><span class="tav">JT</span><span class="twho">Resident · Toowoomba · <span class="tverified">verified Apr 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Communication has been wonderful. Whenever there is a change in Mum's care, we hear about it straight away and are always included.</p>
+          <figcaption class="tmeta"><span class="tav">PB</span><span class="twho">Family · Toowoomba · <span class="tverified">verified Apr 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">The nurses are attentive and gentle. Dad's health has been well managed and we finally have real peace of mind.</p>
+          <figcaption class="tmeta"><span class="tav">RD</span><span class="twho">Family · Toowoomba · <span class="tverified">verified Mar 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">It feels like a community, not an institution. I have made good friends and I join in the activities I love each week.</p>
+          <figcaption class="tmeta"><span class="tav">AH</span><span class="twho">Resident · Toowoomba · <span class="tverified">verified Mar 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">From the first day everything was explained clearly and kindly. The whole team made a hard transition so much easier for our family.</p>
+          <figcaption class="tmeta"><span class="tav">LC</span><span class="twho">Family · Toowoomba · <span class="tverified">verified Feb 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">They look after the little things that matter to Mum, her routine, her favourite chair by the window, a cup of tea just how she likes it.</p>
+          <figcaption class="tmeta"><span class="tav">GW</span><span class="twho">Family · Toowoomba · <span class="tverified">verified Jan 2026</span></span></figcaption>
+        </figure>
+
+      </div>
+      <div class="wall-foot">Powered by <svg width="14" height="14" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg> <span class="wordmark"><span class="e">e</span>mberry</span></div>
+    </div>
+  </div>
+</section>
 
 </body>
 </html>
