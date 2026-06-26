@@ -505,9 +505,40 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 .tverified{color:var(--tenant-primary);font-weight:600;}
 .wall-foot{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:6px;font-size:11px;color:var(--brand-muted);}
 
+/* ---- side nav (desktop jump-to) ----------------------------------- */
+html{scroll-behavior:smooth;}
+#journey,#kiosk,#channels,#testimonials,#admin{scroll-margin-top:24px;}
+.sidenav{display:none;}
+.sidenav .sn-head{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brand-muted);margin:2px 11px 14px;}
+.sidenav a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:10px;
+  font-size:13px;font-weight:500;color:var(--brand-muted);text-decoration:none;line-height:1.25;}
+.sidenav a .sn-num{font-family:var(--font-mono);font-size:10px;color:var(--tenant-primary);opacity:.65;flex:none;}
+.sidenav a:hover{background:rgba(45,31,54,.05);color:var(--brand-plum);}
+.sidenav a.active{background:color-mix(in srgb,var(--tenant-primary) 12%,transparent);color:var(--tenant-primary);font-weight:600;}
+.sidenav a.active .sn-num{opacity:1;}
+.sidenav a.disabled{color:color-mix(in srgb,var(--brand-muted) 55%,transparent);pointer-events:none;}
+.sidenav a .sn-soon{margin-left:auto;font-family:var(--font-mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(45,31,54,.06);color:var(--brand-muted);border-radius:999px;padding:2px 6px;}
+@media(min-width:1200px){
+  body{padding-left:212px;}
+  .sidenav{display:flex;flex-direction:column;gap:2px;position:fixed;top:0;left:0;width:212px;height:100vh;
+    padding:30px 16px;border-right:1px solid var(--line);background:rgba(255,255,255,.5);
+    -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);z-index:50;overflow-y:auto;}
+}
+
 </style>
 </head>
 <body>
+
+<nav class="sidenav" aria-label="Jump to section">
+  <div class="sn-head">St Vincent's preview</div>
+  <a href="#journey"><span class="sn-num">01</span> Survey journey</a>
+  <a href="#kiosk"><span class="sn-num">02</span> Kiosk preview</a>
+  <a href="#channels"><span class="sn-num">03</span> More ways to ask</a>
+  <a href="#testimonials"><span class="sn-num">04</span> Testimonials</a>
+  <a href="#admin"><span class="sn-num">05</span> User admin</a>
+</nav>
 
 <div class="topbar">
   <a class="site-logo" href="https://www.emberry.com.au/industries/aged-care" target="_blank" rel="noopener">
@@ -526,7 +557,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   </p>
 </header>
 
-<div class="channels-head" style="margin:34px auto 20px">
+<div class="channels-head" id="journey" style="margin:34px auto 20px">
   <p class="page-eyebrow">On their phone</p>
   <h2 class="page-title">The whole journey, in under a minute.</h2>
 </div>
@@ -1048,7 +1079,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 
 </main>
 
-<section class="kiosk">
+<section class="kiosk" id="kiosk">
   <div class="kiosk-head">
     <p class="page-eyebrow">On-site · kiosk mode</p>
     <h2 class="page-title">An <b>iPad at the door</b>, on a loop.</h2>
@@ -1102,7 +1133,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   </div>
 </section>
 
-<section class="channels">
+<section class="channels" id="channels">
   <div class="channels-head">
     <p class="page-eyebrow">More ways to ask</p>
     <h2 class="page-title">One survey, everywhere your families are.</h2>
@@ -1211,11 +1242,11 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   </div>
 </section>
 
-<section class="testimonials">
+<section class="testimonials" id="testimonials">
   <div class="channels-head">
     <p class="page-eyebrow">Public reputation</p>
     <h2 class="page-title">Private praise, turned into a <b>public wall</b>.</h2>
-    <p class="page-sub">Nothing here is published without permission. At the end of the survey, every resident or family can give an optional okay to share their words publicly — first name only — and only those replies become this live, verified wall of reviews on your own website: always fresh, never copy-pasted. Here's the real St Vincent's Care Toowoomba wall, shown exactly as it would sit on your site.</p>
+    <p class="page-sub">Nothing here is published without permission. At the end of the survey, every resident or family can give an optional okay to share their words publicly — first name only — and only those replies become this live, verified wall of reviews on your own website: always fresh, never copy-pasted. Here's a mock-up of the St Vincent's Care Toowoomba wall using test data, shown exactly as it would sit on your site.</p>
   </div>
   <!-- Static, self-contained recreation of the live emberry testimonial-wall
        widget (wgt_9223546e99e076e3, _all/wall). Built from the real verified
@@ -1281,5 +1312,50 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   </div>
 </section>
 
+<section class="admin" id="admin">
+  <div class="admin-head">
+    <p class="page-eyebrow">Behind the scenes</p>
+    <h2 class="page-title">And here's what <b>your team</b> sees.</h2>
+    <p class="page-sub">Every response flows into one simple admin view — no spreadsheets, no setup. This is the St Vincent's Care Toowoomba dashboard, shown with test data.</p>
+  </div>
+  <div class="admin-gallery">
+    <figure class="shot hero">
+      <div class="browser">
+        <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview</span></div>
+        <div class="browser-view"><img src="admin/regulator.png" alt="Your results against the Aged Care Quality Standards" loading="lazy"></div>
+      </div>
+      <figcaption><div class="t">Your results, against the standards</div><div class="d">Every response rolls up into one clear score against the Aged Care Quality Standards, then breaks down by standard so you can see exactly where you're strong and where to focus.</div></figcaption>
+    </figure>
+    <figure class="shot hero">
+      <div class="browser">
+        <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview</span></div>
+        <div class="browser-view"><img src="admin/overview.png" alt="The big picture" loading="lazy"></div>
+      </div>
+      <figcaption><div class="t">The big picture</div><div class="d">Your headline score, how many residents and families replied, and how the home is tracking — all at a glance.</div></figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+(function(){
+  var links = [].slice.call(document.querySelectorAll('.sidenav a[href^="#"]'));
+  var targets = links.map(function(a){
+    var el = document.getElementById(a.getAttribute('href').slice(1));
+    return el ? { a: a, el: el } : null;
+  }).filter(Boolean);
+  if(!targets.length) return;
+  function spy(){
+    var y = window.scrollY + 140, cur = targets[0];
+    for(var i=0;i<targets.length;i++){
+      if(targets[i].el.getBoundingClientRect().top + window.scrollY <= y) cur = targets[i];
+    }
+    links.forEach(function(a){ a.classList.remove('active'); });
+    cur.a.classList.add('active');
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
+})();
+</script>
 </body>
 </html>
