@@ -527,6 +527,68 @@ html{scroll-behavior:smooth;}
     -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);z-index:50;overflow-y:auto;}
 }
 
+/* ---- one-line section headings (channels + testimonials) ---- */
+@media(min-width:760px){
+  #channels .page-title,#testimonials .page-title{white-space:nowrap;font-size:clamp(24px,2.9vw,35px);}
+}
+
+/* ---- survey-journey carousel: one phone + prev/next arrows ---- */
+.caro{position:relative;width:328px;max-width:100%;margin:0 auto;padding:10px 0 66px;}
+.caro .gallery{padding:0;margin:0;min-height:0;display:block;}
+.gallery .frame{display:none;}
+.gallery .frame.on{display:flex;animation:caroIn .28s ease;}
+@keyframes caroIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.caro-nav{position:absolute;top:328px;z-index:6;width:50px;height:50px;border-radius:50%;
+  border:1px solid var(--line-2);background:rgba(255,255,255,.9);color:var(--brand-plum);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 8px 20px -8px rgba(45,31,54,.35);transition:border-color .16s,color .16s,transform .12s;}
+.caro-nav svg{width:22px;height:22px;}
+.caro-nav.prev{left:-70px;}
+.caro-nav.next{right:-70px;}
+.caro-nav:hover{border-color:var(--tenant-primary);color:var(--tenant-primary);}
+.caro-nav:active{transform:scale(.94);}
+@media(max-width:520px){
+  .caro-nav.prev{left:4px;} .caro-nav.next{right:4px;}
+  .caro-nav{width:44px;height:44px;background:rgba(255,255,255,.82);}
+}
+
+/* ---- flow legend doubles as an active-step indicator ---- */
+.legend .chip{cursor:pointer;transition:background .16s,border-color .16s,color .16s;}
+.legend .chip:hover{border-color:var(--tenant-primary);}
+.legend .chip.on{background:var(--tenant-primary);border-color:var(--tenant-primary);color:#fff;}
+.legend .chip.on .n{color:#fff;}
+
+/* ---- caption to the right of the phone ---- */
+.gallery .frame.on{flex-direction:row;align-items:center;justify-content:center;gap:40px;text-align:left;width:auto;}
+.caro{width:fit-content;}
+.caro .iphone{flex:none;}
+.caro .cap{margin:0;text-align:left;flex:none;width:290px;max-width:290px;}
+@media(max-width:720px){
+  .gallery .frame.on{flex-direction:column;text-align:center;gap:16px;width:328px;}
+  .caro .cap{text-align:center;margin-top:2px;width:auto;max-width:300px;}
+  .caro{width:328px;}
+}
+
+/* ---- orange mock-data pill (data-bearing images) ---- */
+.mockpill{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.07em;
+  text-transform:uppercase;font-weight:700;color:#fff;background:#E4852E;border-radius:999px;padding:5px 11px;white-space:nowrap;}
+.wall-badges{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:20px;}
+.wall-badges .wall-badge{margin-bottom:0;}
+.browser{position:relative;}
+.browser .mockpill{position:absolute;top:52px;right:16px;z-index:5;box-shadow:0 6px 16px -4px rgba(45,31,54,.45);}
+
+/* ---- kiosk iPad: manual carousel (arrows + dots), gentle auto-loop ---- */
+.kscene{animation:none;transition:opacity .35s ease;pointer-events:none;}
+.kscene.on{opacity:1;pointer-events:auto;}
+.kdots i{animation:none;cursor:pointer;}
+.kdots i.on{background:var(--tenant-primary);}
+.kreset > i{animation:none;width:55%;}
+.kstage{position:relative;display:flex;justify-content:center;width:fit-content;max-width:100%;margin:0 auto;}
+.kstage .caro-nav{top:calc(50% - 25px);}
+.kstage .kprev{left:-70px;}
+.kstage .knext{right:-70px;}
+@media(max-width:520px){ .kstage .kprev{left:2px;} .kstage .knext{right:2px;} }
+
 </style>
 </head>
 <body>
@@ -574,6 +636,8 @@ html{scroll-behavior:smooth;}
   <span class="chip"><span class="n">9</span>Thank you</span>
 </nav>
 
+<div class="caro">
+<button class="caro-nav prev" type="button" aria-label="Previous screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
 <main class="gallery">
 
 <!-- ============================================================== 1 · WELCOME -->
@@ -1078,6 +1142,8 @@ html{scroll-behavior:smooth;}
 </div>
 
 </main>
+<button class="caro-nav next" type="button" aria-label="Next screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
 
 <section class="kiosk" id="kiosk">
   <div class="kiosk-head">
@@ -1087,6 +1153,8 @@ html{scroll-behavior:smooth;}
       It stays anonymous, takes seconds, and resets itself after every response, ready for the next person.</p>
   </div>
   <div class="ipad-wrap">
+    <div class="kstage">
+    <button class="caro-nav kprev" type="button" aria-label="Previous scene"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
     <div class="ipad">
       <div class="ipad-cam"></div>
       <div class="ipad-screen">
@@ -1127,6 +1195,8 @@ html{scroll-behavior:smooth;}
           <p style="margin-top:10px;font-size:12px">Starting over…</p>
         </div>
       </div>
+    </div>
+    <button class="caro-nav knext" type="button" aria-label="Next scene"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
     <div class="kdots"><i></i><i></i><i></i></div>
     <p class="admin-foot" style="margin-top:8px">Hands-free: welcome → rate → thank you → reset, looping for the next person.</p>
@@ -1255,7 +1325,10 @@ html{scroll-behavior:smooth;}
        publicly cross-origin embeddable. -->
   <div class="wall-frame">
     <div class="wall">
-      <div class="wall-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> Verified by emberry</div>
+      <div class="wall-badges">
+        <span class="wall-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> Verified by emberry</span>
+        <span class="mockpill">Mock data</span>
+      </div>
       <div class="wall-grid">
 
         <figure class="tcard">
@@ -1322,6 +1395,7 @@ html{scroll-behavior:smooth;}
     <figure class="shot hero">
       <div class="browser">
         <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview</span></div>
+        <span class="mockpill">Mock data</span>
         <div class="browser-view"><img src="admin/regulator.png" alt="Your results against the Aged Care Quality Standards" loading="lazy"></div>
       </div>
       <figcaption><div class="t">Your results, against the standards</div><div class="d">Every response rolls up into one clear score against the Aged Care Quality Standards, then breaks down by standard so you can see exactly where you're strong and where to focus.</div></figcaption>
@@ -1329,6 +1403,7 @@ html{scroll-behavior:smooth;}
     <figure class="shot hero">
       <div class="browser">
         <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview</span></div>
+        <span class="mockpill">Mock data</span>
         <div class="browser-view"><img src="admin/overview.png" alt="The big picture" loading="lazy"></div>
       </div>
       <figcaption><div class="t">The big picture</div><div class="d">Your headline score, how many residents and families replied, and how the home is tracking — all at a glance.</div></figcaption>
@@ -1355,6 +1430,58 @@ html{scroll-behavior:smooth;}
   window.addEventListener('scroll', spy, { passive: true });
   window.addEventListener('resize', spy);
   spy();
+})();
+</script>
+<script>
+/* survey-journey carousel: one phone at a time, arrows + legend chips */
+(function(){
+  var gallery = document.querySelector('.caro .gallery');
+  if(!gallery) return;
+  var frames = [].slice.call(gallery.querySelectorAll('.frame'));
+  var chips  = [].slice.call(document.querySelectorAll('.legend .chip'));
+  var prev = document.querySelector('.caro-nav.prev');
+  var next = document.querySelector('.caro-nav.next');
+  if(!frames.length) return;
+  var i = 0;
+  function show(n){
+    i = (n + frames.length) % frames.length;
+    frames.forEach(function(f,k){ f.classList.toggle('on', k===i); });
+    chips.forEach(function(c,k){ c.classList.toggle('on', k===i); });
+  }
+  if(prev) prev.addEventListener('click', function(){ show(i-1); });
+  if(next) next.addEventListener('click', function(){ show(i+1); });
+  chips.forEach(function(c,k){
+    c.setAttribute('role','button'); c.tabIndex = 0;
+    c.addEventListener('click', function(){ show(k); });
+    c.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); show(k); } });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
+    var r = gallery.getBoundingClientRect();
+    if(r.bottom < 60 || r.top > (window.innerHeight - 60)) return;
+    if(e.key==='ArrowLeft') show(i-1); else show(i+1);
+  });
+  show(0);
+})();
+/* kiosk iPad carousel: arrows + clickable dots, gentle auto-loop */
+(function(){
+  var scenes = [].slice.call(document.querySelectorAll('.kscene'));
+  var dots   = [].slice.call(document.querySelectorAll('.kdots i'));
+  var kprev  = document.querySelector('.kprev');
+  var knext  = document.querySelector('.knext');
+  if(!scenes.length) return;
+  var k = 0, timer;
+  function kshow(n){
+    k = (n + scenes.length) % scenes.length;
+    scenes.forEach(function(s,i){ s.classList.toggle('on', i===k); });
+    dots.forEach(function(d,i){ d.classList.toggle('on', i===k); });
+  }
+  function start(){ timer = setInterval(function(){ kshow(k+1); }, 4200); }
+  function bump(){ clearInterval(timer); start(); }
+  if(kprev) kprev.addEventListener('click', function(){ kshow(k-1); bump(); });
+  if(knext) knext.addEventListener('click', function(){ kshow(k+1); bump(); });
+  dots.forEach(function(d,i){ d.addEventListener('click', function(){ kshow(i); bump(); }); });
+  kshow(0); start();
 })();
 </script>
 </body>
