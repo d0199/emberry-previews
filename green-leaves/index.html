@@ -23,9 +23,9 @@
   --ok:#4F9D7C; --warn:#D9893E; --danger:#B84A4A; --info:#6B7AB8;
   --ember:#F2542D; --rasp:#C42348; --rasp-light:#E14A6E; --rasp-dark:#A81C3C;
 
-  /* tenant white-label — Green Leaves Early Learning (official brand) */
-  --tenant-primary:#7eb847;
-  --tenant-accent:#79cfcc;
+  /* tenant white-label — Green Leaves (childcare · official brand) */
+  --tenant-primary:#7BBB42;
+  --tenant-accent:#7CC7BE;
   --tenant-on:#FAF6F0;
   --survey-text-accent:var(--tenant-primary);
   --survey-widget-active:var(--tenant-primary);
@@ -49,7 +49,12 @@ body{
 }
 
 /* ---- page chrome ---------------------------------------------------- */
-.page-head{max-width:1100px;margin:0 auto;padding:56px 28px 8px;}
+.topbar{max-width:1100px;margin:0 auto;padding:32px 28px 2px;}
+.site-logo{display:inline-flex;align-items:center;gap:9px;text-decoration:none;}
+.site-logo svg{display:block;}
+.site-logo .wordmark{font-size:26px;line-height:1;}
+.site-logo:hover .wordmark{opacity:.8;}
+.page-head{max-width:1100px;margin:0 auto;padding:22px 28px 8px;}
 .page-eyebrow{
   font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--brand-muted);margin:0 0 14px;
@@ -479,21 +484,143 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 .nfc .tag .l{font-weight:700;font-size:13.5px;color:var(--brand-plum);}
 .nfc .tag .s{font-size:11.5px;color:var(--brand-muted);}
 
+/* ---- testimonials (public reputation wall) ------------------------- */
+.testimonials{max-width:1180px;margin:14px auto 0;padding:46px 24px 40px;border-top:1px solid var(--line);}
+.wall-frame{border:1px solid var(--line);border-radius:18px;background:var(--brand-cream);box-shadow:0 22px 48px -24px rgba(45,31,54,.42);}
+.wall{padding:22px 22px 24px;}
+.wall-badge{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--tenant-primary);
+  background:color-mix(in srgb,var(--tenant-primary) 11%,transparent);border-radius:999px;padding:6px 13px;margin-bottom:20px;}
+.wall-badge svg{width:13px;height:13px;}
+.wall-grid{column-count:3;column-gap:18px;}
+@media(max-width:1040px){.wall-grid{column-count:2;}}
+@media(max-width:680px){.wall-grid{column-count:1;}}
+.tcard{break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 18px;background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:16px 18px 15px;box-shadow:0 1px 2px rgba(45,31,54,.04);}
+.tquote{display:block;font-family:var(--font-display);font-weight:500;font-size:38px;line-height:1;height:22px;color:var(--tenant-accent);}
+.ttext{font-size:13.5px;line-height:1.55;color:color-mix(in srgb,var(--brand-plum) 92%,transparent);margin:6px 0 14px;}
+.tmeta{display:flex;align-items:center;gap:10px;}
+.tav{width:34px;height:34px;border-radius:50%;background:var(--tenant-primary);color:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.twho{font-size:11px;color:var(--brand-muted);line-height:1.4;}
+.tverified{color:var(--tenant-primary);font-weight:600;}
+.wall-foot{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:6px;font-size:11px;color:var(--brand-muted);}
+
+/* ---- side nav (desktop jump-to) ----------------------------------- */
+html{scroll-behavior:smooth;}
+#journey,#kiosk,#channels,#testimonials,#admin{scroll-margin-top:24px;}
+.sidenav{display:none;}
+.sidenav .sn-head{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brand-muted);margin:2px 11px 14px;}
+.sidenav a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:10px;
+  font-size:13px;font-weight:500;color:var(--brand-muted);text-decoration:none;line-height:1.25;}
+.sidenav a .sn-num{font-family:var(--font-mono);font-size:10px;color:var(--tenant-primary);opacity:.65;flex:none;}
+.sidenav a:hover{background:rgba(45,31,54,.05);color:var(--brand-plum);}
+.sidenav a.active{background:color-mix(in srgb,var(--tenant-primary) 12%,transparent);color:var(--tenant-primary);font-weight:600;}
+.sidenav a.active .sn-num{opacity:1;}
+.sidenav a.disabled{color:color-mix(in srgb,var(--brand-muted) 55%,transparent);pointer-events:none;}
+.sidenav a .sn-soon{margin-left:auto;font-family:var(--font-mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(45,31,54,.06);color:var(--brand-muted);border-radius:999px;padding:2px 6px;}
+@media(min-width:1200px){
+  body{padding-left:212px;}
+  .sidenav{display:flex;flex-direction:column;gap:2px;position:fixed;top:0;left:0;width:212px;height:100vh;
+    padding:30px 16px;border-right:1px solid var(--line);background:rgba(255,255,255,.5);
+    -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);z-index:50;overflow-y:auto;}
+}
+
+/* ---- one-line section headings (channels + testimonials) ---- */
+@media(min-width:760px){
+  #channels .page-title,#testimonials .page-title{white-space:nowrap;font-size:clamp(24px,2.9vw,35px);}
+}
+
+/* ---- survey-journey carousel: one phone + prev/next arrows ---- */
+.caro{position:relative;width:328px;max-width:100%;margin:0 auto;padding:10px 0 66px;}
+.caro .gallery{padding:0;margin:0;min-height:0;display:block;}
+.gallery .frame{display:none;}
+.gallery .frame.on{display:flex;animation:caroIn .28s ease;}
+@keyframes caroIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.caro-nav{position:absolute;top:328px;z-index:6;width:50px;height:50px;border-radius:50%;
+  border:1px solid var(--line-2);background:rgba(255,255,255,.9);color:var(--brand-plum);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 8px 20px -8px rgba(45,31,54,.35);transition:border-color .16s,color .16s,transform .12s;}
+.caro-nav svg{width:22px;height:22px;}
+.caro-nav.prev{left:-70px;}
+.caro-nav.next{right:-70px;}
+.caro-nav:hover{border-color:var(--tenant-primary);color:var(--tenant-primary);}
+.caro-nav:active{transform:scale(.94);}
+@media(max-width:520px){
+  .caro-nav.prev{left:4px;} .caro-nav.next{right:4px;}
+  .caro-nav{width:44px;height:44px;background:rgba(255,255,255,.82);}
+}
+
+/* ---- flow legend doubles as an active-step indicator ---- */
+.legend .chip{cursor:pointer;transition:background .16s,border-color .16s,color .16s;}
+.legend .chip:hover{border-color:var(--tenant-primary);}
+.legend .chip.on{background:var(--tenant-primary);border-color:var(--tenant-primary);color:#fff;}
+.legend .chip.on .n{color:#fff;}
+
+/* ---- caption to the right of the phone ---- */
+.gallery .frame.on{flex-direction:row;align-items:center;justify-content:center;gap:40px;text-align:left;width:auto;}
+.caro{width:fit-content;}
+.caro .iphone{flex:none;}
+.caro .cap{margin:0;text-align:left;flex:none;width:290px;max-width:290px;}
+@media(max-width:720px){
+  .gallery .frame.on{flex-direction:column;text-align:center;gap:16px;width:328px;}
+  .caro .cap{text-align:center;margin-top:2px;width:auto;max-width:300px;}
+  .caro{width:328px;}
+}
+
+/* ---- orange mock-data pill (data-bearing images) ---- */
+.mockpill{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.07em;
+  text-transform:uppercase;font-weight:700;color:#fff;background:#E4852E;border-radius:999px;padding:5px 11px;white-space:nowrap;}
+.wall-badges{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:20px;}
+.wall-badges .wall-badge{margin-bottom:0;}
+.browser{position:relative;}
+.browser .mockpill{position:absolute;top:52px;right:16px;z-index:5;box-shadow:0 6px 16px -4px rgba(45,31,54,.45);}
+
+/* ---- kiosk iPad: manual carousel (arrows + dots), gentle auto-loop ---- */
+.kscene{animation:none;transition:opacity .35s ease;pointer-events:none;}
+.kscene.on{opacity:1;pointer-events:auto;}
+.kdots i{animation:none;cursor:pointer;}
+.kdots i.on{background:var(--tenant-primary);}
+.kreset > i{animation:none;width:55%;}
+.kstage{position:relative;display:flex;justify-content:center;width:fit-content;max-width:100%;margin:0 auto;}
+.kstage .caro-nav{top:calc(50% - 25px);}
+.kstage .kprev{left:-70px;}
+.kstage .knext{right:-70px;}
+@media(max-width:520px){ .kstage .kprev{left:2px;} .kstage .knext{right:2px;} }
+
 </style>
 </head>
 <body>
 
+<nav class="sidenav" aria-label="Jump to section">
+  <div class="sn-head">Green Leaves preview</div>
+  <a href="#journey"><span class="sn-num">01</span> Survey journey</a>
+  <a href="#kiosk"><span class="sn-num">02</span> Kiosk preview</a>
+  <a href="#channels"><span class="sn-num">03</span> More ways to ask</a>
+  <a href="#testimonials"><span class="sn-num">04</span> Testimonials</a>
+  <a href="#admin"><span class="sn-num">05</span> User admin</a>
+</nav>
+
+<div class="topbar">
+  <a class="site-logo" href="https://www.emberry.com.au/industries/childcare" target="_blank" rel="noopener">
+    <svg width="28" height="28" viewBox="0 -4.07 120 120" aria-hidden="true"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg>
+    <span class="wordmark"><span class="e">e</span>mberry</span>
+  </a>
+</div>
+
 <header class="page-head">
+  <img class="tenant-logo" src="logo.svg" alt="Green Leaves Early Learning" style="height:46px;width:auto;display:block;margin:0 0 20px" />
   <p class="page-eyebrow">A preview for Green Leaves</p>
   <h1 class="page-title">A feedback experience, built for <b>Green Leaves</b>.</h1>
   <p class="page-sub">
     This is exactly what your families see when they share feedback, and what your team
     gets back, all in your own colours and logo. Take a scroll: the survey on a phone, a kiosk for
-    the front desk, the easy ways to share it, and the dashboard behind it all.
+    the front desk, the easy ways to share it.
   </p>
 </header>
 
-<div class="channels-head" style="margin:34px auto 20px">
+<div class="channels-head" id="journey" style="margin:34px auto 20px">
   <p class="page-eyebrow">On their phone</p>
   <h2 class="page-title">The whole journey, in under a minute.</h2>
 </div>
@@ -503,13 +630,15 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   <span class="chip"><span class="n">2</span>Add your name</span><span class="arrow">→</span>
   <span class="chip"><span class="n">3</span>Quick code</span><span class="arrow">→</span>
   <span class="chip"><span class="n">4</span>Choose how</span><span class="arrow">→</span>
-  <span class="chip"><span class="n">5</span>Rate it</span><span class="arrow">→</span>
+  <span class="chip"><span class="n">5</span>Rate</span><span class="arrow">→</span>
   <span class="chip"><span class="n">6</span>Recommend us</span><span class="arrow">→</span>
   <span class="chip"><span class="n">7</span>Add a comment</span><span class="arrow">→</span>
   <span class="chip"><span class="n">8</span>Stay private</span><span class="arrow">→</span>
   <span class="chip"><span class="n">9</span>Thank you</span>
 </nav>
 
+<div class="caro">
+<button class="caro-nav prev" type="button" aria-label="Previous screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
 <main class="gallery">
 
 <!-- ============================================================== 1 · WELCOME -->
@@ -530,7 +659,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
         <div class="app-header">
           <div class="brand">
             <span class="mark">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg>
+              <img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" />
             </span>
             <span class="legal">Green Leaves</span>
           </div>
@@ -591,7 +720,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <div class="brand"><span class="mark"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span><span class="legal">Green Leaves</span></div>
           <span class="site-label">Clarkson · Feedback</span>
         </div>
         <div class="app-body">
@@ -646,7 +775,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <div class="brand"><span class="mark"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span><span class="legal">Green Leaves</span></div>
           <span class="site-label">Clarkson · Feedback</span>
         </div>
         <div class="app-body">
@@ -697,7 +826,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <div class="brand"><span class="mark"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span><span class="legal">Green Leaves</span></div>
           <span class="site-label">Clarkson · Feedback</span>
         </div>
         <div class="app-body">
@@ -752,7 +881,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <div class="brand"><span class="mark"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span><span class="legal">Green Leaves</span></div>
           <span class="site-label">Clarkson · Feedback</span>
         </div>
         <div class="app-body">
@@ -764,10 +893,10 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
           <p class="sending">Sending as <b>Sarah</b> · only <b>the Green Leaves Clarkson team</b> will see this.</p>
 
           <div class="stars">
-            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#472f92" stroke="#472f92" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#472f92" stroke="#472f92" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#472f92" stroke="#472f92" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#472f92" stroke="#472f92" stroke-width="1.5" stroke-linejoin="round"/></svg>
             <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="none" stroke="#9B92A0" stroke-width="1.5" stroke-linejoin="round"/></svg>
           </div>
 
@@ -808,7 +937,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <div class="brand"><span class="mark"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span><span class="legal">Green Leaves</span></div>
           <span class="site-label">Clarkson · Feedback</span>
         </div>
         <div class="app-body">
@@ -873,7 +1002,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <div class="brand"><span class="mark"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span><span class="legal">Green Leaves</span></div>
           <span class="site-label">Clarkson · Feedback</span>
         </div>
         <div class="app-body">
@@ -923,7 +1052,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <div class="brand"><span class="mark"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span><span class="legal">Green Leaves</span></div>
           <span class="site-label">Clarkson · Feedback</span>
         </div>
         <div class="app-body">
@@ -977,7 +1106,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       </div>
       <div class="app">
         <div class="app-header">
-          <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><span class="legal">Green Leaves</span></div>
+          <div class="brand"><span class="mark"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span><span class="legal">Green Leaves</span></div>
           <span class="site-label">Clarkson · Feedback</span>
         </div>
         <div class="app-body center">
@@ -987,11 +1116,11 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 
           <div class="booster">
             <p class="eyebrow" style="margin-bottom:6px">Optional</p>
-            <h3 class="disp h3" style="margin-bottom:6px">Help others find <b>Green Leaves</b>?</h3>
-            <p class="body" style="color:var(--brand-muted);font-size:13px;line-height:1.55;margin:0 0 14px">If you'd like to also share a public review, it really helps other families. This is separate from your private feedback above.</p>
+            <h3 class="disp h3" style="margin-bottom:6px">Happy for us to share your words?</h3>
+            <p class="body" style="color:var(--brand-muted);font-size:13px;line-height:1.55;margin:0 0 14px">With your okay, the team can feature your feedback — first name only — on the Green Leaves reviews wall. It really helps other families. Always optional, you can withdraw any time, and it's separate from your private feedback above.</p>
             <span class="pill" style="margin-top:0">
-              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#fff" d="M21.35 11.1h-9.17v2.92h5.27c-.23 1.4-1.6 4.1-5.27 4.1-3.17 0-5.76-2.62-5.76-5.85s2.59-5.85 5.76-5.85c1.8 0 3.01.77 3.7 1.43l2.52-2.43C16.9 5.5 14.76 4.6 12.18 4.6 7.5 4.6 3.7 8.4 3.7 13.1s3.8 8.5 8.48 8.5c4.9 0 8.14-3.44 8.14-8.29 0-.56-.06-.98-.97-2.21z"/></svg>
-              Leave a Google review <span aria-hidden>→</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Yes, you can feature my words <span aria-hidden>→</span>
             </span>
           </div>
 
@@ -1008,32 +1137,36 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   <div class="cap">
     <div class="step">Screen 9</div>
     <div class="name">A warm thank you</div>
-    <div class="desc">A friendly thank you, plus an optional nudge to leave a public Google review.</div>
+    <div class="desc">A friendly thank you, plus the optional opt-in that authorises a review for your public wall.</div>
     <span class="cap path both">Every path</span>
   </div>
 </div>
 
 </main>
+<button class="caro-nav next" type="button" aria-label="Next screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
 
-<section class="kiosk">
+<section class="kiosk" id="kiosk">
   <div class="kiosk-head">
     <p class="page-eyebrow">On-site · kiosk mode</p>
     <h2 class="page-title">An <b>iPad at the door</b>, on a loop.</h2>
-    <p class="page-sub">The same survey, set to kiosk mode for an unattended tablet at reception or pickup.
+    <p class="page-sub">The same survey, set to kiosk mode for an unattended tablet at reception or the main entrance.
       It stays anonymous, takes seconds, and resets itself after every response, ready for the next person.</p>
   </div>
   <div class="ipad-wrap">
+    <div class="kstage">
+    <button class="caro-nav kprev" type="button" aria-label="Previous scene"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
     <div class="ipad">
       <div class="ipad-cam"></div>
       <div class="ipad-screen">
         <div class="kbar">
-          <span class="b"><span class="m"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span>Green Leaves</span>
+          <span class="b"><span class="m"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span>Green Leaves</span>
           <span class="tag">Kiosk · Clarkson</span>
         </div>
 
         <!-- Scene 1 · welcome -->
         <div class="kscene">
-          <span class="klogo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span>
+          <span class="klogo"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span>
           <p class="keyebrow">Green Leaves Clarkson</p>
           <h2>How are we doing?</h2>
           <p>Tap to share quick, private feedback with the Green Leaves Clarkson team. Takes less than a minute.</p>
@@ -1045,10 +1178,10 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
           <p class="keyebrow">Educators & Care</p>
           <h2>How was everything today?</h2>
           <div class="kstars">
-            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#7eb847" stroke="#7eb847" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#472f92" stroke="#472f92" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#472f92" stroke="#472f92" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#472f92" stroke="#472f92" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="#472f92" stroke="#472f92" stroke-width="1.5" stroke-linejoin="round"/></svg>
             <svg viewBox="0 0 24 24"><path d="M12 17.27l5.18 3.13-1.37-5.89L20.5 9.74l-6.04-.52L12 3.5 9.54 9.22 3.5 9.74l4.68 4.77-1.37 5.89L12 17.27z" fill="none" stroke="#9B92A0" stroke-width="1.5" stroke-linejoin="round"/></svg>
           </div>
           <p>Tap a star. No name needed.</p>
@@ -1064,17 +1197,19 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
         </div>
       </div>
     </div>
+    <button class="caro-nav knext" type="button" aria-label="Next scene"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
     <div class="kdots"><i></i><i></i><i></i></div>
     <p class="admin-foot" style="margin-top:8px">Hands-free: welcome → rate → thank you → reset, looping for the next person.</p>
   </div>
 </section>
 
-<section class="channels">
+<section class="channels" id="channels">
   <div class="channels-head">
     <p class="page-eyebrow">More ways to ask</p>
     <h2 class="page-title">One survey, everywhere your families are.</h2>
     <p class="page-sub">It's the same link behind everything below. Print it, tap it, email it, or text it,
-      whatever fits the moment. Every response lands in the one dashboard.</p>
+      whatever fits the moment. Every response lands in the one dashboard. <b>The links and QR shown here are a sample</b>, live once Green Leaves&rsquo; survey link is set up.</p>
   </div>
   <div class="ch-grid">
 
@@ -1082,11 +1217,10 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
       <div class="ch-frame"><div class="poster">
         <div class="pband"></div>
         <div class="pinner">
-          <div class="plogo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></div>
+          <div class="plogo"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></div>
           <h3>How did we do?</h3>
           <p class="psub">Scan to share quick,<br>private feedback.</p>
-          <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h33v33H0z"/><path stroke="#2D1F36" d="M0 0.5h7m2 0h2m2 0h2m1 0h1m2 0h2m2 0h1m2 0h7M0 1.5h1m5 0h1m4 0h6m4 0h2m3 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h4m2 0h1m1 0h3m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h1m3 0h1m2 0h1m2 0h2m3 0h1m2 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h3m3 0h5m1 0h1m1 0h1m3 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h5m1 0h2m2 0h4M0 8.5h1m1 0h5m3 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h5M1 9.5h2m4 0h1m2 0h2m4 0h1m2 0h3m1 0h1m2 0h2m1 0h2m1 0h1M1 10.5h2m2 0h2m1 0h1m1 0h2m3 0h1m4 0h1m7 0h1m1 0h2M0 11.5h5m2 0h1m1 0h1m4 0h1m1 0h1m1 0h1m1 0h4m1 0h2m1 0h5M0 12.5h1m1 0h1m3 0h1m1 0h3m1 0h1m4 0h1m2 0h1m1 0h1m1 0h2m2 0h2m1 0h2M0 13.5h2m2 0h1m2 0h1m1 0h1m2 0h8m1 0h1m1 0h1m2 0h1m3 0h3M1 14.5h3m1 0h2m2 0h1m1 0h1m2 0h1m3 0h1m3 0h1m2 0h2m1 0h2m1 0h1M5 15.5h1m6 0h1m3 0h1m3 0h4m1 0h6M0 16.5h1m2 0h2m1 0h1m3 0h2m2 0h1m2 0h2m5 0h2m1 0h2m3 0h1M2 17.5h2m1 0h1m1 0h1m2 0h1m1 0h3m3 0h3m2 0h1m1 0h3m1 0h2m1 0h1M0 18.5h2m2 0h1m1 0h3m1 0h1m3 0h5m3 0h1m2 0h4m1 0h1M0 19.5h4m1 0h1m1 0h1m1 0h2m2 0h1m1 0h2m1 0h2m1 0h2m1 0h7m1 0h1M1 20.5h4m1 0h1m1 0h2m1 0h4m1 0h2m4 0h1m2 0h1m1 0h3m1 0h1M0 21.5h3m1 0h1m3 0h1m1 0h3m2 0h1m1 0h4m2 0h1m2 0h1m2 0h1m2 0h1M0 22.5h1m1 0h1m1 0h4m1 0h1m1 0h1m1 0h1m1 0h3m2 0h1m1 0h1m4 0h2m1 0h2M0 23.5h1m1 0h2m1 0h1m1 0h1m4 0h1m2 0h1m2 0h1m1 0h2m1 0h1m1 0h3m1 0h2M0 24.5h1m2 0h2m1 0h2m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1m2 0h7m3 0h1M8 25.5h1m1 0h3m3 0h1m1 0h3m3 0h1m3 0h1m1 0h1m1 0h1M0 26.5h7m5 0h1m2 0h4m1 0h5m1 0h1m1 0h1m1 0h2M0 27.5h1m5 0h1m1 0h4m2 0h1m1 0h1m3 0h5m3 0h5M0 28.5h1m1 0h3m1 0h1m1 0h1m2 0h1m6 0h2m2 0h1m1 0h6m1 0h2M0 29.5h1m1 0h3m1 0h1m1 0h2m1 0h3m1 0h2m1 0h2m1 0h1m2 0h2m2 0h1m1 0h3M0 30.5h1m1 0h3m1 0h1m1 0h2m1 0h4m2 0h2m1 0h8m1 0h2M0 31.5h1m5 0h1m2 0h2m1 0h3m1 0h1m3 0h3m2 0h2m1 0h3M0 32.5h7m1 0h1m8 0h1m4 0h1m1 0h1m1 0h2m1 0h1m1 0h1"/></svg>
-</div>
+          <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" shape-rendering="crispEdges" width="100%" height="100%"><path fill="#ffffff" d="M0 0h37v37H0z"/><path stroke="#455259" d="M2 2.5h7m1 0h2m2 0h2m1 0h1m3 0h1m1 0h3m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h2m1 0h1m2 0h1m3 0h1m1 0h2m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h2m2 0h4m3 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h4m1 0h1m2 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m2 0h2m4 0h3m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h2m1 0h3m1 0h3m1 0h1m1 0h2m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h3m3 0h4m1 0h3m2 0h1m-24 1h1m1 0h1m1 0h5m1 0h2m2 0h1m3 0h3m2 0h4m1 0h2m1 0h1m-33 1h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h4m3 0h2m-32 1h3m1 0h2m1 0h1m2 0h7m1 0h1m2 0h1m1 0h1m2 0h2m1 0h1m1 0h1m-32 1h1m1 0h1m9 0h1m3 0h1m1 0h1m1 0h1m1 0h2m3 0h2m-30 1h1m2 0h4m1 0h1m1 0h2m1 0h2m5 0h2m2 0h3m2 0h1m2 0h1m-32 1h2m1 0h1m2 0h2m2 0h2m1 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h3m1 0h3m-33 1h1m5 0h1m3 0h2m1 0h3m4 0h2m1 0h1m1 0h4m2 0h1m-31 1h1m3 0h1m3 0h7m1 0h2m2 0h4m1 0h1m4 0h1m-32 1h2m1 0h2m1 0h1m2 0h4m1 0h3m2 0h3m4 0h1m1 0h1m2 0h1m-29 1h2m3 0h3m6 0h1m3 0h1m1 0h2m2 0h1m1 0h1m1 0h1m-32 1h1m4 0h6m1 0h3m5 0h1m4 0h2m3 0h3m-33 1h1m1 0h1m2 0h1m5 0h2m2 0h2m2 0h1m1 0h1m1 0h5m4 0h1m-28 1h2m2 0h3m2 0h2m4 0h2m1 0h3m1 0h1m3 0h2m-31 1h3m3 0h2m1 0h1m3 0h1m1 0h1m2 0h1m3 0h1m1 0h1m3 0h3m-33 1h5m1 0h1m1 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h3m1 0h2m1 0h1m-32 1h3m3 0h2m3 0h1m4 0h3m1 0h1m2 0h4m3 0h2m-33 1h1m4 0h2m2 0h1m6 0h3m1 0h2m2 0h5m2 0h1m-24 1h2m2 0h5m1 0h7m3 0h2m2 0h1m-33 1h7m1 0h3m4 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m-31 1h1m5 0h1m1 0h2m6 0h7m1 0h1m3 0h1m-29 1h1m1 0h3m1 0h1m2 0h2m1 0h1m2 0h2m1 0h1m1 0h3m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1m2 0h3m2 0h2m1 0h1m1 0h1m1 0h4m-32 1h1m1 0h3m1 0h1m2 0h2m1 0h1m2 0h1m1 0h2m1 0h1m3 0h2m2 0h1m3 0h1m-33 1h1m5 0h1m1 0h1m2 0h1m1 0h1m4 0h4m1 0h2m-25 1h7m4 0h5m2 0h1m2 0h1m2 0h1m1 0h1m1 0h2m1 0h1"/></svg></div>
           <div class="pfoot">Green Leaves Clarkson</div>
         </div>
       </div></div>
@@ -1099,10 +1233,10 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
         <div class="ebody">
           …thanks again for being part of Green Leaves Clarkson. We'd love to know how we're doing.
           <div class="sig">
-            <span class="m"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span>
+            <span class="m"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span>
             <span class="who"><div class="n">Green Leaves</div><div class="r">Clarkson team</div></span>
           </div>
-          <a class="ebtn" href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">Share your feedback <span aria-hidden>→</span></a>
+          <a class="ebtn" href="https://staging.emberry.com.au/f/green-leaves/general-sample">Share your feedback <span aria-hidden>→</span></a>
         </div>
       </div></div>
       <figcaption><div class="t">Email signature</div><div class="d">A friendly button on every email your team already sends.</div></figcaption>
@@ -1115,7 +1249,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
           <div class="line"></div><div class="line"></div><div class="line s"></div>
           <div class="cta-box">
             <div class="q">How are we doing?</div>
-            <a class="ebtn" href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">Share your feedback <span aria-hidden>→</span></a>
+            <a class="ebtn" href="https://staging.emberry.com.au/f/green-leaves/general-sample">Share your feedback <span aria-hidden>→</span></a>
           </div>
         </div>
       </div></div>
@@ -1125,7 +1259,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
     <figure class="ch">
       <div class="ch-frame"><div class="sms">
         <div class="from">Green Leaves</div>
-        <div class="bub">Hi! Thanks for visiting Green Leaves Clarkson today. We'd love your quick feedback (takes a minute): <a href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">emberry.au/clarkson</a></div>
+        <div class="bub">Hi! Thanks for visiting Green Leaves Clarkson today. We'd love your quick feedback (takes a minute): <a href="https://staging.emberry.com.au/f/green-leaves/general-sample">emberry.au/green-leaves</a></div>
         <div class="bub me">Done, thanks! ⭐️⭐️⭐️⭐️⭐️</div>
       </div></div>
       <figcaption><div class="t">Text message</div><div class="d">Send the link by SMS, the surest way to get a reply.</div></figcaption>
@@ -1138,7 +1272,7 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
 
     <figure class="ch">
       <div class="ch-frame"><div class="embed">
-        <div class="ebar"><span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span><span class="u">green-leaves.com.au</span></div>
+        <div class="ebar"><span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span><span class="u">greenleaveselc.com.au</span></div>
         <div class="eview">
           <div class="eline"></div><div class="eline"></div><div class="eline s"></div>
           <div class="widget"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20l1.3-3.1A8.4 8.4 0 1 1 21 11.5z"/></svg> How are we doing?</div>
@@ -1157,16 +1291,16 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
         <div class="row">
           <div class="rail"><span class="dot"></span></div>
           <div class="tx"><b>A day later</b>, an email and text send themselves
-            <div class="msg">How was your visit to Green Leaves Clarkson? <a href="https://staging.emberry.com.au/f/clarkson/welcome-d74dbc">Share feedback →</a></div>
+            <div class="msg">How was your visit to Green Leaves Clarkson? <a href="https://staging.emberry.com.au/f/green-leaves/general-sample">Share feedback →</a></div>
           </div>
         </div>
       </div></div>
-      <figcaption><div class="t">Booking &amp; follow-ups</div><div class="d">Auto-send the link after a tour, enrolment, or the end of term.</div></figcaption>
+      <figcaption><div class="t">Booking &amp; follow-ups</div><div class="d">Auto-send the link after a tour, move-in, or a family visit.</div></figcaption>
     </figure>
 
     <figure class="ch">
       <div class="ch-frame"><div class="social">
-        <div class="stop"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><g stroke="#3d4a40" stroke-width=".7" stroke-linejoin="round"><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#79cfcc" transform="rotate(-120 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(-62 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#a6cf57" transform="rotate(-20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#7eb847" transform="rotate(20 11 14.5)"/><path d="M11 14.5C8.7 12 8.7 5.5 11 3c2.3 2.5 2.3 9 0 11.5Z" fill="#5f9e3a" transform="rotate(56 11 14.5)"/></g></svg></span><div class="h"><div class="at">Green Leaves</div><div class="meta">@greenleaves</div></div></div>
+        <div class="stop"><span class="av"><img src="logo.svg" alt="Green Leaves logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px" /></span><div class="h"><div class="at">Green Leaves</div><div class="meta">@greenleaveselc</div></div></div>
         <div class="sbody">
           <div class="bio">Link in bio 👇 we'd love your feedback.</div>
           <div class="link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20l1.3-3.1A8.4 8.4 0 1 1 21 11.5z"/></svg> Share your feedback <span class="ar" aria-hidden>→</span></div>
@@ -1178,52 +1312,177 @@ figcaption .d{font-size:12.5px;line-height:1.5;color:var(--brand-muted);margin-t
   </div>
 </section>
 
-<section class="admin">
-    <div class="admin-head">
-      <p class="page-eyebrow">Behind the scenes</p>
-      <h2 class="page-title">What your team sees.</h2>
-      <p class="page-sub">Every piece of feedback, gathered and sorted for you. Scores, trends, and the
-        themes that matter, all in one simple dashboard.</p>
-    </div>
-    <div class="admin-gallery">
-      <figure class="shot hero">
-        <div class="browser">
-          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview/regulator</span></div>
-          <div class="browser-view"><img src="admin/regulator.png" alt="Your results, against the standard" loading="lazy"></div>
-        </div>
-        <figcaption><div class="t">Your results, against the standard</div><div class="d">Every response adds up to one clear score against the National Quality Standard, then breaks down by area so you can see exactly where you shine and where to focus.</div></figcaption>
-      </figure>
-      <figure class="shot ">
-        <div class="browser">
-          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview</span></div>
-          <div class="browser-view"><img src="admin/overview.png" alt="The big picture" loading="lazy"></div>
-        </div>
-        <figcaption><div class="t">The big picture</div><div class="d">Your headline score, how many families replied, and how each centre is going, all at a glance.</div></figcaption>
-      </figure>
-      <figure class="shot ">
-        <div class="browser">
-          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview/insights</span></div>
-          <div class="browser-view"><img src="admin/regulator-insights.png" alt="Plain-English insights" loading="lazy"></div>
-        </div>
-        <figcaption><div class="t">Plain-English insights</div><div class="d">It reads the comments for you and tells you the themes and what to do about them, in everyday words.</div></figcaption>
-      </figure>
-      <figure class="shot ">
-        <div class="browser">
-          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview/trends</span></div>
-          <div class="browser-view"><img src="admin/regulator-trends.png" alt="How you're tracking" loading="lazy"></div>
-        </div>
-        <figcaption><div class="t">How you're tracking</div><div class="d">Watch each area move week to week, so a dip gets noticed early instead of at the next review.</div></figcaption>
-      </figure>
-      <figure class="shot ">
-        <div class="browser">
-          <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/feedback</span></div>
-          <div class="browser-view"><img src="admin/feedback.png" alt="Every comment in one place" loading="lazy"></div>
-        </div>
-        <figcaption><div class="t">Every comment in one place</div><div class="d">The full stream of feedback, easy to search and filter by centre or topic.</div></figcaption>
-      </figure>
-    </div>
-    <div class="admin-foot">It all updates the moment someone hits send. Shown here with sample data.</div>
-  </section>
+<section class="testimonials" id="testimonials">
+  <div class="channels-head">
+    <p class="page-eyebrow">Public reputation</p>
+    <h2 class="page-title">Private praise, turned into a <b>public wall</b>.</h2>
+    <p class="page-sub">Nothing here is published without permission. At the end of the survey, every family can give an optional okay to share their words publicly — first name only — and only those replies become this live, verified wall of reviews on your own website: always fresh, never copy-pasted. Here's a mock-up of the Green Leaves Clarkson wall using test data, shown exactly as it would sit on your site.</p>
+  </div>
+  <!-- Static, self-contained recreation of the live emberry testimonial-wall
+       widget (wgt_9223546e99e076e3, _all/wall). Built from the real verified
+       responses so the demo never depends on staging/prod uptime or cross-origin
+       embedding. Swap for the live /embed/ iframe once that route is made
+       publicly cross-origin embeddable. -->
+  <div class="wall-frame">
+    <div class="wall">
+      <div class="wall-badges">
+        <span class="wall-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> Verified by emberry</span>
+        <span class="mockpill">Mock data</span>
+      </div>
+      <div class="wall-grid">
 
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Our little one settled in so quickly. The educators clearly adore her, and she comes home full of stories every single day.</p>
+          <figcaption class="tmeta"><span class="tav">SN</span><span class="twho">Family · Clarkson · <span class="tverified">verified May 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">The team genuinely knows my son, not just a name on the roll. They notice the little things and always take time to chat at pickup.</p>
+          <figcaption class="tmeta"><span class="tav">MK</span><span class="twho">Family · Clarkson · <span class="tverified">verified May 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Communication is fantastic. I get photos and updates through the day, so I always know how she is going and what she is learning.</p>
+          <figcaption class="tmeta"><span class="tav">JT</span><span class="twho">Parent · Clarkson · <span class="tverified">verified Apr 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">I feel completely at ease leaving him here. The rooms are spotless, the educators are warm, and safety is clearly taken seriously.</p>
+          <figcaption class="tmeta"><span class="tav">PB</span><span class="twho">Family · Clarkson · <span class="tverified">verified Apr 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">They share real observations about what our child is learning, not just what she did today. You can see the thought behind the program.</p>
+          <figcaption class="tmeta"><span class="tav">RD</span><span class="twho">Family · Clarkson · <span class="tverified">verified Mar 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Settling in could have been hard, but the educators were so patient and kind. Within a week she was running in happily each morning.</p>
+          <figcaption class="tmeta"><span class="tav">AH</span><span class="twho">Parent · Clarkson · <span class="tverified">verified Mar 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">When there was a change in her room we heard about it straight away and were included in the whole thing. Nothing ever feels hidden.</p>
+          <figcaption class="tmeta"><span class="tav">LC</span><span class="twho">Family · Clarkson · <span class="tverified">verified Feb 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">It feels like a little community. The educators are consistent, the meals are healthy, and our daughter has made lovely friends.</p>
+          <figcaption class="tmeta"><span class="tav">GW</span><span class="twho">Family · Clarkson · <span class="tverified">verified Jan 2026</span></span></figcaption>
+        </figure>
+
+      </div>
+      <div class="wall-foot">Powered by <svg width="14" height="14" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg> <span class="wordmark"><span class="e">e</span>mberry</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="admin" id="admin">
+  <div class="admin-head">
+    <p class="page-eyebrow">Behind the scenes</p>
+    <h2 class="page-title">And here's what <b>your team</b> sees.</h2>
+    <p class="page-sub">Every response flows into one simple admin view — no spreadsheets, no setup. This is the Green Leaves Clarkson dashboard, shown with test data.</p>
+  </div>
+  <div class="admin-gallery">
+    <figure class="shot hero">
+      <div class="browser">
+        <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview</span></div>
+        <span class="mockpill">Mock data</span>
+        <div class="browser-view"><img src="admin/regulator.png" alt="Your results against the National Quality Standard (NQS)" loading="lazy"></div>
+      </div>
+      <figcaption><div class="t">Your results, against the standards</div><div class="d">Every response rolls up into one clear score against the National Quality Standard (NQS), then breaks down by standard so you can see exactly where you're strong and where to focus.</div></figcaption>
+    </figure>
+    <figure class="shot hero">
+      <div class="browser">
+        <div class="browser-bar"><span class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span><span class="url">emberry.com.au/admin/overview</span></div>
+        <span class="mockpill">Mock data</span>
+        <div class="browser-view"><img src="admin/overview.png" alt="The big picture" loading="lazy"></div>
+      </div>
+      <figcaption><div class="t">The big picture</div><div class="d">Your headline score, how many families replied, and how the centre is tracking — all at a glance.</div></figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+(function(){
+  var links = [].slice.call(document.querySelectorAll('.sidenav a[href^="#"]'));
+  var targets = links.map(function(a){
+    var el = document.getElementById(a.getAttribute('href').slice(1));
+    return el ? { a: a, el: el } : null;
+  }).filter(Boolean);
+  if(!targets.length) return;
+  function spy(){
+    var y = window.scrollY + 140, cur = targets[0];
+    for(var i=0;i<targets.length;i++){
+      if(targets[i].el.getBoundingClientRect().top + window.scrollY <= y) cur = targets[i];
+    }
+    links.forEach(function(a){ a.classList.remove('active'); });
+    cur.a.classList.add('active');
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
+})();
+</script>
+<script>
+/* survey-journey carousel: one phone at a time, arrows + legend chips */
+(function(){
+  var gallery = document.querySelector('.caro .gallery');
+  if(!gallery) return;
+  var frames = [].slice.call(gallery.querySelectorAll('.frame'));
+  var chips  = [].slice.call(document.querySelectorAll('.legend .chip'));
+  var prev = document.querySelector('.caro-nav.prev');
+  var next = document.querySelector('.caro-nav.next');
+  if(!frames.length) return;
+  var i = 0;
+  function show(n){
+    i = (n + frames.length) % frames.length;
+    frames.forEach(function(f,k){ f.classList.toggle('on', k===i); });
+    chips.forEach(function(c,k){ c.classList.toggle('on', k===i); });
+  }
+  if(prev) prev.addEventListener('click', function(){ show(i-1); });
+  if(next) next.addEventListener('click', function(){ show(i+1); });
+  chips.forEach(function(c,k){
+    c.setAttribute('role','button'); c.tabIndex = 0;
+    c.addEventListener('click', function(){ show(k); });
+    c.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); show(k); } });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
+    var r = gallery.getBoundingClientRect();
+    if(r.bottom < 60 || r.top > (window.innerHeight - 60)) return;
+    if(e.key==='ArrowLeft') show(i-1); else show(i+1);
+  });
+  show(0);
+})();
+/* kiosk iPad carousel: arrows + clickable dots, gentle auto-loop */
+(function(){
+  var scenes = [].slice.call(document.querySelectorAll('.kscene'));
+  var dots   = [].slice.call(document.querySelectorAll('.kdots i'));
+  var kprev  = document.querySelector('.kprev');
+  var knext  = document.querySelector('.knext');
+  if(!scenes.length) return;
+  var k = 0, timer;
+  function kshow(n){
+    k = (n + scenes.length) % scenes.length;
+    scenes.forEach(function(s,i){ s.classList.toggle('on', i===k); });
+    dots.forEach(function(d,i){ d.classList.toggle('on', i===k); });
+  }
+  function start(){ timer = setInterval(function(){ kshow(k+1); }, 4200); }
+  function bump(){ clearInterval(timer); start(); }
+  if(kprev) kprev.addEventListener('click', function(){ kshow(k-1); bump(); });
+  if(knext) knext.addEventListener('click', function(){ kshow(k+1); bump(); });
+  dots.forEach(function(d,i){ d.addEventListener('click', function(){ kshow(i); bump(); }); });
+  kshow(0); start();
+})();
+</script>
 </body>
 </html>
