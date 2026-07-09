@@ -536,9 +536,61 @@ body.has-logo .t-logoimg{display:block;}
 .endnote .card2 p{margin:0;font-size:13px;line-height:1.6;color:var(--brand-muted);}
 .endnote .card2 b{color:var(--brand-plum);}
 @media(max-width:660px){.tb-reset{margin-left:0;}.tb-field input[type=text]{width:150px;}.vsep{display:none;}}
+
+/* ---- testimonials (public reputation wall) ------------------------- */
+.testimonials{max-width:1180px;margin:14px auto 0;padding:46px 24px 40px;border-top:1px solid var(--line);}
+.wall-frame{border:1px solid var(--line);border-radius:18px;background:var(--brand-cream);box-shadow:0 22px 48px -24px rgba(45,31,54,.42);}
+.wall{padding:22px 22px 24px;}
+.wall-badges{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:20px;}
+.wall-badge{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--tenant-primary);
+  background:color-mix(in srgb,var(--tenant-primary) 11%,transparent);border-radius:999px;padding:6px 13px;}
+.wall-badge svg{width:13px;height:13px;}
+.wall-mock{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:10px;letter-spacing:.07em;
+  text-transform:uppercase;font-weight:600;color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent);
+  border-radius:999px;padding:6px 12px;}
+.wall-grid{column-count:3;column-gap:18px;}
+@media(max-width:1040px){.wall-grid{column-count:2;}}
+@media(max-width:680px){.wall-grid{column-count:1;}}
+.tcard{break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 18px;background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:16px 18px 15px;box-shadow:0 1px 2px rgba(45,31,54,.04);}
+.tquote{display:block;font-family:var(--font-display);font-weight:500;font-size:38px;line-height:1;height:22px;color:var(--tenant-accent);}
+.ttext{font-size:13.5px;line-height:1.55;color:color-mix(in srgb,var(--brand-plum) 92%,transparent);margin:6px 0 14px;}
+.tmeta{display:flex;align-items:center;gap:10px;}
+.tav{width:34px;height:34px;border-radius:50%;background:var(--tenant-primary);color:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-transform:uppercase;}
+.twho{font-size:11px;color:var(--brand-muted);line-height:1.4;}
+.tverified{color:var(--tenant-primary);font-weight:600;}
+.wall-foot{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:6px;font-size:11px;color:var(--brand-muted);}
+.wall-foot .wordmark{font-size:14px;}
+
+/* ---- side nav (desktop jump-to) ----------------------------------- */
+#journey,#kiosk,#channels,#testimonials{scroll-margin-top:84px;}
+.sidenav{display:none;}
+.sidenav .sn-head{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brand-muted);margin:2px 11px 14px;}
+.sidenav a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:10px;
+  font-size:13px;font-weight:500;color:var(--brand-muted);text-decoration:none;line-height:1.25;}
+.sidenav a .sn-num{font-family:var(--font-mono);font-size:10px;color:var(--tenant-primary);opacity:.65;flex:none;}
+.sidenav a:hover{background:rgba(45,31,54,.05);color:var(--brand-plum);}
+.sidenav a.active{background:color-mix(in srgb,var(--tenant-primary) 12%,transparent);color:var(--tenant-primary);font-weight:600;}
+.sidenav a.active .sn-num{opacity:1;}
+@media(min-width:1200px){
+  body{padding-left:212px;}
+  .sidenav{display:flex;flex-direction:column;gap:2px;position:fixed;top:0;left:0;width:212px;height:100vh;
+    padding:30px 16px;border-right:1px solid var(--line);background:rgba(255,255,255,.5);
+    -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);z-index:150;overflow-y:auto;}
+}
 </style>
 </head>
 <body>
+
+<nav class="sidenav" aria-label="Jump to section">
+  <div class="sn-head">Live preview</div>
+  <a href="#journey"><span class="sn-num">01</span> Survey journey</a>
+  <a href="#kiosk"><span class="sn-num">02</span> Kiosk preview</a>
+  <a href="#channels"><span class="sn-num">03</span> More ways to ask</a>
+  <a href="#testimonials"><span class="sn-num">04</span> Testimonials</a>
+</nav>
 
 <div class="toolbar">
   <div class="tb-inner">
@@ -598,7 +650,7 @@ body.has-logo .t-logoimg{display:block;}
   <span class="chip"><span class="n">9</span>Thank you</span>
 </nav>
 
-<main class="gallery">
+<main class="gallery" id="journey">
 
 <!-- ============================================================== 1 · WELCOME -->
 <div class="frame">
@@ -1103,7 +1155,7 @@ body.has-logo .t-logoimg{display:block;}
 
 </main>
 
-<section class="kiosk">
+<section class="kiosk" id="kiosk">
   <div class="kiosk-head">
     <p class="page-eyebrow">On-site · kiosk mode</p>
     <h2 class="page-title">An <b>iPad at the door</b>, on a loop.</h2>
@@ -1157,7 +1209,7 @@ body.has-logo .t-logoimg{display:block;}
   </div>
 </section>
 
-<section class="channels">
+<section class="channels" id="channels">
   <div class="channels-head">
     <p class="page-eyebrow">More ways to ask</p>
     <h2 class="page-title">One survey, everywhere your customers are.</h2>
@@ -1270,6 +1322,74 @@ body.has-logo .t-logoimg{display:block;}
 
 
 
+<section class="testimonials" id="testimonials">
+  <div class="channels-head">
+    <p class="page-eyebrow">Public reputation</p>
+    <h2 class="page-title">Private praise, turned into a <b>public wall</b>.</h2>
+    <p class="page-sub">At the end of every survey, anyone who leaves happy feedback can give an optional okay to share their words publicly &mdash; first name only. Only those replies become a live, verified wall you can embed on your own site: always fresh, never copy-pasted, and shown live in <b class="t-name">emberry</b>&rsquo;s brand. <b>The reviews below are sample data &mdash; made-up examples to show the layout, not real customers.</b></p>
+  </div>
+  <div class="wall-frame">
+    <div class="wall">
+      <div class="wall-badges">
+        <span class="wall-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> Verified by emberry</span>
+        <span class="wall-mock">Sample reviews &middot; mock data</span>
+      </div>
+      <div class="wall-grid">
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Honestly the best experience I&rsquo;ve had. The team goes above and beyond, and you can tell they genuinely care.</p>
+          <figcaption class="tmeta"><span class="tav">S</span><span class="twho">Sam &middot; <span class="t-rev">Customer</span> &middot; <span class="tverified">verified May 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Everything was explained clearly and kindly. They made what could have been stressful feel completely easy.</p>
+          <figcaption class="tmeta"><span class="tav">M</span><span class="twho">Mia &middot; <span class="t-rev">Customer</span> &middot; <span class="tverified">verified May 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">The staff are warm and attentive. They know me by name and nothing is ever too much trouble.</p>
+          <figcaption class="tmeta"><span class="tav">J</span><span class="twho">Jordan &middot; <span class="t-rev">Customer</span> &middot; <span class="tverified">verified Apr 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">I felt properly looked after from the moment I arrived. I&rsquo;ve already recommended them to friends and family.</p>
+          <figcaption class="tmeta"><span class="tav">P</span><span class="twho">Priya &middot; <span class="t-rev">Customer</span> &middot; <span class="tverified">verified Apr 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Communication is wonderful. Whenever something changes I hear about it straight away.</p>
+          <figcaption class="tmeta"><span class="tav">R</span><span class="twho">Reece &middot; <span class="t-rev">Customer</span> &middot; <span class="tverified">verified Mar 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Consistently excellent &mdash; high standards every single time, and it really shows.</p>
+          <figcaption class="tmeta"><span class="tav">A</span><span class="twho">Aisha &middot; <span class="t-rev">Customer</span> &middot; <span class="tverified">verified Mar 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">They look after the little details that matter to me. It&rsquo;s the reason I keep coming back.</p>
+          <figcaption class="tmeta"><span class="tav">L</span><span class="twho">Liam &middot; <span class="t-rev">Customer</span> &middot; <span class="tverified">verified Feb 2026</span></span></figcaption>
+        </figure>
+
+        <figure class="tcard">
+          <span class="tquote">&ldquo;</span>
+          <p class="ttext">Friendly, professional and genuinely helpful. I couldn&rsquo;t ask for more.</p>
+          <figcaption class="tmeta"><span class="tav">G</span><span class="twho">Grace &middot; <span class="t-rev">Customer</span> &middot; <span class="tverified">verified Jan 2026</span></span></figcaption>
+        </figure>
+
+      </div>
+      <div class="wall-foot">Powered by <svg width="14" height="14" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg> <span class="wordmark"><span class="e">e</span>mberry</span></div>
+    </div>
+  </div>
+</section>
+
 <div class="endnote">
   <div class="card2">
     <span class="pill" style="margin-top:0"><svg width="15" height="15" viewBox="0 -4.07 120 120"><circle cx="43.5" cy="46.5" r="13.9" fill="#E14A6E"/><circle cx="60.2" cy="44.2" r="14.6" fill="#C42348"/><circle cx="76.4" cy="47" r="13.1" fill="#E14A6E"/><circle cx="50.8" cy="61.5" r="13.3" fill="#A81C3C"/><circle cx="69.4" cy="62.2" r="13.8" fill="#C42348"/><circle cx="60.3" cy="77" r="13.2" fill="#A81C3C"/></svg>&nbsp;Powered by emberry</span>
@@ -1288,17 +1408,17 @@ body.has-logo .t-logoimg{display:block;}
   function setColor(hex){hex=hex||'#F2542D';root.style.setProperty('--tenant-primary',hex);root.style.setProperty('--tenant-accent',darken(hex,0.13));if(colorEl)colorEl.value=hex;if(hexEl)hexEl.textContent=hex.toUpperCase();swatches.forEach(function(s){s.classList.toggle('on',s.dataset.c.toLowerCase()===hex.toLowerCase());});}
   function setName(n){var nm=(n&&n.trim())?n.trim():'Your brand';var ini=(nm.replace(/[^A-Za-z0-9]/g,'').charAt(0)||'Y').toUpperCase();document.querySelectorAll('.t-name').forEach(function(e){e.textContent=nm;});document.querySelectorAll('.t-mono').forEach(function(e){e.textContent=ini;});}
   var VERT={
-    childcare:{name:'Little Acorns',color:'#5AA469',who:'families',area:'Educators &amp; Care',q:'How well do our educators know and care for your child?',chips:['Educators','Communication','Settling in','Meals']},
-    agedcare:{name:'Riverside Aged Care',color:'#0E7C7B',who:'residents and families',area:'Care &amp; Wellbeing',q:'How well does the care here fit your family&rsquo;s needs?',chips:['Care','Meals','Activities','Staff']},
-    gp:{name:'Parkside Medical',color:'#1F6FB2',who:'patients',area:'Care &amp; Service',q:'How well did this visit meet your needs?',chips:['Wait time','Doctor','Reception','Booking']},
-    dental:{name:'Bright Smile Dental',color:'#1F9AAE',who:'patients',area:'Care &amp; Comfort',q:'How was your visit with us today?',chips:['Comfort','Wait time','Reception','Clarity']},
-    cafe:{name:'Corner Caf\u00e9',color:'#B5732E',who:'customers',area:'Coffee &amp; Service',q:'How was everything today?',chips:['Coffee','Food','Service','Speed']},
-    restaurant:{name:'The Larder',color:'#9A3B3B',who:'guests',area:'Food &amp; Service',q:'How was your meal with us?',chips:['Food','Service','Atmosphere','Value']},
-    gym:{name:'Pulse Fitness',color:'#5B3FD6',who:'members',area:'Facilities &amp; Coaching',q:'How are you finding your membership?',chips:['Classes','Equipment','Cleanliness','Staff']},
-    salon:{name:'Lumea Hair',color:'#8A4A86',who:'clients',area:'Service &amp; Care',q:'How happy are you with your visit?',chips:['Result','Stylist','Comfort','Value']}
+    childcare:{name:'Little Acorns',color:'#5AA469',who:'families',rev:'Parent',area:'Educators &amp; Care',q:'How well do our educators know and care for your child?',chips:['Educators','Communication','Settling in','Meals']},
+    agedcare:{name:'Riverside Aged Care',color:'#0E7C7B',who:'residents and families',rev:'Family',area:'Care &amp; Wellbeing',q:'How well does the care here fit your family&rsquo;s needs?',chips:['Care','Meals','Activities','Staff']},
+    gp:{name:'Parkside Medical',color:'#1F6FB2',who:'patients',rev:'Patient',area:'Care &amp; Service',q:'How well did this visit meet your needs?',chips:['Wait time','Doctor','Reception','Booking']},
+    dental:{name:'Bright Smile Dental',color:'#1F9AAE',who:'patients',rev:'Patient',area:'Care &amp; Comfort',q:'How was your visit with us today?',chips:['Comfort','Wait time','Reception','Clarity']},
+    cafe:{name:'Corner Caf\u00e9',color:'#B5732E',who:'customers',rev:'Customer',area:'Coffee &amp; Service',q:'How was everything today?',chips:['Coffee','Food','Service','Speed']},
+    restaurant:{name:'The Larder',color:'#9A3B3B',who:'guests',rev:'Guest',area:'Food &amp; Service',q:'How was your meal with us?',chips:['Food','Service','Atmosphere','Value']},
+    gym:{name:'Pulse Fitness',color:'#5B3FD6',who:'members',rev:'Member',area:'Facilities &amp; Coaching',q:'How are you finding your membership?',chips:['Classes','Equipment','Cleanliness','Staff']},
+    salon:{name:'Lumea Hair',color:'#8A4A86',who:'clients',rev:'Client',area:'Service &amp; Care',q:'How happy are you with your visit?',chips:['Result','Stylist','Comfort','Value']}
   };
-  var GENERAL={name:'emberry',color:'#F2542D',who:'customers',area:'Product &amp; Reliability',q:'How well does <span class="t-name">emberry</span> fit the way your team works?',chips:['Setup','Reliability','Reporting','Support']};
-  function applyVertical(v){var d=v?VERT[v]:GENERAL;document.getElementById('vArea').innerHTML=d.area;document.getElementById('vQ').innerHTML=d.q;document.getElementById('vChips').innerHTML=d.chips.map(function(c,i){return '<span class="fchip'+(i?'':' on')+'">'+c+'</span>';}).join('');document.querySelectorAll('.t-who').forEach(function(e){e.textContent=d.who;});nameEl.value=d.name;setName(d.name);setColor(d.color);document.querySelectorAll('.vchip').forEach(function(c){c.classList.toggle('on',c.dataset.v===v);});}
+  var GENERAL={name:'emberry',color:'#F2542D',who:'customers',rev:'Customer',area:'Product &amp; Reliability',q:'How well does <span class="t-name">emberry</span> fit the way your team works?',chips:['Setup','Reliability','Reporting','Support']};
+  function applyVertical(v){var d=v?VERT[v]:GENERAL;document.getElementById('vArea').innerHTML=d.area;document.getElementById('vQ').innerHTML=d.q;document.getElementById('vChips').innerHTML=d.chips.map(function(c,i){return '<span class="fchip'+(i?'':' on')+'">'+c+'</span>';}).join('');document.querySelectorAll('.t-who').forEach(function(e){e.textContent=d.who;});document.querySelectorAll('.t-rev').forEach(function(e){e.textContent=d.rev;});nameEl.value=d.name;setName(d.name);setColor(d.color);document.querySelectorAll('.vchip').forEach(function(c){c.classList.toggle('on',c.dataset.v===v);});}
   function clearLogo(){document.body.classList.remove('has-logo');logoInput.value='';logoClear.hidden=true;}
   nameEl.addEventListener('input',function(){setName(nameEl.value);});
   colorEl.addEventListener('input',function(){setColor(colorEl.value);});
@@ -1308,6 +1428,27 @@ body.has-logo .t-logoimg{display:block;}
   logoClear.addEventListener('click',clearLogo);
   document.getElementById('resetBtn').addEventListener('click',function(){clearLogo();applyVertical(null);});
   applyVertical(null);
+})();
+</script>
+<script>
+(function(){
+  var links = [].slice.call(document.querySelectorAll('.sidenav a[href^="#"]'));
+  var targets = links.map(function(a){
+    var el = document.getElementById(a.getAttribute('href').slice(1));
+    return el ? { a: a, el: el } : null;
+  }).filter(Boolean);
+  if(!targets.length) return;
+  function spy(){
+    var y = window.scrollY + 140, cur = targets[0];
+    for(var i=0;i<targets.length;i++){
+      if(targets[i].el.getBoundingClientRect().top + window.scrollY <= y) cur = targets[i];
+    }
+    links.forEach(function(a){ a.classList.remove('active'); });
+    cur.a.classList.add('active');
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
 })();
 </script>
 </body>
